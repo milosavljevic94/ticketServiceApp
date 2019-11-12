@@ -23,18 +23,19 @@ public class User {
 
     private Boolean active;
 
-    //To do : Add relation to reservations.
-
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+    private Set<Reservation> reservations;
 
     public User() {
     }
 
-    public User(String firstName, String lastName, String password, Role role, Boolean active) {
+    public User(String firstName, String lastName, String password, Role role, Boolean active, Set<Reservation> reservations) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.role = role;
         this.active = active;
+        this.reservations = reservations;
     }
 
 
@@ -70,14 +71,6 @@ public class User {
         this.password = password;
     }
 
-    public Role getUserRoles() {
-        return role;
-    }
-
-    public void setUserRoles(Role role) {
-        this.role = role;
-    }
-
     public Boolean getActive() {
         return active;
     }
@@ -86,6 +79,23 @@ public class User {
         this.active = active;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public Set<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(Set<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
+
     @Override
     public String toString() {
         return "User{" +
@@ -93,8 +103,9 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", password='" + password + '\'' +
-                ", userRoles=" + role +
+                ", role=" + role +
                 ", active=" + active +
+                ", reservations=" + reservations +
                 '}';
     }
 }

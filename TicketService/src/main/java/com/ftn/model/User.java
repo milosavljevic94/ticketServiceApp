@@ -17,13 +17,9 @@ public class User {
 
     private String password;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(
-            name = "user_roles",
-            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-            inverseJoinColumns ={@JoinColumn(name = "role_id", referencedColumnName = "id")}
-            )
-    private Set<Role> userRoles;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    private Role role;
 
     private Boolean active;
 
@@ -33,11 +29,11 @@ public class User {
     public User() {
     }
 
-    public User(String firstName, String lastName, String password, Set<Role> userRoles, Boolean active) {
+    public User(String firstName, String lastName, String password, Role role, Boolean active) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
-        this.userRoles = userRoles;
+        this.role = role;
         this.active = active;
     }
 
@@ -74,12 +70,12 @@ public class User {
         this.password = password;
     }
 
-    public Set<Role> getUserRoles() {
-        return userRoles;
+    public Role getUserRoles() {
+        return role;
     }
 
-    public void setUserRoles(Set<Role> userRoles) {
-        this.userRoles = userRoles;
+    public void setUserRoles(Role role) {
+        this.role = role;
     }
 
     public Boolean getActive() {
@@ -97,7 +93,7 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", password='" + password + '\'' +
-                ", userRoles=" + userRoles +
+                ", userRoles=" + role +
                 ", active=" + active +
                 '}';
     }

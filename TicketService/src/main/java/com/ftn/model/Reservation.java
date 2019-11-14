@@ -15,16 +15,21 @@ public class Reservation {
 
     private Integer expDays;
 
-    //To Do : get a ticket to be reserved.
-    //Ticket ticket;
+    private Boolean active;
 
+    //Information which ticket is reserved.
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ticket_id", referencedColumnName = "id")
+    private Ticket ticket;
 
     public Reservation() {
     }
 
-    public Reservation(User user, Integer expDays) {
+    public Reservation(User user, Integer expDays, Boolean active) {
         this.user = user;
         this.expDays = expDays;
+        this.active = active;
     }
 
     public Long getId() {
@@ -51,12 +56,21 @@ public class Reservation {
         this.expDays = expDays;
     }
 
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
     @Override
     public String toString() {
         return "Reservation{" +
                 "id=" + id +
                 ", user=" + user +
                 ", expDays=" + expDays +
+                ", active=" + active +
                 '}';
     }
 }

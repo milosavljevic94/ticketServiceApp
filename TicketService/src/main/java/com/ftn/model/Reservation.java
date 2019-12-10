@@ -64,6 +64,14 @@ public class Reservation {
         this.active = active;
     }
 
+    public Ticket getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
+    }
+
     @Override
     public String toString() {
         return "Reservation{" +

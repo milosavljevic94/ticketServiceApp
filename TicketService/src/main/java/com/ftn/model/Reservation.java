@@ -1,9 +1,14 @@
 package com.ftn.model;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "reservation")
+@SQLDelete(sql = "UPDATE reservation " + "SET active = false " + "WHERE id = ?")
+@Where(clause = "active = true")
 public class Reservation {
 
     @Id
@@ -19,7 +24,7 @@ public class Reservation {
 
     //Information which ticket is reserved.
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "ticket_id", referencedColumnName = "id")
     private Ticket ticket;
 

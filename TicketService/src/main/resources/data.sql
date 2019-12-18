@@ -1,3 +1,5 @@
+use ticket_service;
+
 truncate table user ;
 truncate table role;
 
@@ -18,10 +20,17 @@ values (true, 'Stefan', 'Stefic', '$2y$12$rV9p3tZKtv3rYC5klTdp7Oyj0DwwEET5FRfxVo
 insert into user(active, first_name, last_name, password,role_id)
 values (true, 'Ana', 'Anic', '$2y$12$WTnOKP18KP5.DlI90hoThuFhFPkqwfzNVGjWZk3rcPRjALx.gPhza', 2);
 
+#Test data for ticket
+insert into ticket(row_num, seat_num)
+values(12,4);
+
+insert into ticket(row_num, seat_num)
+values(11,22);
+
 #Test data for reservations
 insert into reservation(active, exp_days, ticket_id, user_id)
 values (true, 3, 1, 3);
 
-#Test data for ticket
-insert into ticket(row_num, seat_num)
-values(12,4);
+insert into reservation(active, exp_days, ticket_id, user_id)
+values (true, 5, 2, 2);
+

@@ -13,15 +13,12 @@ public class Role {
 
     private String roleName;
 
-    @OneToOne(mappedBy = "role")
-    private User user;
 
     public Role() {
     }
 
-    public Role(String roleName, User user) {
+    public Role(String roleName) {
         this.roleName = roleName;
-        this.user = user;
     }
 
     public Long getId() {
@@ -40,20 +37,12 @@ public class Role {
         this.roleName = roleName;
     }
 
-    public User getUsers() {
-        return user;
-    }
-
-    public void setUsers(User userr) {
-        this.user = user;
-    }
 
     @Override
     public String toString() {
         return "UserRoles{" +
                 "id=" + id +
                 ", roleName='" + roleName + '\'' +
-                ", users=" + user +
                 '}';
     }
 }

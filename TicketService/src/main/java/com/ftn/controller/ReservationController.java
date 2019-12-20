@@ -48,11 +48,11 @@ public class ReservationController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<?> updateReservation(@PathVariable Long id){
+    public ResponseEntity<?> deleteReservation(@PathVariable Long id){
 
         reservationService.deleteReservation(id);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>("Role deleted successfully!",HttpStatus.OK);
     }
 
 }

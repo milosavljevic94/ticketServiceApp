@@ -17,8 +17,8 @@ public class User {
 
     private String password;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "role_id")
     private Role role;
 
     private Boolean active;
@@ -103,7 +103,7 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", password='" + password + '\'' +
-                ", role=" + role +
+                ", roles=" + role +
                 ", active=" + active +
                 ", reservations=" + reservations +
                 '}';

@@ -1,15 +1,8 @@
-package com.ftn.model;
+package com.ftn.dtos;
 
-import javax.persistence.*;
-import java.util.Set;
+import com.ftn.model.User;
 
-@Entity
-@Table(name = "user")
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class RegistrationDTO {
 
     private String email;
 
@@ -19,35 +12,25 @@ public class User {
 
     private String password;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "role_id")
-    private Role role;
-
     private Boolean active;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
-    private Set<Reservation> reservations;
-
-    public User() {
+    public RegistrationDTO() {
     }
 
-    public User(String email, String firstName, String lastName, String password, Role role, Boolean active, Set<Reservation> reservations) {
+    public RegistrationDTO(User user) {
+        this.email = user.getEmail();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.password = user.getPassword();
+        this.active = user.getActive();
+    }
+
+    public RegistrationDTO(String email, String firstName, String lastName, String password, Boolean active) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
-        this.role = role;
         this.active = active;
-        this.reservations = reservations;
-    }
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getEmail() {
@@ -90,34 +73,14 @@ public class User {
         this.active = active;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public Set<Reservation> getReservations() {
-        return reservations;
-    }
-
-    public void setReservations(Set<Reservation> reservations) {
-        this.reservations = reservations;
-    }
-
-
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
+        return "RegistrationDTO{" +
+                "email='" + email + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", password='" + password + '\'' +
-                ", role=" + role +
                 ", active=" + active +
-                ", reservations=" + reservations +
                 '}';
     }
 }

@@ -27,10 +27,16 @@ values(12,4);
 insert into ticket(row_num, seat_num)
 values(11,22);
 
+insert into ticket(row_num, seat_num)
+values(13,33);
+
 #Test data for reservations
 insert into reservation(active, exp_days, ticket_id, user_id)
 values (true, 3, 1, 3);
 
 insert into reservation(active, exp_days, ticket_id, user_id)
 values (true, 5, 2, 2);
+
+insert into reservation(active, exp_days, ticket_id, user_id)
+values (true, 33, 3, 3);
 

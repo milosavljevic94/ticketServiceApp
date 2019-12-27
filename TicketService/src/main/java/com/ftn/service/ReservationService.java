@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReservationService {
@@ -30,6 +31,10 @@ public class ReservationService {
 
     public Reservation findOneReservation(Long id){
         return reservationRepository.findById(id).orElse(null);
+    }
+
+    public Optional<Reservation> findOneReservationOptional(Long id){
+        return reservationRepository.findById(id);
     }
 
     public void addReservation(Reservation r){

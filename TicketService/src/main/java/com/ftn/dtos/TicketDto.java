@@ -19,17 +19,22 @@ public class TicketDto {
         this.id = ticket.getId();
         this.rowNum = ticket.getRowNum();
         this.seatNum = ticket.getSeatNum();
-        ReservationDto reservationDto = new ReservationDto();
+        if(ticket.getReservation() != null) {
+            ReservationDto reservationDto = new ReservationDto();
             reservationDto.setId(ticket.getReservation().getId());
             reservationDto.setExpDays(ticket.getReservation().getExpDays());
             reservationDto.setActive(ticket.getReservation().getActive());
             UserDto userDto = new UserDto();
-                userDto.setId(ticket.getReservation().getUser().getId());
-                userDto.setFirstName(ticket.getReservation().getUser().getFirstName());
-                userDto.setLastName(ticket.getReservation().getUser().getLastName());
-                userDto.setActive(ticket.getReservation().getUser().getActive());
+            userDto.setId(ticket.getReservation().getUser().getId());
+            userDto.setFirstName(ticket.getReservation().getUser().getFirstName());
+            userDto.setLastName(ticket.getReservation().getUser().getLastName());
+            userDto.setActive(ticket.getReservation().getUser().getActive());
             reservationDto.setUser(userDto);
-        this.reservation = reservationDto;
+            this.reservation = reservationDto;
+        }else{
+            this.reservation = null;
+        }
+
     }
 
     public Long getId() {

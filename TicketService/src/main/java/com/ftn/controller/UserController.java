@@ -34,4 +34,21 @@ public class UserController {
         String regMessage = userService.registration(registrationDTO);
         return new ResponseEntity<>(regMessage, HttpStatus.CREATED);
     }
+
+    @PutMapping(value = "/updateUser", consumes = "application/json")
+    public ResponseEntity<?> updateUser(@RequestBody UserDto userDto){
+
+        userService.updateUserBasicFields(userDto);
+
+        return new ResponseEntity<>("User updated successfully!",  HttpStatus.OK);
+    }
+
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> logicDeleteUser(@PathVariable Long id){
+
+        userService.deleteUser(id);
+
+        return new ResponseEntity<>("User successfully deleted!", HttpStatus.OK);
+    }
 }

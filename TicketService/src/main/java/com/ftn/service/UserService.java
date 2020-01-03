@@ -45,6 +45,21 @@ public class UserService{
         return userRepository.existsById(id);
    }
 
+   public void updateUserBasicFields(UserDto userDto){
+
+        User u = findOneUser(userDto.getId());
+
+        u.setId(userDto.getId());
+
+        if(userDto.getFirstName() != null)
+            u.setFirstName(userDto.getFirstName());
+
+        if(userDto.getLastName() != null)
+            u.setLastName(userDto.getLastName());
+
+        addUser(u);
+   }
+
 
     public UserDto mapToDTO(User user){
 

@@ -52,7 +52,7 @@ public class ReservationController {
 
         reservationService.deleteReservation(id);
 
-        return new ResponseEntity<>("Role deleted successfully!",HttpStatus.OK);
+        return new ResponseEntity<>("Reservation deleted successfully!",HttpStatus.OK);
     }
 
 }

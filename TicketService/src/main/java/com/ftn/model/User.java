@@ -1,10 +1,15 @@
 package com.ftn.model;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "user")
+@SQLDelete(sql = "UPDATE user " + "SET active = false " + "WHERE id = ?")
+@Where(clause = "active = true")
 public class User {
 
     @Id

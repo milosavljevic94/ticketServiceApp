@@ -1,15 +1,22 @@
 package com.ftn.model;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "user")
+@SQLDelete(sql = "UPDATE user " + "SET active = false " + "WHERE id = ?")
+@Where(clause = "active = true")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String email;
 
     private String firstName;
 
@@ -18,7 +25,7 @@ public class User {
     private String password;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    @JoinColumn(name = "role_id")
     private Role role;
 
     private Boolean active;
@@ -29,7 +36,8 @@ public class User {
     public User() {
     }
 
-    public User(String firstName, String lastName, String password, Role role, Boolean active, Set<Reservation> reservations) {
+    public User(String email, String firstName, String lastName, String password, Role role, Boolean active, Set<Reservation> reservations) {
+        this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
@@ -45,6 +53,14 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getFirstName() {
@@ -100,6 +116,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
+                ", email='" + email + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", password='" + password + '\'' +

@@ -6,17 +6,25 @@ import com.ftn.model.User;
 import java.util.HashSet;
 import java.util.Set;
 
-public class UserDto {
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
-    private Long id;
+public class UserDto {
 
     private String email;
 
+	@NotNull
+    @NotEmpty
     private String firstName;
-
+	
+	@NotNull
+    @NotEmpty
     private String lastName;
-
+	
+	@NotNull
+    @NotEmpty
     private String password;
+    private String matchingPassword;
 
     private RoleDto role;
 
@@ -55,9 +63,6 @@ public class UserDto {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getEmail() {
         return email;

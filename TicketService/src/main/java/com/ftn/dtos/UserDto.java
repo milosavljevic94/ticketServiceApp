@@ -10,8 +10,14 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class UserDto {
+	
+	private Long id;
 
     private String email;
+    
+    @NotNull
+    @NotEmpty
+    private String userName;
 
 	@NotNull
     @NotEmpty
@@ -36,10 +42,12 @@ public class UserDto {
 
     public UserDto(User user){
         this.id = user.getId();
+        this.userName = user.getUsername();
         this.email = user.getEmail();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
         this.password = user.getPassword();
+        this.matchingPassword = user.getMatchingPassword();
         this.role = new RoleDto(user.getRole());
         this.active = user.getActive();
 
@@ -58,13 +66,35 @@ public class UserDto {
             this.reservations.add(rdto);
         }
     }
+    
+    
 
-    public Long getId() {
+    public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getMatchingPassword() {
+		return matchingPassword;
+	}
+
+	public void setMatchingPassword(String matchingPassword) {
+		this.matchingPassword = matchingPassword;
+	}
+
+	public Long getId() {
         return id;
     }
 
 
-    public String getEmail() {
+    public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getEmail() {
         return email;
     }
 

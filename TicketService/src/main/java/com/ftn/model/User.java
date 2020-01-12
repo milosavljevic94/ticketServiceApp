@@ -17,18 +17,26 @@ public class User {
     private Long id;
 
     private String email;
+    
+    @Column(nullable = false, unique = true)
+    private String username;
 
     private String firstName;
 
     private String lastName;
 
     private String password;
+    
+    private String matchingPassword;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
 
     private Boolean active;
+    
+    @Column(name = "confirmation_token")
+	private String confirmationToken;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     private Set<Reservation> reservations;
@@ -54,8 +62,18 @@ public class User {
     public void setId(Long id) {
         this.id = id;
     }
+    
+    
 
-    public String getEmail() {
+    public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getEmail() {
         return email;
     }
 
@@ -86,8 +104,18 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+    
+    
 
-    public Boolean getActive() {
+    public String getMatchingPassword() {
+		return matchingPassword;
+	}
+
+	public void setMatchingPassword(String matchingPassword) {
+		this.matchingPassword = matchingPassword;
+	}
+
+	public Boolean getActive() {
         return active;
     }
 
@@ -110,6 +138,14 @@ public class User {
     public void setReservations(Set<Reservation> reservations) {
         this.reservations = reservations;
     }
+    
+    public String getConfirmationToken() {
+		return confirmationToken;
+	}
+
+	public void setConfirmationToken(String confirmationToken) {
+		this.confirmationToken = confirmationToken;
+	}
 
 
     @Override

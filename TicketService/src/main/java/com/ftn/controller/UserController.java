@@ -3,10 +3,14 @@ package com.ftn.controller;
 import com.ftn.dtos.RegistrationDTO;
 import com.ftn.dtos.TicketDto;
 import com.ftn.dtos.UserDto;
+import com.ftn.dtos.UserDtoRes;
+import com.ftn.exceptions.EmailExistsException;
+import com.ftn.model.User;
 import com.ftn.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,14 +30,14 @@ public class UserController {
 
         return new ResponseEntity<>(usersDto, HttpStatus.OK);
     }
-
-
-    @PostMapping(value = "/registration", consumes = "application/json")
-    public ResponseEntity<?> registration(@RequestBody RegistrationDTO registrationDTO)
-    {
-        String regMessage = userService.registration(registrationDTO);
-        return new ResponseEntity<>(regMessage, HttpStatus.CREATED);
+    
+    @PostMapping("/register")
+    public ResponseEntity<UserDtoRes> register(@RequestBody @Validated UserDto userDto) throws EmailExistsException {
+    	UserDtoRes userDtoRes = userService.register(userDto);
+        return new ResponseEntity<>(userDtoRes, HttpStatus.OK);
     }
+
+       
 
     @PutMapping(value = "/updateUser", consumes = "application/json")
     public ResponseEntity<?> updateUser(@RequestBody UserDto userDto){

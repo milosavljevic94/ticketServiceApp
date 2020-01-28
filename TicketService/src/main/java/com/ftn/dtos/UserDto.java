@@ -66,8 +66,6 @@ public class UserDto {
             this.reservations.add(rdto);
         }
     }
-    
-    
 
     public String getUserName() {
 		return userName;

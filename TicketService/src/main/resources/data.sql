@@ -40,3 +40,20 @@ values (true, 5, 2, 2);
 insert into reservation(active, exp_days, ticket_id, user_id)
 values (true, 33, 3, 3);
 
+#Test data for address
+insert into address(city, latitude, longitude, number, state, street)
+values ('Beograd', 22.3323, 0.3233, '1a', 'Srbija', 'Ljutice Bogdana');
+
+#Test data for locations
+insert into location(location_name, address_id)
+values ('Stadion Rajko Mitic', 1);
+
+#Test data for sectors
+insert into sector(columns, rows, seats_number, sector_name, location_id)
+values (12, 22, 260, 'sectorSever', 1);
+insert into sector(columns, rows, seats_number, sector_name, location_id)
+values (10, 30, 300, 'sectorJug', 1);
+insert into sector(columns, rows, seats_number, sector_name, location_id)
+values (40, 30, 1200, 'sectorIstok', 1);
+insert into sector(columns, rows, seats_number, sector_name, location_id)
+values (50, 40, 2000, 'sectorZapad', 1);

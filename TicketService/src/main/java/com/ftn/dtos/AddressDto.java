@@ -12,7 +12,7 @@ public class AddressDto {
 
     private String street;
 
-    private Integer number;
+    private String number;
 
     private Double latitude;
 
@@ -64,11 +64,11 @@ public class AddressDto {
         this.street = street;
     }
 
-    public Integer getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(Integer number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 

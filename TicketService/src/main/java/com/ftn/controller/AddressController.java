@@ -1,6 +1,8 @@
 package com.ftn.controller;
 
 import com.ftn.dtos.AddressDto;
+import com.ftn.model.Location;
+import com.ftn.repository.LocationRepository;
 import com.ftn.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,10 +18,21 @@ public class AddressController {
     @Autowired
     AddressService addressService;
 
+    @Autowired
+    LocationRepository locationRepository;
+
     @GetMapping(value = "/allAddress")
     public ResponseEntity<List<AddressDto>> getAllAddress(){
 
+        Location l = locationRepository.findById(1l).orElse(null);
+        System.out.println(l.getId());
+        System.out.println(l.getLocationName());
+        System.out.println(l.getSectors().size());
+        System.out.println(l.toString());
+
         List<AddressDto> addressDtos = addressService.allToDto();
+
+
 
         return new ResponseEntity<>(addressDtos, HttpStatus.OK);
     }

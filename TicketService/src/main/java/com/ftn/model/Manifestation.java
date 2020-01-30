@@ -19,7 +19,7 @@ public class Manifestation {
 
     private LocalDateTime startTime;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)//mapped by ->
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "manifestation")
     private Set<ManifestationDays> manifestationDays = new HashSet<>();
 
     @ManyToOne

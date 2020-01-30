@@ -19,6 +19,9 @@ public class Ticket {
 
     //To Do : relation to ManSec and ManDays.
 
+    @ManyToOne
+    @JoinColumn(name = "manifestationDays_id", referencedColumnName = "id")
+    private ManifestationDays manifestationDays;
 
     public Ticket() {
     }

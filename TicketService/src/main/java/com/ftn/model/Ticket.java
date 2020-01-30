@@ -27,16 +27,22 @@ public class Ticket {
     @JoinColumn(name = "manifestationDays_id", referencedColumnName = "id")
     private ManifestationDays manifestationDays;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public Ticket() {
     }
 
     public Ticket(Integer rowNum, Integer seatNum, Reservation reservation,
-                  ManifestationSector manifestationSector, ManifestationDays manifestationDays) {
+                  ManifestationSector manifestationSector, ManifestationDays manifestationDays,
+                  User user) {
         this.rowNum = rowNum;
         this.seatNum = seatNum;
         this.reservation = reservation;
         this.manifestationSector = manifestationSector;
         this.manifestationDays = manifestationDays;
+        this.user = user;
     }
 
     public Long getId() {
@@ -87,6 +93,14 @@ public class Ticket {
         this.manifestationDays = manifestationDays;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
         return "Ticket{" +
@@ -96,6 +110,7 @@ public class Ticket {
                 ", reservation=" + reservation +
                 ", manifestationSector=" + manifestationSector +
                 ", manifestationDays=" + manifestationDays +
+                ", user=" + user +
                 '}';
     }
 }

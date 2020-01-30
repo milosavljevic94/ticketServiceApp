@@ -4,6 +4,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -38,8 +39,13 @@ public class User {
     @Column(name = "confirmation_token")
 	private String confirmationToken;
 
+    //If user want to reserve ticket.
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     private Set<Reservation> reservations;
+
+    //If user want to directly buy ticket.
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Ticket> tickets = new HashSet<>();
 
     public User() {
     }

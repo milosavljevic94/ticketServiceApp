@@ -50,7 +50,9 @@ public class User {
     public User() {
     }
 
-    public User(String email, String firstName, String lastName, String password, Role role, Boolean active, Set<Reservation> reservations) {
+    public User(String email, String firstName, String lastName,
+                String password, Role role, Boolean active, Set<Reservation> reservations,
+                Set<Ticket> tickets) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -58,6 +60,7 @@ public class User {
         this.role = role;
         this.active = active;
         this.reservations = reservations;
+        this.tickets = tickets;
     }
 
 
@@ -153,18 +156,29 @@ public class User {
 		this.confirmationToken = confirmationToken;
 	}
 
+    public Set<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(Set<Ticket> tickets) {
+        this.tickets = tickets;
+    }
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", password='" + password + '\'' +
+                ", matchingPassword='" + matchingPassword + '\'' +
                 ", role=" + role +
                 ", active=" + active +
+                ", confirmationToken='" + confirmationToken + '\'' +
                 ", reservations=" + reservations +
+                ", tickets=" + tickets +
                 '}';
     }
 }

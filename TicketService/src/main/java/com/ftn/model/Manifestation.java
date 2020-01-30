@@ -1,5 +1,7 @@
 package com.ftn.model;
 
+import com.ftn.enums.ManifestationCategory;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -18,6 +20,8 @@ public class Manifestation {
     private String description;
 
     private LocalDateTime startTime;
+
+    private ManifestationCategory manifestationCategory;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "manifestation")
     private Set<ManifestationDays> manifestationDays = new HashSet<>();

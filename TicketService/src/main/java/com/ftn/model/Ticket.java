@@ -20,16 +20,23 @@ public class Ticket {
     //To Do : relation to ManSec and ManDays.
 
     @ManyToOne
+    @JoinColumn(name = "manifestationSector_id", referencedColumnName = "id")
+    private ManifestationSector manifestationSector;
+
+    @ManyToOne
     @JoinColumn(name = "manifestationDays_id", referencedColumnName = "id")
     private ManifestationDays manifestationDays;
 
     public Ticket() {
     }
 
-    public Ticket(Integer rowNum, Integer seatNum, Reservation reservation) {
+    public Ticket(Integer rowNum, Integer seatNum, Reservation reservation,
+                  ManifestationSector manifestationSector, ManifestationDays manifestationDays) {
         this.rowNum = rowNum;
         this.seatNum = seatNum;
         this.reservation = reservation;
+        this.manifestationSector = manifestationSector;
+        this.manifestationDays = manifestationDays;
     }
 
     public Long getId() {
@@ -64,6 +71,22 @@ public class Ticket {
         this.reservation = reservation;
     }
 
+    public ManifestationSector getManifestationSector() {
+        return manifestationSector;
+    }
+
+    public void setManifestationSector(ManifestationSector manifestationSector) {
+        this.manifestationSector = manifestationSector;
+    }
+
+    public ManifestationDays getManifestationDays() {
+        return manifestationDays;
+    }
+
+    public void setManifestationDays(ManifestationDays manifestationDays) {
+        this.manifestationDays = manifestationDays;
+    }
+
     @Override
     public String toString() {
         return "Ticket{" +
@@ -71,6 +94,8 @@ public class Ticket {
                 ", rowNum=" + rowNum +
                 ", seatNum=" + seatNum +
                 ", reservation=" + reservation +
+                ", manifestationSector=" + manifestationSector +
+                ", manifestationDays=" + manifestationDays +
                 '}';
     }
 }

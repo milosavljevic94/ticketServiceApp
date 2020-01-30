@@ -11,14 +11,14 @@ insert into role(role_name)
 values ('ADMIN');
 
 #test data for users
-insert into user(email, active, first_name, last_name, password, role_id)
-values ('pera@gmail.com' ,true, 'Pera', 'Peric', '$2y$12$2GosEjiRgP3WOPDvZy6YR.z2FI4y1k1EnmvXflNbRv/LFdnAE/zPu', 1);
+insert into user(email, username, active, first_name, last_name, password, role_id, confirmation_token, matching_password)
+values ('pera@gmail.com' ,'peraBot', true, 'Pera', 'Peric', '$2y$12$2GosEjiRgP3WOPDvZy6YR.z2FI4y1k1EnmvXflNbRv/LFdnAE/zPu', 1, 'proba.proba', '$2y$12$2GosEjiRgP3WOPDvZy6YR.z2FI4y1k1EnmvXflNbRv/LFdnAE/zPu');
 
-insert into user(email, active, first_name, last_name, password, role_id)
-values ('stefa@gmail.com', true, 'Stefan', 'Stefic', '$2y$12$rV9p3tZKtv3rYC5klTdp7Oyj0DwwEET5FRfxVoVHVIqIeGttSHdDy', 1); #1234
+insert into user(email, username, active, first_name, last_name, password, role_id, confirmation_token, matching_password)
+values ('stefa@gmail.com', 'stefaBot', true, 'Stefan', 'Stefic', '$2y$12$rV9p3tZKtv3rYC5klTdp7Oyj0DwwEET5FRfxVoVHVIqIeGttSHdDy', 1, 'dasdas.fdfd.fdfd', '$2y$12$rV9p3tZKtv3rYC5klTdp7Oyj0DwwEET5FRfxVoVHVIqIeGttSHdDy'); #1234
 
-insert into user(email, active, first_name, last_name, password,role_id)
-values ('ana@gmail.com', true, 'Ana', 'Anic', '$2y$12$WTnOKP18KP5.DlI90hoThuFhFPkqwfzNVGjWZk3rcPRjALx.gPhza', 2);
+insert into user(email, username, active, first_name, last_name, password,role_id, confirmation_token, matching_password)
+values ('ana@gmail.com', 'anaBoot', true, 'Ana', 'Anic', '$2y$12$WTnOKP18KP5.DlI90hoThuFhFPkqwfzNVGjWZk3rcPRjALx.gPhza', 2, 'dfadasd.da.da', '$2y$12$WTnOKP18KP5.DlI90hoThuFhFPkqwfzNVGjWZk3rcPRjALx.gPhza');
 
 #Test data for ticket
 insert into ticket(row_num, seat_num)

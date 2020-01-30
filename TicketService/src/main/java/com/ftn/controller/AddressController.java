@@ -24,15 +24,7 @@ public class AddressController {
     @GetMapping(value = "/allAddress")
     public ResponseEntity<List<AddressDto>> getAllAddress(){
 
-        Location l = locationRepository.findById(1l).orElse(null);
-        System.out.println(l.getId());
-        System.out.println(l.getLocationName());
-        System.out.println(l.getSectors().size());
-        System.out.println(l.toString());
-
         List<AddressDto> addressDtos = addressService.allToDto();
-
-
 
         return new ResponseEntity<>(addressDtos, HttpStatus.OK);
     }

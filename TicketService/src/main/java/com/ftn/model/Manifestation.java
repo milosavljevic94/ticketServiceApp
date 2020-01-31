@@ -33,10 +33,11 @@ public class Manifestation {
     public Manifestation() {
     }
 
-    public Manifestation(String name, String description, LocalDateTime startTime, Set<ManifestationDays> manifestationDays, Location location) {
+    public Manifestation(String name, String description, LocalDateTime startTime, ManifestationCategory manifestationCategory, Set<ManifestationDays> manifestationDays, Location location) {
         this.name = name;
         this.description = description;
         this.startTime = startTime;
+        this.manifestationCategory = manifestationCategory;
         this.manifestationDays = manifestationDays;
         this.location = location;
     }
@@ -73,6 +74,14 @@ public class Manifestation {
         this.startTime = startTime;
     }
 
+    public ManifestationCategory getManifestationCategory() {
+        return manifestationCategory;
+    }
+
+    public void setManifestationCategory(ManifestationCategory manifestationCategory) {
+        this.manifestationCategory = manifestationCategory;
+    }
+
     public Set<ManifestationDays> getManifestationDays() {
         return manifestationDays;
     }
@@ -96,6 +105,7 @@ public class Manifestation {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", startTime=" + startTime +
+                ", manifestationCategory=" + manifestationCategory +
                 ", manifestationDays=" + manifestationDays +
                 ", location=" + location +
                 '}';

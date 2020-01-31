@@ -21,18 +21,17 @@ public class Location {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "location")
     private Set<Sector> sectors = new HashSet<>();
 
-    /*
-    TO DO :
-    private Set<Manifestation> manifestations;
-     */
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "location")
+    private Set<Manifestation> manifestations = new HashSet<>();
 
     public Location() {
     }
 
-    public Location(String locationName, Address address, Set<Sector> sectors) {
+    public Location(String locationName, Address address, Set<Sector> sectors, Set<Manifestation> manifestations) {
         this.locationName = locationName;
         this.address = address;
         this.sectors = sectors;
+        this.manifestations = manifestations;
     }
 
     public Long getId() {
@@ -67,6 +66,14 @@ public class Location {
         this.sectors = sectors;
     }
 
+    public Set<Manifestation> getManifestations() {
+        return manifestations;
+    }
+
+    public void setManifestations(Set<Manifestation> manifestations) {
+        this.manifestations = manifestations;
+    }
+
     @Override
     public String toString() {
         return "Location{" +
@@ -74,6 +81,7 @@ public class Location {
                 ", locationName='" + locationName + '\'' +
                 ", address=" + address +
                 ", sectors=" + sectors +
+                ", manifestations=" + manifestations +
                 '}';
     }
 }

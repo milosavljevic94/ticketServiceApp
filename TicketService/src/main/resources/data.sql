@@ -57,3 +57,7 @@ insert into sector(columns, rows, seats_number, sector_name, location_id)
 values (40, 30, 1200, 'sectorIstok', 1);
 insert into sector(columns, rows, seats_number, sector_name, location_id)
 values (50, 40, 2000, 'sectorZapad', 1);
+
+#Test data for manifestation
+insert into manifestation(description, manifestation_category, name, start_time, location_id)
+values('manifestacija prva', 2, 'Koncert neki', '2020-01-19 20:00:00', 1)

@@ -50,6 +50,12 @@ public class ManifestationService {
 
         m.setLocation(l);
 
+        /*
+            Ovde moze biti if da se proveri koliko dana je trajanje manifestacije (start-end).
+            Ako je u okviru jedng dana nista lista dana je prazna.
+            Ako je vise dana onda se kreira lista dana i setuje u manifestaciji.
+         */
+
         manifestationRepository.save(m);
     }
 
@@ -65,21 +71,17 @@ public class ManifestationService {
         return manifestationRepository.existsById(id);
     }
 
-   /* public void updateManifestation(ManifestationDto manifestationDto) {
+    public void updateManifestation(ManifestationDto mdto) {
 
 
-        Manifestation manifestation = findOneManifestation(manifestationDto.getId());
+        Manifestation manifestation = manifestationRepository.findById(mdto.getId()).orElse(null);
 
-        manifestation.se
-        Manifestation.setState(ManifestationDto.getState());
-        Manifestation.setCity(ManifestationDto.getCity());
-        Manifestation.setStreet(ManifestationDto.getStreet());
-        Manifestation.setNumber(ManifestationDto.getNumber());
-        Manifestation.setLongitude(ManifestationDto.getLongitude());
-        Manifestation.setLatitude(ManifestationDto.getLatitude());
+        manifestation.setName(mdto.getName());
+        manifestation.setDescription(mdto.getDescription());
+        manifestation.setManifestationCategory(mdto.getManifestationCategory());
 
-        ManifestationRepository.save(Manifestation);
-    }*/
+        manifestationRepository.save(manifestation);
+    }
 
 
     public ManifestationDto mapToDTO(Manifestation m){

@@ -40,7 +40,11 @@ public class ManifestationService {
 
         LocalDateTime start = LocalDateTime.of(mDto.getStartTime().toLocalDate(), mDto.getStartTime().toLocalTime());
 
+        LocalDateTime end = LocalDateTime.of(mDto.getEndTime().toLocalDate(), mDto.getEndTime().toLocalTime());
+
         m.setStartTime(start);
+
+        m.setEndTime(end);
 
         Location l = locationRepository.findById(mDto.getLocationId()).orElse(null);
 

@@ -15,6 +15,8 @@ public class ManifestationDto {
 
     private LocalDateTime startTime;
 
+    private LocalDateTime endTime;
+
     private ManifestationCategory manifestationCategory;
 
     private Long locationId;
@@ -27,6 +29,7 @@ public class ManifestationDto {
         this.name = manifestation.getName();
         this.description = manifestation.getDescription();
         this.startTime = manifestation.getStartTime();
+        this.endTime = manifestation.getEndTime();
         this.manifestationCategory = manifestation.getManifestationCategory();
         this.locationId = manifestation.getLocation().getId();
     }
@@ -61,6 +64,14 @@ public class ManifestationDto {
 
     public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
     }
 
     public ManifestationCategory getManifestationCategory() {

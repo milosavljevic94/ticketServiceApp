@@ -2,8 +2,11 @@ package com.ftn.dtos;
 
 import com.ftn.enums.ManifestationCategory;
 import com.ftn.model.Manifestation;
+import com.ftn.model.ManifestationDays;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ManifestationDto {
 
@@ -19,6 +22,8 @@ public class ManifestationDto {
 
     private ManifestationCategory manifestationCategory;
 
+    private Set<ManifestationDaysDto> manDaysDto;
+
     private Long locationId;
 
     public ManifestationDto() {
@@ -31,6 +36,18 @@ public class ManifestationDto {
         this.startTime = manifestation.getStartTime();
         this.endTime = manifestation.getEndTime();
         this.manifestationCategory = manifestation.getManifestationCategory();
+
+            Set<ManifestationDaysDto> manDaysDtos = new HashSet<>();
+            for(ManifestationDays md : manifestation.getManifestationDays()){
+                ManifestationDaysDto manDayDto = new ManifestationDaysDto();
+                manDayDto.setName(md.getName());
+                manDayDto.setDescription(md.getDescription());
+                manDayDto.setStartTime(md.getStartTime());
+                manDayDto.setManifestationId(manifestation.getId());
+                manDaysDtos.add(manDayDto);
+            }
+
+        this.manDaysDto = manDaysDtos;
         this.locationId = manifestation.getLocation().getId();
     }
 
@@ -80,6 +97,14 @@ public class ManifestationDto {
 
     public void setManifestationCategory(ManifestationCategory manifestationCategory) {
         this.manifestationCategory = manifestationCategory;
+    }
+
+    public Set<ManifestationDaysDto> getManDaysDto() {
+        return manDaysDto;
+    }
+
+    public void setManDaysDto(Set<ManifestationDaysDto> manDaysDto) {
+        this.manDaysDto = manDaysDto;
     }
 
     public Long getLocationId() {

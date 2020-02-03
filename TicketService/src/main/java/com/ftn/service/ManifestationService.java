@@ -1,17 +1,19 @@
 package com.ftn.service;
 
+import com.ftn.dtos.ManifestationDaysDto;
 import com.ftn.dtos.ManifestationDto;
 import com.ftn.model.Location;
 import com.ftn.model.Manifestation;
+import com.ftn.model.ManifestationDays;
 import com.ftn.repository.LocationRepository;
+import com.ftn.repository.ManifestationDaysRepository;
 import com.ftn.repository.ManifestationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 
 @Service
 public class ManifestationService {
@@ -21,6 +23,9 @@ public class ManifestationService {
 
     @Autowired
     LocationRepository locationRepository;
+
+    @Autowired
+    ManifestationDayService manifestationDayService;
 
     public List<Manifestation> finfAllManifestation(){
         return manifestationRepository.findAll();
@@ -34,7 +39,7 @@ public class ManifestationService {
         return manifestationRepository.findById(id);
     }
 
-    public void addManifestation(ManifestationDto mDto){
+    public Manifestation addManifestation(ManifestationDto mDto){
 
         Manifestation m = mapFromDto(mDto);
 
@@ -50,13 +55,34 @@ public class ManifestationService {
 
         m.setLocation(l);
 
+        manifestationRepository.save(m);
+
         /*
             Ovde moze biti if da se proveri koliko dana je trajanje manifestacije (start-end).
             Ako je u okviru jedng dana nista lista dana je prazna.
             Ako je vise dana onda se kreira lista dana i setuje u manifestaciji.
          */
 
-        manifestationRepository.save(m);
+        Long num = ChronoUnit.DAYS.between(start,end);
+        int daysNumber = num.intValue();
+
+        if(daysNumber == mDto.getManDaysDto().size()) {
+
+            Set<ManifestationDays> mds = new HashSet<>();
+
+            for (ManifestationDaysDto mdDto : mDto.getManDaysDto()) {
+                ManifestationDays md = new ManifestationDays();
+                md = manifestationDayService.mapFromDto(mdDto);
+                md.setManifestation(findOneManifestation(mDto.getId()));
+                mds.add(md);
+                manifestationDayService.addManifestationDays(md);
+            }
+            m.setManifestationDays(mds);
+        }else{
+            System.out.println("You have "+daysNumber+" days to insert!");
+        }
+
+        return m;
     }
 
     public void deleteManifestation(Long id){
@@ -108,8 +134,11 @@ public class ManifestationService {
         Manifestation m = new Manifestation();
 
         m.setName(md.getName());
-        m.setManifestationCategory(md.getManifestationCategory());
         m.setDescription(md.getDescription());
+        m.setManifestationCategory(md.getManifestationCategory());
+        m.setStartTime(md.getStartTime());
+        m.setEndTime(md.getEndTime());
+
 
         return m;
     }

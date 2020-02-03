@@ -1,6 +1,7 @@
 package com.ftn.controller;
 
 import com.ftn.dtos.ManifestationDto;
+import com.ftn.model.Manifestation;
 import com.ftn.service.ManifestationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,8 +35,8 @@ public class ManifestationController {
     @PostMapping(value = "/addManifestation", consumes = "application/json")
     public ResponseEntity<ManifestationDto> addManifestation(@RequestBody ManifestationDto manifestationDto) {
 
-        manifestationService.addManifestation(manifestationDto);
+        Manifestation m = manifestationService.addManifestation(manifestationDto);
 
-        return new ResponseEntity<>(new ManifestationDto(manifestationService.mapFromDto(manifestationDto)) , HttpStatus.CREATED);
+        return new ResponseEntity<>(new ManifestationDto(m), HttpStatus.CREATED);
     }
 }

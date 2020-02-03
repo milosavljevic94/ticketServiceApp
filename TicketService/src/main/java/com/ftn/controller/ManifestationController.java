@@ -39,4 +39,20 @@ public class ManifestationController {
 
         return new ResponseEntity<>(new ManifestationDto(m), HttpStatus.CREATED);
     }
+
+    @PutMapping(value = "/updateManifestation", consumes = "application/json")
+    public ResponseEntity<ManifestationDto> updateAddress(@RequestBody ManifestationDto mdto){
+
+        Manifestation m = manifestationService.updateManifestation(mdto);
+
+        return new ResponseEntity<>(manifestationService.mapToDTO(m), HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> deleteManifestation(@PathVariable Long id){
+
+        manifestationService.deleteManifestation(id);
+
+        return new ResponseEntity<>("Manifestation deleted successfully!", HttpStatus.OK);
+    }
 }

@@ -82,22 +82,20 @@ public class LocationService {
      */
     public void updateAddress(Long id, AddressDto addressDto){
 
-        Address address = addressRepository.findById(addressDto.getId()).get();
+        Location l = findOneLocation(id);
 
-        address.setState(addressDto.getState());
-        address.setCity(addressDto.getCity());
-        address.setStreet(addressDto.getStreet());
-        address.setNumber(addressDto.getNumber());
-        address.setLatitude(addressDto.getLatitude());
-        address.setLongitude(addressDto.getLongitude());
+        l.getAddress().setState(addressDto.getState());
+        l.getAddress().setCity(addressDto.getCity());
+        l.getAddress().setStreet(addressDto.getStreet());
+        l.getAddress().setNumber(addressDto.getNumber());
+        l.getAddress().setLatitude(addressDto.getLatitude());
+        l.getAddress().setLongitude(addressDto.getLongitude());
 
-        addressRepository.save(address);
+        addressRepository.save(l.getAddress());
 
-        Location location = locationRepository.findById(id).get();
 
-        location.setAddress(address);
 
-        locationRepository.save(location);
+        locationRepository.save(l);
     }
 
 

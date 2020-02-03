@@ -97,16 +97,20 @@ public class ManifestationService {
         return manifestationRepository.existsById(id);
     }
 
-    public void updateManifestation(ManifestationDto mdto) {
+    public Manifestation updateManifestation(ManifestationDto mdto) {
 
 
-        Manifestation manifestation = manifestationRepository.findById(mdto.getId()).orElse(null);
+        Manifestation m = manifestationRepository.findById(mdto.getId()).orElse(null);
 
-        manifestation.setName(mdto.getName());
-        manifestation.setDescription(mdto.getDescription());
-        manifestation.setManifestationCategory(mdto.getManifestationCategory());
+        m.setName(mdto.getName());
+        m.setDescription(mdto.getDescription());
+        m.setManifestationCategory(mdto.getManifestationCategory());
+        m.setStartTime(mdto.getStartTime());
+        m.setEndTime(mdto.getEndTime());
 
-        manifestationRepository.save(manifestation);
+        manifestationRepository.save(m);
+
+        return m;
     }
 
 

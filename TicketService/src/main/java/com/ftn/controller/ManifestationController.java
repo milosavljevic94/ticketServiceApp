@@ -1,6 +1,8 @@
 package com.ftn.controller;
 
 import com.ftn.dtos.ManifestationDto;
+import com.ftn.dtos.ManifestationInfoDto;
+import com.ftn.dtos.ManifestationSectorPriceDto;
 import com.ftn.model.Manifestation;
 import com.ftn.service.ManifestationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,13 @@ public class ManifestationController {
         return new ResponseEntity<>(new ManifestationDto(manifestationService.findOneManifestation(id)), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/manifestationInfo/{id}")
+    public ResponseEntity<ManifestationInfoDto> getManifestationInfoById(@PathVariable Long id) {
+
+
+        return new ResponseEntity<ManifestationInfoDto>(new ManifestationInfoDto(manifestationService.findOneManifestation(id)), HttpStatus.OK);
+    }
+
     @PostMapping(value = "/addManifestation", consumes = "application/json")
     public ResponseEntity<ManifestationDto> addManifestation(@RequestBody ManifestationDto manifestationDto) {
 
@@ -44,6 +53,15 @@ public class ManifestationController {
     public ResponseEntity<ManifestationDto> updateAddress(@RequestBody ManifestationDto mdto){
 
         Manifestation m = manifestationService.updateManifestation(mdto);
+
+        return new ResponseEntity<>(manifestationService.mapToDTO(m), HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/addSectorPrice/{id}", consumes = "application/json")
+    public ResponseEntity<ManifestationDto> setSectorPriceForManifestation(
+                                            @PathVariable Long id, @RequestBody ManifestationSectorPriceDto sectorPriceDto){
+
+        Manifestation m = manifestationService.setPriceForSectorAndDay(id, sectorPriceDto);
 
         return new ResponseEntity<>(manifestationService.mapToDTO(m), HttpStatus.OK);
     }

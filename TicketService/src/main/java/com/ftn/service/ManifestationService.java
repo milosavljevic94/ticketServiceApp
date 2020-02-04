@@ -2,12 +2,12 @@ package com.ftn.service;
 
 import com.ftn.dtos.ManifestationDaysDto;
 import com.ftn.dtos.ManifestationDto;
-import com.ftn.model.Location;
-import com.ftn.model.Manifestation;
-import com.ftn.model.ManifestationDays;
+import com.ftn.dtos.ManifestationSectorPriceDto;
+import com.ftn.model.*;
 import com.ftn.repository.LocationRepository;
 import com.ftn.repository.ManifestationDaysRepository;
 import com.ftn.repository.ManifestationRepository;
+import com.ftn.repository.ManifestationSectorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +26,9 @@ public class ManifestationService {
 
     @Autowired
     ManifestationDayService manifestationDayService;
+
+    @Autowired
+    ManifestationSectorRepository manifestationSectorRepository;
 
     public List<Manifestation> finfAllManifestation(){
         return manifestationRepository.findAll();
@@ -143,6 +146,51 @@ public class ManifestationService {
         m.setStartTime(md.getStartTime());
         m.setEndTime(md.getEndTime());
 
+
+        return m;
+    }
+
+    public Manifestation setPriceForSectorAndDay(Long id, ManifestationSectorPriceDto sectorPriceDto) {
+
+        /*
+        id manifestacije, pronaci manifestaciju sa tim id - jem.
+        u objektu sectorPriceDto je smesten id sektora, id dana i cena.
+        pomocu njega iz manifestacije pronaci dan i
+        pronaci sektor ili preko lokacije u manifestaciji ili preko liste u danima.
+        napraviti novi objekat Manifestation sector i u njega setovati sve, sacuvati ga u bazu
+        i setovati u ostalim objektima gde treba.
+         */
+
+        Manifestation m = findOneManifestation(id);
+
+        ManifestationDays md = null;
+
+        for(ManifestationDays md1 : m.getManifestationDays()){
+            if(md1.getId() == sectorPriceDto.getDayId()){
+                md = md1;
+            }
+        }
+
+        Sector s = null;
+
+        for(Sector s1 : m.getLocation().getSectors()){
+            if(s1.getId() == sectorPriceDto.getSectorId()){
+                s = s1;
+            }
+        }
+
+        ManifestationSector manSector = new ManifestationSector();
+
+        manSector.setManifestationDays(md);
+        manSector.setSector(s);
+        manSector.setPrice(sectorPriceDto.getPrice());
+
+        System.out.println("Man sector to string : "+manSector.getManifestationDays().getName()+","+ manSector.getSector().getSectorName()+" , "+manSector.getPrice());
+        md.getManifestationSectors().add(manSector);
+
+        manifestationDayService.addManifestationDays(md);
+
+        manifestationSectorRepository.save(manSector);
 
         return m;
     }

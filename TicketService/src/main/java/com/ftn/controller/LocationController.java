@@ -1,6 +1,9 @@
 package com.ftn.controller;
 
 import com.ftn.dtos.LocationDto;
+import com.ftn.dtos.SectorDto;
+import com.ftn.model.Location;
+import com.ftn.model.Sector;
 import com.ftn.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,12 +34,21 @@ public class LocationController {
     }
 
     @PostMapping(value = "/addLocation", consumes = "application/json")
-    public ResponseEntity<LocationDto> addLocationAndAddress(@RequestBody LocationDto addressDto) {
+    public ResponseEntity<LocationDto> addLocationAndAddress(@RequestBody LocationDto locationDto) {
 
-        locationService.addLocationAndAddress(addressDto);
+        locationService.addLocationAndAddress(locationDto);
 
-        return new ResponseEntity<>(new LocationDto(locationService.mapFromDto(addressDto)) , HttpStatus.CREATED);
+        return new ResponseEntity<>(new LocationDto(locationService.mapFromDto(locationDto)) , HttpStatus.CREATED);
     }
+
+    @PutMapping(value = "/addSectorInLocation/{id}", consumes = "application/json")
+    public ResponseEntity<LocationDto> addLocationSector(@PathVariable Long id, @RequestBody SectorDto sd) {
+
+        Location l = locationService.addSectorToLocation(id, sd);
+
+        return new ResponseEntity<LocationDto>(new LocationDto(l) , HttpStatus.CREATED);
+    }
+
 
     @PutMapping(value = "/updateLocation", consumes = "application/json")
     public ResponseEntity<LocationDto> updateLocation(@RequestBody LocationDto locationDto){

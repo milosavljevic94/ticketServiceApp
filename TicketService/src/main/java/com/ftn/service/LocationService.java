@@ -2,16 +2,17 @@ package com.ftn.service;
 
 import com.ftn.dtos.AddressDto;
 import com.ftn.dtos.LocationDto;
+import com.ftn.dtos.SectorDto;
 import com.ftn.model.Address;
 import com.ftn.model.Location;
+import com.ftn.model.Sector;
 import com.ftn.repository.AddressRepository;
 import com.ftn.repository.LocationRepository;
+import com.ftn.repository.SectorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class LocationService {
@@ -24,6 +25,12 @@ public class LocationService {
 
     @Autowired
     AddressService addressService;
+
+    @Autowired
+    SectorService sectorService;
+
+    @Autowired
+    SectorRepository sectorRepository;
 
     public List<Location> finfAllLocation(){
         return locationRepository.findAll();
@@ -50,9 +57,26 @@ public class LocationService {
         Address address = mapFromDto(locationDto).getAddress();
         addressRepository.save(address);
 
+
+
         Location location = mapFromDto(locationDto);
         location.setAddress(address);
+
         locationRepository.save(location);
+    }
+
+    public Location addSectorToLocation(Long id, SectorDto sd){
+
+        Location l = findOneLocationOptional(id).orElse(null);
+
+        Sector s = sectorService.mapFromDto(sd);
+
+        l.getSectors().add(s);
+        s.setLocation(l);
+
+        sectorRepository.save(s);
+
+        return l;
     }
 
     public void deleteLocation(Long id){

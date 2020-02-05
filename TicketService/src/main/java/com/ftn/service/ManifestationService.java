@@ -76,7 +76,7 @@ public class ManifestationService {
             for (ManifestationDaysDto mdDto : mDto.getManDaysDto()) {
                 ManifestationDays md = new ManifestationDays();
                 md = manifestationDayService.mapFromDto(mdDto);
-                md.setManifestation(findOneManifestation(mDto.getId()));
+                md.setManifestation(findOneManifestation(m.getId()));
                 mds.add(md);
                 manifestationDayService.addManifestationDays(md);
             }
@@ -185,11 +185,9 @@ public class ManifestationService {
         manSector.setSector(s);
         manSector.setPrice(sectorPriceDto.getPrice());
 
-        System.out.println("Man sector to string : "+manSector.getManifestationDays().getName()+","+ manSector.getSector().getSectorName()+" , "+manSector.getPrice());
         md.getManifestationSectors().add(manSector);
 
-        manifestationDayService.addManifestationDays(md);
-
+        //manifestationDayService.addManifestationDays(md);
         manifestationSectorRepository.save(manSector);
 
         return m;

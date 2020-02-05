@@ -57,6 +57,7 @@ public class ManifestationInfoDto {
                 ManifestationSectorDto msDto = new ManifestationSectorDto();
                 msDto.setId(ms.getId());
                 msDto.setSectorId(ms.getSector().getId());
+                msDto.setManDayId(ms.getManifestationDays().getId());
                 msDto.setPrice(ms.getPrice());
                 msDtos.add(msDto);
             }

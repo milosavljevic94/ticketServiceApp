@@ -51,7 +51,6 @@ public class SectorService {
 
             sectorRepository.save(sector);
 
-
         }
         return sector;
     }
@@ -134,6 +133,7 @@ public class SectorService {
 
         Sector s = new Sector();
 
+        s.setId(sd.getId());
         s.setSectorName(sd.getSectorName());
         s.setColumns(sd.getColumns());
         s.setRows(sd.getRows());

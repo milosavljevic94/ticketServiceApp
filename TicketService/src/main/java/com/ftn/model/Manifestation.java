@@ -21,6 +21,8 @@ public class Manifestation {
 
     private LocalDateTime startTime;
 
+    private LocalDateTime endTime;
+
     private ManifestationCategory manifestationCategory;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "manifestation")
@@ -33,10 +35,11 @@ public class Manifestation {
     public Manifestation() {
     }
 
-    public Manifestation(String name, String description, LocalDateTime startTime, ManifestationCategory manifestationCategory, Set<ManifestationDays> manifestationDays, Location location) {
+    public Manifestation(String name, String description, LocalDateTime startTime, LocalDateTime endTime, ManifestationCategory manifestationCategory, Set<ManifestationDays> manifestationDays, Location location) {
         this.name = name;
         this.description = description;
         this.startTime = startTime;
+        this.endTime = endTime;
         this.manifestationCategory = manifestationCategory;
         this.manifestationDays = manifestationDays;
         this.location = location;
@@ -74,6 +77,14 @@ public class Manifestation {
         this.startTime = startTime;
     }
 
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
+    }
+
     public ManifestationCategory getManifestationCategory() {
         return manifestationCategory;
     }
@@ -105,6 +116,7 @@ public class Manifestation {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", startTime=" + startTime +
+                ", endTime=" + endTime +
                 ", manifestationCategory=" + manifestationCategory +
                 ", manifestationDays=" + manifestationDays +
                 ", location=" + location +

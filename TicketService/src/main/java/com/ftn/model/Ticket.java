@@ -37,7 +37,7 @@ public class Ticket {
     public Ticket(Integer rowNum, Integer seatNum, Reservation reservation,
                   ManifestationSector manifestationSector, ManifestationDays manifestationDays,
                   User user) {
-        this.rowNum = rowNum;
+            this.rowNum = rowNum;
         this.seatNum = seatNum;
         this.reservation = reservation;
         this.manifestationSector = manifestationSector;

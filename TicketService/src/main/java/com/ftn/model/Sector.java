@@ -25,11 +25,11 @@ public class Sector {
     public Sector() {
     }
 
-    public Sector(String sectorName, Integer seatsNumber, Integer rows, Integer columns, Location location) {
+    public Sector(String sectorName, Integer rows, Integer columns, Location location) {
         this.sectorName = sectorName;
-        this.seatsNumber = seatsNumber;
         this.rows = rows;
         this.columns = columns;
+        this.seatsNumber = rows*columns;
         this.location = location;
     }
 

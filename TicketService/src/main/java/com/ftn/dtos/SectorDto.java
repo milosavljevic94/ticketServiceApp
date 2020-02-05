@@ -19,7 +19,7 @@ public class SectorDto {
     public SectorDto() {
     }
 
-    public SectorDto(Sector sector) {
+    public  SectorDto(Sector sector) {
         this.id = sector.getId();
         this.sectorName = sector.getSectorName();
         this.seatsNumber = sector.getSeatsNumber();

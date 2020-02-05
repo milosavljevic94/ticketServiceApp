@@ -2,9 +2,9 @@ package com.ftn.service;
 
 
 import com.ftn.dtos.ReservationDto;
+import com.ftn.exceptions.EntityNotFoundException;
 import com.ftn.model.Reservation;
 import com.ftn.model.Ticket;
-import com.ftn.model.User;
 import com.ftn.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +30,8 @@ public class ReservationService {
     }
 
     public Reservation findOneReservation(Long id){
-        return reservationRepository.findById(id).orElse(null);
+        return reservationRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(
+                "Reservation with id : "+ id+" not found"));
     }
 
     public Optional<Reservation> findOneReservationOptional(Long id){

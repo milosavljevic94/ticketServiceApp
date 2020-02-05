@@ -1,6 +1,7 @@
 package com.ftn.service;
 
 import com.ftn.dtos.ManifestationDaysDto;
+import com.ftn.exceptions.EntityNotFoundException;
 import com.ftn.model.ManifestationDays;
 import com.ftn.repository.ManifestationDaysRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -21,7 +23,11 @@ public class ManifestationDayService {
     }
 
     public ManifestationDays findOneManifestationDays(Long id){
-        return manifestationDaysRepository.findById(id).orElse(null);
+        try {
+            return manifestationDaysRepository.findById(id).orElse(null);
+        }catch (NoSuchElementException e){
+            throw new EntityNotFoundException("Day of manifestation with id :" +id+"not found.");
+        }
     }
 
     public Optional<ManifestationDays> findOneManifestationDaysOptional(Long id){

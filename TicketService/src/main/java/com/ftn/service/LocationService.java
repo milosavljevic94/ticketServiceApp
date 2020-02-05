@@ -3,6 +3,8 @@ package com.ftn.service;
 import com.ftn.dtos.AddressDto;
 import com.ftn.dtos.LocationDto;
 import com.ftn.dtos.SectorDto;
+import com.ftn.exceptions.EntityAlreadyExistException;
+import com.ftn.exceptions.EntityNotFoundException;
 import com.ftn.model.Address;
 import com.ftn.model.Location;
 import com.ftn.model.Sector;
@@ -37,7 +39,12 @@ public class LocationService {
     }
 
     public Location findOneLocation(Long id){
-        return locationRepository.findById(id).orElse(null);
+
+        try {
+            return locationRepository.findById(id).orElse(null);
+        }catch (NoSuchElementException e){
+            throw new EntityNotFoundException("Location with id : "+ id +" not found.");
+        }
     }
 
     public Optional<Location> findOneLocationOptional(Long id){
@@ -50,8 +57,9 @@ public class LocationService {
 
     public void addLocationAndAddress(LocationDto locationDto){
 
+
         if(locationRepository.findByLocationName(locationDto.getLocationName()) != null){
-            System.out.println("Implement some exeption, already exist!");
+            throw new EntityAlreadyExistException("Location with that name already exist!");
         }
 
         Address address = mapFromDto(locationDto).getAddress();

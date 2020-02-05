@@ -1,6 +1,8 @@
 package com.ftn.service;
 
 import com.ftn.dtos.SectorDto;
+import com.ftn.exceptions.EntityNotFoundException;
+import com.ftn.exceptions.LocationNotFoundException;
 import com.ftn.model.Location;
 import com.ftn.model.Sector;
 import com.ftn.repository.SectorRepository;
@@ -26,7 +28,8 @@ public class SectorService {
     }
 
     public Sector findOneSector(Long id){
-        return sectorRepository.findById(id).orElse(null);
+        return sectorRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(
+                    "Sector with id : "+id+" not found."));
     }
 
     public Optional<Sector> findOneSectorOptional(Long id){
@@ -37,12 +40,11 @@ public class SectorService {
 
         Sector sector = new Sector();
 
+
         Location l = locationService.findOneLocation(sd.getLocationId());
 
         if(l == null){
-
-            System.out.println("Some exeption, location not found");
-
+            throw new LocationNotFoundException("Location not exits, pick another location.");
         }else{
             sector = mapFromDto(sd);
             sector.setLocation(l);
@@ -71,6 +73,10 @@ public class SectorService {
 
         Location l = locationService.findOneLocation(idLocation);
 
+        if(l == null){
+            throw new LocationNotFoundException("Location not exits, pick another location.");
+        }
+
         ArrayList<Sector> sectors = new ArrayList<Sector>();
 
         sectors.addAll(l.getSectors());
@@ -84,9 +90,7 @@ public class SectorService {
         Location l = locationService.findOneLocation(sd.getLocationId());
 
         if(l == null){
-
-            System.out.println("Some exeption, location not found");
-
+            throw new LocationNotFoundException("Location not exits, pick another location.");
         }
             Sector s = findOneSector(sd.getId());
 

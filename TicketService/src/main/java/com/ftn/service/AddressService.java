@@ -2,6 +2,7 @@ package com.ftn.service;
 
 
 import com.ftn.dtos.AddressDto;
+import com.ftn.exceptions.EntityNotFoundException;
 import com.ftn.model.Address;
 import com.ftn.repository.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -22,7 +24,11 @@ public class AddressService {
     }
 
     public Address findOneAddress(Long id){
-        return addressRepository.findById(id).orElse(null);
+        try {
+            return addressRepository.findById(id).orElse(null);
+        }catch (NoSuchElementException e){
+            throw new EntityNotFoundException("Address with id : "+ id +" not found.");
+        }
     }
 
     public Optional<Address> findOneAddressOptional(Long id){

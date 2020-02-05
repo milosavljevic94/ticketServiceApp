@@ -3,9 +3,10 @@ package com.ftn.service;
 import com.ftn.dtos.ManifestationDaysDto;
 import com.ftn.dtos.ManifestationDto;
 import com.ftn.dtos.ManifestationSectorPriceDto;
+import com.ftn.exceptions.DateException;
+import com.ftn.exceptions.EntityNotFoundException;
 import com.ftn.model.*;
 import com.ftn.repository.LocationRepository;
-import com.ftn.repository.ManifestationDaysRepository;
 import com.ftn.repository.ManifestationRepository;
 import com.ftn.repository.ManifestationSectorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,11 @@ public class ManifestationService {
     }
 
     public Manifestation findOneManifestation(Long id){
-        return manifestationRepository.findById(id).orElse(null);
+        try {
+            return manifestationRepository.findById(id).orElse(null);
+        }catch (NoSuchElementException e){
+            throw new EntityNotFoundException("Manifestation with id : " + id + "not found.");
+        }
     }
 
     public Optional<Manifestation> findOneManifestationOptional(Long id){
@@ -50,11 +55,16 @@ public class ManifestationService {
 
         LocalDateTime end = LocalDateTime.of(mDto.getEndTime().toLocalDate(), mDto.getEndTime().toLocalTime());
 
+        if(start.isAfter(end)){
+            throw new DateException("Start date is after end date, please insert correctly.");
+        }
+
         m.setStartTime(start);
 
         m.setEndTime(end);
 
-        Location l = locationRepository.findById(mDto.getLocationId()).orElse(null);
+        Location l = locationRepository.findById(mDto.getLocationId()).orElseThrow(()-> new EntityNotFoundException(
+                                                "Location with id: " + mDto.getLocationId() + "not found."));
 
         m.setLocation(l);
 
@@ -103,7 +113,8 @@ public class ManifestationService {
     public Manifestation updateManifestation(ManifestationDto mdto) {
 
 
-        Manifestation m = manifestationRepository.findById(mdto.getId()).orElse(null);
+        Manifestation m = manifestationRepository.findById(mdto.getId()).orElseThrow(()-> new EntityNotFoundException(
+                                            "Manifestation with id : "+mdto.getId()+" not found"));
 
         m.setName(mdto.getName());
         m.setDescription(mdto.getDescription());

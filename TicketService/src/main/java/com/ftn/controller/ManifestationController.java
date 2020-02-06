@@ -21,7 +21,7 @@ public class ManifestationController {
 
 
     @GetMapping(value = "/allManifestations")
-    public ResponseEntity<List<ManifestationDto>> getAllManifestations(){
+    public ResponseEntity<List<ManifestationDto>> getAllManifestations() {
 
         List<ManifestationDto> manifestationDtos = manifestationService.allToDto();
 
@@ -50,7 +50,7 @@ public class ManifestationController {
     }
 
     @PutMapping(value = "/updateManifestation", consumes = "application/json")
-    public ResponseEntity<ManifestationDto> updateManifestation(@RequestBody ManifestationDto mdto){
+    public ResponseEntity<ManifestationDto> updateManifestation(@RequestBody ManifestationDto mdto) {
 
         Manifestation m = manifestationService.updateManifestation(mdto);
 
@@ -59,7 +59,7 @@ public class ManifestationController {
 
     @PutMapping(value = "/addSectorPrice/{id}", consumes = "application/json")
     public ResponseEntity<ManifestationInfoDto> setSectorPriceForManifestation(
-                                            @PathVariable Long id, @RequestBody ManifestationSectorPriceDto sectorPriceDto){
+            @PathVariable Long id, @RequestBody ManifestationSectorPriceDto sectorPriceDto) {
 
         Manifestation m = manifestationService.setPriceForSectorAndDay(id, sectorPriceDto);
 
@@ -67,10 +67,17 @@ public class ManifestationController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<?> deleteManifestation(@PathVariable Long id){
+    public ResponseEntity<?> deleteManifestation(@PathVariable Long id) {
 
         manifestationService.deleteManifestation(id);
 
         return new ResponseEntity<>("Manifestation deleted successfully!", HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/manifestationPrices/{id}")
+    public ResponseEntity<List<ManifestationSectorPriceDto>> getManifestationPrices(@PathVariable Long id) {
+
+        List<ManifestationSectorPriceDto> prices = manifestationService.getPricesForManifestation(id);
+        return new ResponseEntity<>(prices, HttpStatus.OK);
     }
 }

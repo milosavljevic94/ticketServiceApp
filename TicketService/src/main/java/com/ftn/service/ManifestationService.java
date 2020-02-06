@@ -5,6 +5,7 @@ import com.ftn.dtos.ManifestationDto;
 import com.ftn.dtos.ManifestationSectorPriceDto;
 import com.ftn.exceptions.DateException;
 import com.ftn.exceptions.EntityNotFoundException;
+import com.ftn.exceptions.LocationNotFoundException;
 import com.ftn.model.*;
 import com.ftn.repository.LocationRepository;
 import com.ftn.repository.ManifestationRepository;
@@ -202,5 +203,23 @@ public class ManifestationService {
         manifestationSectorRepository.save(manSector);
 
         return m;
+    }
+
+    public List<ManifestationSectorPriceDto> getPricesForManifestation(Long id) {
+
+        Manifestation m = manifestationRepository.findById(id).orElseThrow(()-> new LocationNotFoundException(
+        "Location with id : "+id+"not found"));
+
+        List<ManifestationSectorPriceDto> prices = new ArrayList<>();
+        for(ManifestationDays md : m.getManifestationDays()) {
+            for(ManifestationSector s : md.getManifestationSectors()) {
+                ManifestationSectorPriceDto price = new ManifestationSectorPriceDto();
+                price.setDayId(md.getId());
+                price.setSectorId(s.getSector().getId());
+                price.setPrice(s.getPrice());
+                prices.add(price);
+            }
+        }
+        return prices;
     }
 }

@@ -36,10 +36,8 @@ public class TicketController {
     }
 
     @GetMapping(value = "/buyTicket")
-    //@PreAuthorize("hasRole('USER')")
+    //@PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<TicketDto> buyTicketMakeNewTicket(@RequestBody BuyTicketDto ticketToBuy) {
-
-        System.out.println("Principal u kontroleru : "+ SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
         Ticket t = ticketService.buyTicket(ticketToBuy);
 

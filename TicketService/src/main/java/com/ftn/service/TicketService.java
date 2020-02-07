@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,63 +32,62 @@ public class TicketService {
     @Autowired
     ManifestationDayService manDayService;
 
-    public List<Ticket> finfAllTickets(){
+    public List<Ticket> finfAllTickets() {
         return ticketRepository.findAll();
     }
 
-    public Ticket findOneTicket(Long id){
+    public Ticket findOneTicket(Long id) {
         return ticketRepository.findById(id).orElse(null);
     }
 
-    public void addTicket(Ticket t){
+    public void addTicket(Ticket t) {
         ticketRepository.save(t);
     }
 
-    public void updateTicket(TicketDto ticketDto){
+    public void updateTicket(TicketDto ticketDto) {
         Ticket t = findOneTicket(ticketDto.getId());
         t.setRowNum(ticketDto.getRowNum());
         t.setSeatNum(ticketDto.getSeatNum());
-        if(ticketDto.getReservation() != null) {
+        if (ticketDto.getReservation() != null) {
             t.setReservation(reservationService.findOneReservation(ticketDto.getReservation().getId()));
-        }else{
+        } else {
             t.setReservation(null);
         }
         addTicket(t);
     }
 
-    public void deleteTicket(Long id){
+    public void deleteTicket(Long id) {
         ticketRepository.deleteById(id);
     }
 
-    public void deleteAll(){
+    public void deleteAll() {
         ticketRepository.deleteAll();
     }
 
-    public Boolean ifExist(Long id){
+    public Boolean ifExist(Long id) {
         return ticketRepository.existsById(id);
     }
 
-    public TicketDto mapToDTO(Ticket ticket){
+    public TicketDto mapToDTO(Ticket ticket) {
 
         TicketDto tDto = new TicketDto(ticket);
 
         return tDto;
     }
 
-    private Ticket createNewTicket(SeatWithPriceDto seatPrice, ManifestationDays md){
+    private Ticket createNewTicket(SeatWithPriceDto seatPrice, ManifestationDays md) {
 
         ManifestationSector ms = mSectorService.getSectorPriceById(seatPrice.getManSectorId());
         Sector s = ms.getSector();
 
         int numTicketForSectorAndDay = 0;
         List<Ticket> ticketsCheck = ticketRepository.findAll();
-        if(!ticketsCheck.isEmpty()) {
+        if (!ticketsCheck.isEmpty()) {
             for (Ticket t : ticketsCheck) {
                 if (t.getManifestationDays().getId() == md.getId() && t.getManifestationSector().getSector().getId() == s.getId()) {
                     numTicketForSectorAndDay++;
                 }
             }
-
 
             if (numTicketForSectorAndDay + 1 > s.getSeatsNumber()) {
                 throw new SectorIsFullException("Sector with id : " + s.getId() + "is full, try another sector.");
@@ -98,12 +98,7 @@ public class TicketService {
             If sector have free seats find logged user and save new ticket.
          */
 
-        //Ovde mi teba user
-
-        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-        String username = loggedInUser.getName();
-
-        User u = userService.findByUsername(username);
+        User u = userService.getloggedInUser();
 
         Ticket t = new Ticket();
         t.setUser(u);
@@ -118,7 +113,7 @@ public class TicketService {
         return t;
     }
 
-    public Ticket buyTicket(BuyTicketDto ticketToBuy){
+    public Ticket buyTicket(BuyTicketDto ticketToBuy) {
 
         ManifestationDays md = manDayService.findOneManifestationDays(ticketToBuy.getDayId());
 
@@ -127,7 +122,7 @@ public class TicketService {
         return t;
     }
 
-    public List<TicketDto> allToDto(){
+    public List<TicketDto> allToDto() {
 
         List<Ticket> tickets = finfAllTickets();
         List<TicketDto> tdto = new ArrayList<>();

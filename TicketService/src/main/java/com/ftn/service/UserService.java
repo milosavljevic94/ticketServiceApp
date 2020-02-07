@@ -14,6 +14,8 @@ import com.ftn.security.TokenUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -163,4 +165,14 @@ public class UserService{
         userRepository.save(user);
         return userToUserDtoRes(user);
 	}
+
+	public User getloggedInUser(){
+
+        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+        String username = loggedInUser.getName();
+
+        User u = findByUsername(username);
+
+        return u;
+    }
 }

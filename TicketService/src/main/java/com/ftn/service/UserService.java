@@ -156,8 +156,10 @@ public class UserService{
         user.setActive(true); //TO:DO
         String token = TokenUtils.generateToken();
         user.setConfirmationToken(token);
-        Role role = roleRepository.getOne((long) RoleEnum.USER.getValue());
-        user.setRole(role);
+        //Role role = roleRepository.getOne((long) RoleEnum.USER.getValue());
+        Role r = roleRepository.getOne(userDto.getRole().getId());
+        user.setRole(r);
+        //user.setRole(role);
         userRepository.save(user);
         return userToUserDtoRes(user);
 	}

@@ -34,4 +34,12 @@ public class ExceptionsHandlers {
         ExceptionMessage exeptionMessage = new ExceptionMessage(e.getMessage(), status);
         return new ResponseEntity<>(exeptionMessage, status);
     }
+
+    @ExceptionHandler(value = SectorIsFullException.class)
+    public ResponseEntity<ExceptionMessage> fullSectorExceptionHandler(Exception e){
+
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        ExceptionMessage exeptionMessage = new ExceptionMessage(e.getMessage(), status);
+        return new ResponseEntity<>(exeptionMessage, status);
+    }
 }

@@ -1,11 +1,16 @@
 package com.ftn.controller;
 
 
+import com.ftn.dtos.BuyTicketDto;
 import com.ftn.dtos.TicketDto;
+import com.ftn.model.Ticket;
+import com.ftn.model.User;
 import com.ftn.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -28,6 +33,17 @@ public class TicketController {
     public ResponseEntity<TicketDto> getTicket(@PathVariable Long id) {
 
         return new ResponseEntity<>(new TicketDto(ticketService.findOneTicket(id)), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/buyTicket")
+    //@PreAuthorize("hasRole('USER')")
+    public ResponseEntity<TicketDto> buyTicketMakeNewTicket(@RequestBody BuyTicketDto ticketToBuy) {
+
+        System.out.println("Principal u kontroleru : "+ SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+
+        Ticket t = ticketService.buyTicket(ticketToBuy);
+
+        return new ResponseEntity<>(new TicketDto(t), HttpStatus.OK);
     }
 
     @PostMapping(value = "/addTicket", consumes = "application/json")

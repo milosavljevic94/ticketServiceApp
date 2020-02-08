@@ -57,11 +57,11 @@ public class ManifestationController {
         return new ResponseEntity<>(manifestationService.mapToDTO(m), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/addSectorPrice/{id}", consumes = "application/json")
+    @PutMapping(value = "/addSectorPrice/{manifestationId}", consumes = "application/json")
     public ResponseEntity<ManifestationInfoDto> setSectorPriceForManifestation(
-            @PathVariable Long id, @RequestBody ManifestationSectorPriceDto sectorPriceDto) {
+            @PathVariable Long manifestationId, @RequestBody ManifestationSectorPriceDto sectorPriceDto) {
 
-        Manifestation m = manifestationService.setPriceForSectorAndDay(id, sectorPriceDto);
+        Manifestation m = manifestationService.setPriceForSectorAndDay(manifestationId, sectorPriceDto);
 
         return new ResponseEntity<>(new ManifestationInfoDto(m), HttpStatus.OK);
     }

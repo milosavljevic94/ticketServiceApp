@@ -42,4 +42,20 @@ public class ExceptionsHandlers {
         ExceptionMessage exeptionMessage = new ExceptionMessage(e.getMessage(), status);
         return new ResponseEntity<>(exeptionMessage, status);
     }
+
+    @ExceptionHandler(value = SeatIsNotFreeException.class)
+    public ResponseEntity<ExceptionMessage> seatNotFreeExceptionHandler(Exception e){
+
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        ExceptionMessage exeptionMessage = new ExceptionMessage(e.getMessage(), status);
+        return new ResponseEntity<>(exeptionMessage, status);
+    }
+
+    @ExceptionHandler(value = AplicationException.class)
+    public ResponseEntity<ExceptionMessage> aplicationExceptionsExceptionHandler(Exception e){
+
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        ExceptionMessage exeptionMessage = new ExceptionMessage(e.getMessage(), status);
+        return new ResponseEntity<>(exeptionMessage, status);
+    }
 }

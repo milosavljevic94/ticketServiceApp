@@ -3,6 +3,7 @@ package com.ftn.service;
 import com.ftn.dtos.ManifestationDaysDto;
 import com.ftn.dtos.ManifestationDto;
 import com.ftn.dtos.ManifestationSectorPriceDto;
+import com.ftn.exceptions.AplicationException;
 import com.ftn.exceptions.DateException;
 import com.ftn.exceptions.EntityNotFoundException;
 import com.ftn.exceptions.LocationNotFoundException;
@@ -93,7 +94,7 @@ public class ManifestationService {
             }
             m.setManifestationDays(mds);
         }else{
-            System.out.println("You have "+daysNumber+" days to insert!");
+            throw new AplicationException("You have  "+daysNumber+"  days to insert!");
         }
 
         return m;

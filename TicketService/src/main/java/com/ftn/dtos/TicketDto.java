@@ -10,6 +10,8 @@ public class TicketDto {
 
     private Integer seatNum;
 
+    private Boolean purchaseConfirmed;
+
     private ReservationDto reservation;
 
     public TicketDto(){}
@@ -19,6 +21,7 @@ public class TicketDto {
         this.id = ticket.getId();
         this.rowNum = ticket.getRowNum();
         this.seatNum = ticket.getSeatNum();
+        this.purchaseConfirmed = ticket.getPurchaseConfirmed();
         if(ticket.getReservation() != null) {
             ReservationDto reservationDto = new ReservationDto();
             reservationDto.setId(ticket.getReservation().getId());
@@ -59,6 +62,14 @@ public class TicketDto {
 
     public void setSeatNum(Integer seatNum) {
         this.seatNum = seatNum;
+    }
+
+    public Boolean getPurchaseConfirmed() {
+        return purchaseConfirmed;
+    }
+
+    public void setPurchaseConfirmed(Boolean purchaseConfirmed) {
+        this.purchaseConfirmed = purchaseConfirmed;
     }
 
     public ReservationDto getReservation() {

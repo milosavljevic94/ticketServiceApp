@@ -14,6 +14,8 @@ public class Ticket {
 
     private Integer seatNum;
 
+    private Boolean purchaseConfirmed;
+
     @OneToOne(mappedBy = "ticket")
     private Reservation reservation;
 
@@ -34,11 +36,12 @@ public class Ticket {
     public Ticket() {
     }
 
-    public Ticket(Integer rowNum, Integer seatNum, Reservation reservation,
+    public Ticket(Integer rowNum, Integer seatNum, Boolean purchaseConfirmed, Reservation reservation,
                   ManifestationSector manifestationSector, ManifestationDays manifestationDays,
                   User user) {
-            this.rowNum = rowNum;
+        this.rowNum = rowNum;
         this.seatNum = seatNum;
+        this.purchaseConfirmed = purchaseConfirmed;
         this.reservation = reservation;
         this.manifestationSector = manifestationSector;
         this.manifestationDays = manifestationDays;
@@ -67,6 +70,14 @@ public class Ticket {
 
     public void setSeatNum(Integer seatNum) {
         this.seatNum = seatNum;
+    }
+
+    public Boolean getPurchaseConfirmed() {
+        return purchaseConfirmed;
+    }
+
+    public void setPurchaseConfirmed(Boolean purchaseConfirmed) {
+        this.purchaseConfirmed = purchaseConfirmed;
     }
 
     public Reservation getReservation() {
@@ -107,6 +118,7 @@ public class Ticket {
                 "id=" + id +
                 ", rowNum=" + rowNum +
                 ", seatNum=" + seatNum +
+                ", purchaseConfirmed=" + purchaseConfirmed +
                 ", reservation=" + reservation +
                 ", manifestationSector=" + manifestationSector +
                 ", manifestationDays=" + manifestationDays +

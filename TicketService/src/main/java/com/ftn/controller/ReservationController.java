@@ -25,6 +25,14 @@ public class ReservationController {
         return new ResponseEntity<>(reservationDtos, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/allUserReservation")
+    public ResponseEntity<List<ReservationDto>> getAllReservationForUser(){
+
+        List<ReservationDto> reservationDtos = reservationService.reservationOfUser();
+
+        return new ResponseEntity<>(reservationDtos, HttpStatus.OK);
+    }
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<ReservationDto> getReservation(@PathVariable Long id) {
 
@@ -47,12 +55,12 @@ public class ReservationController {
         return new ResponseEntity<>(new ReservationDto(reservationService.mapFromDto(reservationDto)), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping(value = "cancelReservation/{id}")
     public ResponseEntity<?> deleteReservation(@PathVariable Long id){
 
         reservationService.deleteReservation(id);
 
-        return new ResponseEntity<>("Reservation deleted successfully!",HttpStatus.OK);
+        return new ResponseEntity<>("Reservation and ticket deleted successfully!",HttpStatus.OK);
     }
 
 }

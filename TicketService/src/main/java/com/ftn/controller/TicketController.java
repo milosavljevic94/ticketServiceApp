@@ -1,11 +1,19 @@
 package com.ftn.controller;
 
 
+import com.ftn.dtos.BuyTicketDto;
+import com.ftn.dtos.ReservationDto;
 import com.ftn.dtos.TicketDto;
+import com.ftn.model.Reservation;
+import com.ftn.model.Ticket;
+import com.ftn.model.User;
 import com.ftn.service.TicketService;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -24,11 +32,48 @@ public class TicketController {
         return new ResponseEntity<>(ticketDtos, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/allUserTicket")
+    public ResponseEntity<List<TicketDto>> getAllTicketOfUser(){
+
+        List<TicketDto> ticketDtos = ticketService.ticketsOfUser();
+
+        return new ResponseEntity<>(ticketDtos, HttpStatus.OK);
+    }
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<TicketDto> getTicket(@PathVariable Long id) {
 
         return new ResponseEntity<>(new TicketDto(ticketService.findOneTicket(id)), HttpStatus.OK);
     }
+
+    @GetMapping(value = "/buyTicket")
+    //@PreAuthorize("hasRole('ROLE_USER')")
+    public ResponseEntity<TicketDto> buyTicketMakeNewTicket(@RequestBody BuyTicketDto ticketToBuy) {
+
+        Ticket t = ticketService.buyTicket(ticketToBuy);
+
+        return new ResponseEntity<>(new TicketDto(t), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/reserveTicket")
+    //@PreAuthorize("hasRole('ROLE_USER')")
+    public ResponseEntity<ReservationDto> reserveTicketMakeNewTicket(@RequestBody BuyTicketDto ticketToReserve) {
+
+        Reservation r = ticketService.reserveTicket(ticketToReserve);
+
+        return new ResponseEntity<>(new ReservationDto(r), HttpStatus.OK);
+    }
+
+
+    @GetMapping(value = "/buyReservedTicket/{idReservation}")
+    //@PreAuthorize("hasRole('ROLE_USER')")
+    public ResponseEntity<TicketDto> buyReservedTicket(@PathVariable Long idReservation) {
+
+        Ticket t = ticketService.buyReservedTicket(idReservation);
+
+        return new ResponseEntity<>(new TicketDto(t), HttpStatus.OK);
+    }
+
 
     @PostMapping(value = "/addTicket", consumes = "application/json")
     public ResponseEntity<TicketDto> addTicket(@RequestBody TicketDto ticketDto) {

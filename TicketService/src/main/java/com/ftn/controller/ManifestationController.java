@@ -21,7 +21,7 @@ public class ManifestationController {
 
 
     @GetMapping(value = "/allManifestations")
-    public ResponseEntity<List<ManifestationDto>> getAllManifestations(){
+    public ResponseEntity<List<ManifestationDto>> getAllManifestations() {
 
         List<ManifestationDto> manifestationDtos = manifestationService.allToDto();
 
@@ -50,27 +50,34 @@ public class ManifestationController {
     }
 
     @PutMapping(value = "/updateManifestation", consumes = "application/json")
-    public ResponseEntity<ManifestationDto> updateManifestation(@RequestBody ManifestationDto mdto){
+    public ResponseEntity<ManifestationDto> updateManifestation(@RequestBody ManifestationDto mdto) {
 
         Manifestation m = manifestationService.updateManifestation(mdto);
 
         return new ResponseEntity<>(manifestationService.mapToDTO(m), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/addSectorPrice/{id}", consumes = "application/json")
+    @PutMapping(value = "/addSectorPrice/{manifestationId}", consumes = "application/json")
     public ResponseEntity<ManifestationInfoDto> setSectorPriceForManifestation(
-                                            @PathVariable Long id, @RequestBody ManifestationSectorPriceDto sectorPriceDto){
+            @PathVariable Long manifestationId, @RequestBody ManifestationSectorPriceDto sectorPriceDto) {
 
-        Manifestation m = manifestationService.setPriceForSectorAndDay(id, sectorPriceDto);
+        Manifestation m = manifestationService.setPriceForSectorAndDay(manifestationId, sectorPriceDto);
 
         return new ResponseEntity<>(new ManifestationInfoDto(m), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<?> deleteManifestation(@PathVariable Long id){
+    public ResponseEntity<?> deleteManifestation(@PathVariable Long id) {
 
         manifestationService.deleteManifestation(id);
 
         return new ResponseEntity<>("Manifestation deleted successfully!", HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/manifestationPrices/{id}")
+    public ResponseEntity<List<ManifestationSectorPriceDto>> getManifestationPrices(@PathVariable Long id) {
+
+        List<ManifestationSectorPriceDto> prices = manifestationService.getPricesForManifestation(id);
+        return new ResponseEntity<>(prices, HttpStatus.OK);
     }
 }

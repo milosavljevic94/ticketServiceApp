@@ -14,6 +14,8 @@ import com.ftn.security.TokenUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -156,9 +158,21 @@ public class UserService{
         user.setActive(true); //TO:DO
         String token = TokenUtils.generateToken();
         user.setConfirmationToken(token);
-        Role role = roleRepository.getOne((long) RoleEnum.USER.getValue());
-        user.setRole(role);
+        //Role role = roleRepository.getOne((long) RoleEnum.USER.getValue());
+        Role r = roleRepository.getOne(userDto.getRole().getId());
+        user.setRole(r);
+        //user.setRole(role);
         userRepository.save(user);
         return userToUserDtoRes(user);
 	}
+
+	public User getloggedInUser(){
+
+        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+        String username = loggedInUser.getName();
+
+        User u = findByUsername(username);
+
+        return u;
+    }
 }

@@ -21,14 +21,9 @@ insert into user(email, username, active, first_name, last_name, password,role_i
 values ('ana@gmail.com', 'anaBoot', true, 'Ana', 'Anic', '$2y$12$WTnOKP18KP5.DlI90hoThuFhFPkqwfzNVGjWZk3rcPRjALx.gPhza', 2, 'dfadasd.da.da', '$2y$12$WTnOKP18KP5.DlI90hoThuFhFPkqwfzNVGjWZk3rcPRjALx.gPhza');
 
 #Test data for ticket
-insert into ticket(row_num, seat_num)
-values(12,4);
+insert into ticket(purchase_confirmed, row_num, seat_num, manifestation_days_id, manifestation_sector_id, user_id)
+values(true, 2, 14, 3, 19, 6);
 
-insert into ticket(row_num, seat_num)
-values(11,22);
-
-insert into ticket(row_num, seat_num)
-values(13,33);
 
 #Test data for reservations
 insert into reservation(active, exp_days, ticket_id, user_id)

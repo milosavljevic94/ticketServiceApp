@@ -1,6 +1,8 @@
 package com.ftn.controller;
 
 import com.ftn.dtos.LocationDto;
+import com.ftn.dtos.ManifestationDto;
+import com.ftn.dtos.ManifestationInfoDto;
 import com.ftn.dtos.SectorDto;
 import com.ftn.model.Location;
 import com.ftn.model.Sector;
@@ -31,6 +33,14 @@ public class LocationController {
     public ResponseEntity<LocationDto> getLocation(@PathVariable Long id) {
 
         return new ResponseEntity<>(new LocationDto(locationService.findOneLocation(id)), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "getLocationManifestations/{idLocation}")
+    public ResponseEntity<List<ManifestationInfoDto>> getManifestationsOfLocation(@PathVariable Long idLocation) {
+
+        List<ManifestationInfoDto> mdtos = locationService.getManifestationsOfLocation(idLocation);
+
+        return new ResponseEntity<>(mdtos, HttpStatus.OK);
     }
 
     @PostMapping(value = "/addLocation", consumes = "application/json")

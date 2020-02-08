@@ -1,12 +1,11 @@
 package com.ftn.service;
 
-import com.ftn.dtos.AddressDto;
-import com.ftn.dtos.LocationDto;
-import com.ftn.dtos.SectorDto;
+import com.ftn.dtos.*;
 import com.ftn.exceptions.EntityAlreadyExistException;
 import com.ftn.exceptions.EntityNotFoundException;
 import com.ftn.model.Address;
 import com.ftn.model.Location;
+import com.ftn.model.Manifestation;
 import com.ftn.model.Sector;
 import com.ftn.repository.AddressRepository;
 import com.ftn.repository.LocationRepository;
@@ -14,6 +13,7 @@ import com.ftn.repository.SectorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -157,5 +157,21 @@ public class LocationService {
         location.setAddress(addressService.mapFromDto(locationDto.getAddress()));
 
         return location;
+    }
+
+    public List<ManifestationInfoDto> getManifestationsOfLocation(Long idLocation) {
+
+        Location l = findOneLocationOptional(idLocation).orElseThrow(()-> new EntityNotFoundException("Location with  id : " +idLocation +" not found."));
+
+        List<Manifestation> manifestations  = new ArrayList<>();
+        manifestations.addAll(l.getManifestations());
+
+        List<ManifestationInfoDto> manInfo = new ArrayList<>();
+
+        for(Manifestation m : manifestations){
+            manInfo.add( new ManifestationInfoDto(m));
+        }
+
+        return manInfo;
     }
 }

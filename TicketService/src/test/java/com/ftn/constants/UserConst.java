@@ -11,4 +11,12 @@ public class UserConst {
 
     public static final String FAKE_EMAIL = "fake.email@smsms.com";
 
+
+    public static final int ID = 2;
+
+
+    public static final String USERNAME = "stefaBot";
+    public static final String FIRST_NAME = "Stefan";
+    public static final String LAST_NAME = "Stefic";
+    public static final String EMAIL = "stefa@gmail.com";
 }

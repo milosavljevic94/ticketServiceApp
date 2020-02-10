@@ -1,9 +1,8 @@
 package com.ftn.service;
 
-import com.ftn.dtos.RegistrationDTO;
 import com.ftn.dtos.UserDto;
 import com.ftn.dtos.UserDtoRes;
-import com.ftn.enums.RoleEnum;
+import com.ftn.exceptions.AplicationException;
 import com.ftn.exceptions.EmailExistsException;
 import com.ftn.model.Role;
 import com.ftn.model.User;
@@ -11,7 +10,6 @@ import com.ftn.repository.RoleRepository;
 import com.ftn.repository.UserRepository;
 import com.ftn.security.SecurityConfiguration;
 import com.ftn.security.TokenUtils;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -36,7 +34,6 @@ public class UserService{
     
     @Autowired
     SecurityConfiguration configuration;
-
 
     public List<User> finfAllUsers() {
         return userRepository.findAll();
@@ -76,6 +73,11 @@ public class UserService{
 
         User u = findOneUser(userDto.getId());
 
+        if(u.getEmail() == userDto.getEmail()){
+            throw new AplicationException("This email: "+userDto.getEmail()+" is already used.");
+        }
+
+
         u.setId(userDto.getId());
 
         if(userDto.getFirstName() != null)
@@ -83,6 +85,9 @@ public class UserService{
 
         if(userDto.getLastName() != null)
             u.setLastName(userDto.getLastName());
+
+       if(userDto.getEmail() != null)
+           u.setEmail(userDto.getEmail());
 
         saveUser(u);
    }

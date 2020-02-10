@@ -15,12 +15,16 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -30,6 +34,9 @@ public class UserServiceTest {
 
     @Autowired
     UserRepository userRepository;
+
+    @MockBean
+    UserRepository userRepositoryMocked;
 
     @Autowired
     RoleRepository roleRepository;
@@ -98,4 +105,69 @@ public class UserServiceTest {
         assertEquals(res.getActive(), true);
 
     }
+
+    //Test method for find all users.
+    @Test
+    public void getAllUsersTest(){
+        List<User> users = new ArrayList<>();
+        User u1 = new User();
+        u1.setId(11L);
+        u1.setUsername("nsername1");
+
+        User u2 = new User();
+        u2.setId(22L);
+        u2.setUsername("username2");
+
+        User u3 = new User();
+        u3.setId(33L);
+        u3.setUsername("username3");
+
+        users.add(u1);
+        users.add(u2);
+        users.add(u3);
+
+
+        Mockito.when(userRepositoryMocked.findAll()).thenReturn(users);
+        List<User> result = userService.finfAllUsers();
+
+        assertEquals(users.size(), result.size());
+        assertEquals(u1.getId(),result.get(0).getId());
+        assertEquals(u1.getUsername(),result.get(0).getUsername());
+
+
+        assertEquals(u2.getId(),result.get(1).getId());
+        assertEquals(u2.getUsername(),result.get(1).getUsername());
+
+        assertEquals(u3.getId(),result.get(2).getId());
+        assertEquals(u3.getUsername(),result.get(2).getUsername());
+
+    }
+
+    /*
+    //Update user test, when email already used
+    @Test(expected = AplicationException.class)
+    public void updateUser_whenEmailExist(){
+
+        User user2 = new User();
+        user2.setId(33L);
+        user2.setFirstName("Pera");
+        user2.setLastName("Peric");
+        user2.setEmail("pera@gmail.com");
+        userRepositoryMocked.save(user2);
+
+        UserDto dto = new UserDto();
+        dto.setId(33L);
+        dto.setEmail("pera@gmail.com");
+        dto.setFirstName("Petar");
+        dto.setLastName("Petrovic");
+
+        Mockito.when(userRepositoryMocked.findByEmail("pera@gmail.com")).thenReturn(user2);
+
+        userService.updateUserBasicFields(dto);
+    }
+    */
+
+
+
+
 }

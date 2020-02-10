@@ -1,6 +1,7 @@
 package com.ftn.model;
 
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLDeleteAll;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.Set;
 @Entity
 @Table(name = "user")
 @SQLDelete(sql = "UPDATE user " + "SET active = false " + "WHERE id = ?")
+@SQLDeleteAll(sql = "DELETE FROM user WHERE id IN (?)")
 @Where(clause = "active = true")
 public class User {
 
@@ -18,7 +20,7 @@ public class User {
     private Long id;
 
     private String email;
-    
+
     @Column(nullable = false, unique = true)
     private String username;
 
@@ -27,7 +29,7 @@ public class User {
     private String lastName;
 
     private String password;
-    
+
     private String matchingPassword;
 
     @ManyToOne
@@ -35,9 +37,9 @@ public class User {
     private Role role;
 
     private Boolean active;
-    
+
     @Column(name = "confirmation_token")
-	private String confirmationToken;
+    private String confirmationToken;
 
     //If user want to reserve ticket.
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
@@ -71,18 +73,17 @@ public class User {
     public void setId(Long id) {
         this.id = id;
     }
-    
-    
+
 
     public String getUsername() {
-		return username;
-	}
+        return username;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public String getEmail() {
+    public String getEmail() {
         return email;
     }
 
@@ -113,18 +114,17 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    
+
 
     public String getMatchingPassword() {
-		return matchingPassword;
-	}
+        return matchingPassword;
+    }
 
-	public void setMatchingPassword(String matchingPassword) {
-		this.matchingPassword = matchingPassword;
-	}
+    public void setMatchingPassword(String matchingPassword) {
+        this.matchingPassword = matchingPassword;
+    }
 
-	public Boolean getActive() {
+    public Boolean getActive() {
         return active;
     }
 
@@ -147,14 +147,14 @@ public class User {
     public void setReservations(Set<Reservation> reservations) {
         this.reservations = reservations;
     }
-    
-    public String getConfirmationToken() {
-		return confirmationToken;
-	}
 
-	public void setConfirmationToken(String confirmationToken) {
-		this.confirmationToken = confirmationToken;
-	}
+    public String getConfirmationToken() {
+        return confirmationToken;
+    }
+
+    public void setConfirmationToken(String confirmationToken) {
+        this.confirmationToken = confirmationToken;
+    }
 
     public Set<Ticket> getTickets() {
         return tickets;

@@ -209,7 +209,7 @@ public class ManifestationService {
     public List<ManifestationSectorPriceDto> getPricesForManifestation(Long id) {
 
         Manifestation m = manifestationRepository.findById(id).orElseThrow(()-> new LocationNotFoundException(
-        "Location with id : "+id+"not found"));
+        "Manifestation with id : "+id+" not found"));
 
         List<ManifestationSectorPriceDto> prices = new ArrayList<>();
         for(ManifestationDays md : m.getManifestationDays()) {

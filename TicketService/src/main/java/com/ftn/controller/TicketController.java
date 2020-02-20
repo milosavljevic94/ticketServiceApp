@@ -4,17 +4,15 @@ package com.ftn.controller;
 import com.ftn.dtos.BuyTicketDto;
 import com.ftn.dtos.ReservationDto;
 import com.ftn.dtos.TicketDto;
+import com.ftn.dtos.TicketReportDto;
 import com.ftn.model.Reservation;
 import com.ftn.model.Ticket;
-import com.ftn.model.User;
 import com.ftn.service.TicketService;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -98,4 +96,51 @@ public class TicketController {
 
         return new ResponseEntity<>("Ticket deleted successfully!", HttpStatus.OK);
     }
+
+    @PostMapping(value = "/reportDayLocation/{idLocation}")
+    //@PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<TicketReportDto> reportForDayOnLocation(@PathVariable Long idLocation, @RequestBody String date) {
+
+        TicketReportDto report = ticketService.makeReportDayLocation(idLocation, date);
+
+        return new ResponseEntity<TicketReportDto>(report, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/reportMonthLocation/{idLocation}")
+    //@PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<TicketReportDto> reportForMonthOnLocation(@PathVariable Long idLocation, @RequestBody String date) {
+
+        TicketReportDto report = ticketService.makeReportMonthLocation(idLocation, date);
+
+        return new ResponseEntity<TicketReportDto>(report, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/reportYearLocation/{idLocation}")
+    //@PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<TicketReportDto> reportForYearOnLocation(@PathVariable Long idLocation, @RequestBody String date) {
+
+        TicketReportDto report = ticketService.makeReportYearLocation(idLocation, date);
+
+        return new ResponseEntity<TicketReportDto>(report, HttpStatus.OK);
+    }
+
+
+    @PostMapping(value = "/reportDayManifestation/{idMan}")
+    //@PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<TicketReportDto> reportForDayOfManifestation(@PathVariable Long idMan, @RequestBody Long idDayManifestation) {
+
+        TicketReportDto report = ticketService.makeReportDayManifestation(idMan, idDayManifestation);
+
+        return new ResponseEntity<TicketReportDto>(report, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/reportManifestation/{idMan}")
+    //@PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<TicketReportDto> reportForWholeManifestation(@PathVariable Long idMan) {
+
+        TicketReportDto report = ticketService.makeReportWholeManifestation(idMan);
+
+        return new ResponseEntity<TicketReportDto>(report, HttpStatus.OK);
+    }
+
 }

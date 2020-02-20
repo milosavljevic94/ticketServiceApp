@@ -2,6 +2,8 @@ package com.ftn.dtos;
 
 import com.ftn.model.Ticket;
 
+import java.time.LocalDateTime;
+
 public class TicketDto {
 
     private Long id;
@@ -11,6 +13,8 @@ public class TicketDto {
     private Integer seatNum;
 
     private Boolean purchaseConfirmed;
+
+    private LocalDateTime purchaseTime;
 
     private ReservationDto reservation;
 
@@ -22,6 +26,7 @@ public class TicketDto {
         this.rowNum = ticket.getRowNum();
         this.seatNum = ticket.getSeatNum();
         this.purchaseConfirmed = ticket.getPurchaseConfirmed();
+        this.purchaseTime = ticket.getPurchaseTime();
         if(ticket.getReservation() != null) {
             ReservationDto reservationDto = new ReservationDto();
             reservationDto.setId(ticket.getReservation().getId());
@@ -72,6 +77,14 @@ public class TicketDto {
         this.purchaseConfirmed = purchaseConfirmed;
     }
 
+    public LocalDateTime getPurchaseTime() {
+        return purchaseTime;
+    }
+
+    public void setPurchaseTime(LocalDateTime purchaseTime) {
+        this.purchaseTime = purchaseTime;
+    }
+
     public ReservationDto getReservation() {
         return reservation;
     }
@@ -83,10 +96,10 @@ public class TicketDto {
     @Override
     public String toString() {
         return "TicketDto{" +
-                "id=" + id +
-                ", rowNum=" + rowNum +
+                "rowNum=" + rowNum +
                 ", seatNum=" + seatNum +
-                ", reservation=" + reservation +
+                ", purchaseConfirmed=" + purchaseConfirmed +
+                ", purchaseTime=" + purchaseTime +
                 '}';
     }
 }

@@ -40,6 +40,7 @@ public class ManifestationDto {
             Set<ManifestationDaysDto> manDaysDtos = new HashSet<>();
             for(ManifestationDays md : manifestation.getManifestationDays()){
                 ManifestationDaysDto manDayDto = new ManifestationDaysDto();
+                manDayDto.setId(md.getId());
                 manDayDto.setName(md.getName());
                 manDayDto.setDescription(md.getDescription());
                 manDayDto.setStartTime(md.getStartTime());

@@ -1,6 +1,7 @@
 package com.ftn.model;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "ticket")
@@ -16,10 +17,12 @@ public class Ticket {
 
     private Boolean purchaseConfirmed;
 
+    private LocalDateTime purchaseTime;
+
     @OneToOne(mappedBy = "ticket")
     private Reservation reservation;
 
-    //To Do : relation to ManSec and ManDays.
+    //Relation to Manifestation Sector and Manifestation Days.
 
     @ManyToOne
     @JoinColumn(name = "manifestationSector_id", referencedColumnName = "id")
@@ -36,12 +39,13 @@ public class Ticket {
     public Ticket() {
     }
 
-    public Ticket(Integer rowNum, Integer seatNum, Boolean purchaseConfirmed, Reservation reservation,
+    public Ticket(Integer rowNum, Integer seatNum, Boolean purchaseConfirmed, LocalDateTime purchaseTime, Reservation reservation,
                   ManifestationSector manifestationSector, ManifestationDays manifestationDays,
                   User user) {
         this.rowNum = rowNum;
         this.seatNum = seatNum;
         this.purchaseConfirmed = purchaseConfirmed;
+        this.purchaseTime = purchaseTime;
         this.reservation = reservation;
         this.manifestationSector = manifestationSector;
         this.manifestationDays = manifestationDays;
@@ -78,6 +82,14 @@ public class Ticket {
 
     public void setPurchaseConfirmed(Boolean purchaseConfirmed) {
         this.purchaseConfirmed = purchaseConfirmed;
+    }
+
+    public LocalDateTime getPurchaseTime() {
+        return purchaseTime;
+    }
+
+    public void setPurchaseTime(LocalDateTime purchaseTime) {
+        this.purchaseTime = purchaseTime;
     }
 
     public Reservation getReservation() {
@@ -119,6 +131,7 @@ public class Ticket {
                 ", rowNum=" + rowNum +
                 ", seatNum=" + seatNum +
                 ", purchaseConfirmed=" + purchaseConfirmed +
+                ", purchaseTime=" + purchaseTime +
                 ", reservation=" + reservation +
                 ", manifestationSector=" + manifestationSector +
                 ", manifestationDays=" + manifestationDays +

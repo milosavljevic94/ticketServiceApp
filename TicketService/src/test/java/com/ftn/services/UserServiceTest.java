@@ -143,31 +143,4 @@ public class UserServiceTest {
 
     }
 
-    /*
-    //Update user test, when email already used
-    @Test(expected = AplicationException.class)
-    public void updateUser_whenEmailExist(){
-
-        User user2 = new User();
-        user2.setId(33L);
-        user2.setFirstName("Pera");
-        user2.setLastName("Peric");
-        user2.setEmail("pera@gmail.com");
-        userRepositoryMocked.save(user2);
-
-        UserDto dto = new UserDto();
-        dto.setId(33L);
-        dto.setEmail("pera@gmail.com");
-        dto.setFirstName("Petar");
-        dto.setLastName("Petrovic");
-
-        Mockito.when(userRepositoryMocked.findByEmail("pera@gmail.com")).thenReturn(user2);
-
-        userService.updateUserBasicFields(dto);
-    }
-    */
-
-
-
-
 }

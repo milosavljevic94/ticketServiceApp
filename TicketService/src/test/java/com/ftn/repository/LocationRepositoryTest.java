@@ -37,9 +37,7 @@ public class LocationRepositoryTest {
     @Test
     @Transactional
     public void whenNameExist_thenReturnLocation() {
-        System.out.println("Usao u test.");
         Location l = locationRepository.findByLocationName(LocationConst.REAL_LOCATION_NAME);
-        System.out.println("Lokacija u testu: " + l.toString());
         assertNotNull(l);
         assertEquals(LocationConst.REAL_LOCATION_NAME, l.getLocationName());
     }

@@ -10,6 +10,7 @@ values ('USER');
 insert into role(role_name)
 values ('ADMIN');
 
+
 #test data for users, will be added when register.
 
 

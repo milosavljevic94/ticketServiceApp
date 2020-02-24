@@ -1,7 +1,7 @@
 package com.ftn.controller;
 
 import com.ftn.dtos.AddressDto;
-import com.ftn.model.Location;
+import com.ftn.model.Address;
 import com.ftn.repository.LocationRepository;
 import com.ftn.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,9 +38,9 @@ public class AddressController {
     @PostMapping(value = "/addAddress", consumes = "application/json")
     public ResponseEntity<AddressDto> addAddress(@RequestBody AddressDto addressDto) {
 
-        addressService.addAddress(addressService.mapFromDto(addressDto));
+        Address a =  addressService.addAddress(addressService.mapFromDto(addressDto));
 
-        return new ResponseEntity<>(new AddressDto(addressService.mapFromDto(addressDto)) , HttpStatus.CREATED);
+        return new ResponseEntity<>(new AddressDto(a) , HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/updateAddress", consumes = "application/json")

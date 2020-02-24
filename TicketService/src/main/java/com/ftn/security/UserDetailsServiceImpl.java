@@ -29,7 +29,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			throw new UsernameNotFoundException("Bad credentials!");
 		}
 		List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
-			grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole().getRoleName()));
+		String roleName = "ROLE_"+user.getRole().getRoleName();
+			grantedAuthorities.add(new SimpleGrantedAuthority(roleName));
 		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
 
 	}

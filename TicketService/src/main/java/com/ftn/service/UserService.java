@@ -155,9 +155,21 @@ public class UserService{
 	public UserDtoRes register(UserDto userDto) throws EmailExistsException {
 		User user = userRepository.findByUsernameOrEmail(userDto.getUserName(), userDto.getEmail());
         if (user != null) {
-            String message = user.getEmail().equals(userDto.getEmail()) ? "Odabrani email vec postoji!" : "Odabrani username vec postoji!";
+            String message = user.getEmail().equals(userDto.getEmail()) ? "Odabrani email i/ili username vec postoji!" : "Odabrani username vec postoji!";
             throw new EmailExistsException(HttpStatus.BAD_REQUEST, message);
         }
+
+        List<User> users = userRepository.findAll();
+        User admin = null;
+        for(User u : users){
+            if(u.getRole().getRoleName().equals("ADMIN")){
+                admin = u;
+            }
+        }
+        if(userDto.getRole().getRoleName().equals("ADMIN") && admin != null){
+            throw new AplicationException("You can not register like admin, because admin exist. Try again like user!");
+        }
+
         user = mapFromRegDTO(userDto);
         user.setPassword(configuration.passwordEncoder().encode(user.getPassword()));
         user.setActive(true); //TO:DO

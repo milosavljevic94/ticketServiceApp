@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service
 public class AddressService {
@@ -24,31 +22,18 @@ public class AddressService {
     }
 
     public Address findOneAddress(Long id){
-        try {
-            return addressRepository.findById(id).orElse(null);
-        }catch (NoSuchElementException e){
-            throw new EntityNotFoundException("Address with id : "+ id +" not found.");
-        }
+            return addressRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(
+                    "Address with id : "+ id+ " not found."
+            ));
     }
 
-    public Optional<Address> findOneAddressOptional(Long id){
-        return addressRepository.findById(id);
-    }
-
-    public void addAddress(Address r){
-        addressRepository.save(r);
+    public Address addAddress(Address a){
+        addressRepository.save(a);
+        return a;
     }
 
     public void deleteAddress(Long id){
         addressRepository.deleteById(id);
-    }
-
-    public void deleteAll(){
-        addressRepository.deleteAll();
-    }
-
-    public Boolean ifExist(Long id){
-        return addressRepository.existsById(id);
     }
 
     public void updateAddress(AddressDto addressDto) {

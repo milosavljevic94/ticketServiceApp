@@ -71,4 +71,18 @@ public class UserRepositoryTest {
         User u = userRepository.findByUsername(UserConst.FAKE_EMAIL);
         assertNull(u);
     }
+
+    @Test
+    @Transactional
+    public void whenEmailOrUsernameExist_thenReturnUser(){
+        User u = userRepository.findByUsernameOrEmail(UserConst.REAL_USERNAME, UserConst.REAL_EMAIL);
+        assertNotNull(u);
+    }
+
+    @Test
+    @Transactional
+    public void whenEmailOrUsernameNotExist_thenReturnNull(){
+        User u = userRepository.findByUsernameOrEmail(UserConst.FAKE_USERNAME, UserConst.FAKE_EMAIL);
+        assertNull(u);
+    }
 }

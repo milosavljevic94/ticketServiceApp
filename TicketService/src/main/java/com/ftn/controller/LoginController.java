@@ -49,7 +49,6 @@ public class LoginController {
             User userDb = userService.findByUsername(user.getUsername());
             LoggedInUserDTO loggedIn = new LoggedInUserDTO(userDb.getId(), tokenUtils.generateToken(details), userDb.getUsername(),
                     details.getUsername(), details.getAuthorities());
-            System.out.println("User odmah posle logina: "+userService.getloggedInUser().getUsername()+" , "+userService.getloggedInUser().getRole());
             if (!userDb.getActive()) {
                 return new ResponseEntity<>("You must confirm registration to login!", HttpStatus.BAD_REQUEST);
             }

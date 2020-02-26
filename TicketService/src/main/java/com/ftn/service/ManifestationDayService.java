@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service
 public class ManifestationDayService {
@@ -23,15 +21,8 @@ public class ManifestationDayService {
     }
 
     public ManifestationDays findOneManifestationDays(Long id){
-        try {
-            return manifestationDaysRepository.findById(id).orElse(null);
-        }catch (NoSuchElementException e){
-            throw new EntityNotFoundException("Day of manifestation with id :" +id+"not found.");
-        }
-    }
 
-    public Optional<ManifestationDays> findOneManifestationDaysOptional(Long id){
-        return manifestationDaysRepository.findById(id);
+            return manifestationDaysRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Manifestation day with id : "+ id +" not found."));
     }
 
     public void addManifestationDays(ManifestationDays md){
@@ -50,7 +41,7 @@ public class ManifestationDayService {
         return manifestationDaysRepository.existsById(id);
     }
 
-    public void updateManifestationDays(ManifestationDaysDto mdd) {
+    public ManifestationDays updateManifestationDays(ManifestationDaysDto mdd) {
 
         ManifestationDays md = findOneManifestationDays(mdd.getId());
 
@@ -58,6 +49,8 @@ public class ManifestationDayService {
         md.setDescription(mdd.getDescription());
 
         manifestationDaysRepository.save(md);
+
+        return md;
     }
 
 

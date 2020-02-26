@@ -1,15 +1,14 @@
 package com.ftn.controller;
 
 import com.ftn.dtos.LocationDto;
-import com.ftn.dtos.ManifestationDto;
 import com.ftn.dtos.ManifestationInfoDto;
 import com.ftn.dtos.SectorDto;
 import com.ftn.model.Location;
-import com.ftn.model.Sector;
 import com.ftn.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,14 +43,16 @@ public class LocationController {
     }
 
     @PostMapping(value = "/addLocation", consumes = "application/json")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<LocationDto> addLocationAndAddress(@RequestBody LocationDto locationDto) {
 
-        locationService.addLocationAndAddress(locationDto);
+        Location l = locationService.addLocationAndAddress(locationDto);
 
-        return new ResponseEntity<>(new LocationDto(locationService.mapFromDto(locationDto)) , HttpStatus.CREATED);
+        return new ResponseEntity<>(new LocationDto(l) , HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/addSectorInLocation/{id}", consumes = "application/json")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<LocationDto> addLocationSector(@PathVariable Long id, @RequestBody SectorDto sd) {
 
         Location l = locationService.addSectorToLocation(id, sd);
@@ -61,22 +62,25 @@ public class LocationController {
 
 
     @PutMapping(value = "/updateLocation", consumes = "application/json")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<LocationDto> updateLocation(@RequestBody LocationDto locationDto){
 
-        locationService.updateLocation(locationDto);
+        Location l = locationService.updateLocation(locationDto);
 
-        return new ResponseEntity<>(new LocationDto(locationService.mapFromDto(locationDto)), HttpStatus.OK);
+        return new ResponseEntity<>(new LocationDto(l), HttpStatus.OK);
     }
 
     @PutMapping(value = "/updateLocationAddress", consumes = "application/json")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<LocationDto> updateLocationAddress(@RequestBody LocationDto locationDto){
 
-        locationService.updateAddress(locationDto.getId(),locationDto.getAddress());
+        Location l = locationService.updateAddress(locationDto.getId(),locationDto.getAddress());
 
-        return new ResponseEntity<>(new LocationDto(locationService.mapFromDto(locationDto)), HttpStatus.OK);
+        return new ResponseEntity<>(new LocationDto(l), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> deleteLocation(@PathVariable Long id){
 
         locationService.deleteLocation(id);

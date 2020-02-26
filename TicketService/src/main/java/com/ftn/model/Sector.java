@@ -1,5 +1,7 @@
 package com.ftn.model;
 
+import com.ftn.dtos.SectorDto;
+
 import javax.persistence.*;
 
 @Entity
@@ -31,6 +33,11 @@ public class Sector {
         this.columns = columns;
         this.seatsNumber = rows*columns;
         this.location = location;
+    }
+
+    public Sector(SectorDto sectorDto){
+
+        this.sectorName = sectorDto.getSectorName();
     }
 
     public Long getId() {

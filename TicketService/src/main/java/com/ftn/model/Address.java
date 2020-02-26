@@ -1,5 +1,7 @@
 package com.ftn.model;
 
+import com.ftn.dtos.AddressDto;
+
 import javax.persistence.*;
 
 @Entity
@@ -32,6 +34,15 @@ public class Address {
         this.number = number;
         this.latitude = latitude;
         this.longitude = longitude;
+    }
+
+    public Address(AddressDto addressDto){
+        this.state = addressDto.getState();
+        this.city = addressDto.getCity();
+        this.street = addressDto.getStreet();
+        this.number = addressDto.getNumber();
+        this.latitude = addressDto.getLatitude();
+        this.longitude = addressDto.getLongitude();
     }
 
     public Long getId() {

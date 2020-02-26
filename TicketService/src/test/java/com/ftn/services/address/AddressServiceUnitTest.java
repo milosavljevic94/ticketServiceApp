@@ -3,17 +3,14 @@ package com.ftn.services.address;
 import com.ftn.constants.AddressConst;
 import com.ftn.exceptions.EntityNotFoundException;
 import com.ftn.model.Address;
-import com.ftn.project.TicketServiceApplication;
 import com.ftn.repository.AddressRepository;
 import com.ftn.service.AddressService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,15 +20,19 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
-    @RunWith(SpringRunner.class)
-    @SpringBootTest(classes = TicketServiceApplication.class)
+    //@RunWith(SpringRunner.class)
+    //@SpringBootTest(classes = TicketServiceApplication.class)
+    @RunWith(MockitoJUnitRunner.class)
     public class AddressServiceUnitTest {
 
-        @Autowired
+        //@Autowired
+        @InjectMocks
         private AddressService addressService;
 
-        @MockBean
+        //@MockBean
+        @Mock
         private AddressRepository addressRepository;
 
         @Before
@@ -46,9 +47,11 @@ import static org.mockito.ArgumentMatchers.any;
             addresses.add(a);
             addresses.add(a1);
 
-            Mockito.when(addressRepository.findById(AddressConst.ADDRESS_MOCK_ID))
+            when(addressRepository.findById(AddressConst.ADDRESS_MOCK_ID))
                     .thenReturn(Optional.of(a));
-            Mockito.when(addressRepository.findAll()).thenReturn(addresses);
+            when(addressRepository.findById(AddressConst.ADDRESS_MOCK_ID2))
+                    .thenReturn(Optional.of(a1));
+            when(addressRepository.findAll()).thenReturn(addresses);
         }
 
 
@@ -75,11 +78,12 @@ import static org.mockito.ArgumentMatchers.any;
         public void addAddressTest(){
 
             Address address = AddressConst.newAddressToAdd();
-            Mockito.when(addressRepository.save(any(Address.class))).thenAnswer(returnsFirstArg());
+            when(addressRepository.save(any(Address.class))).thenAnswer(returnsFirstArg());
             Address addressTest = addressService.addAddress(address);
 
             assertNotNull(addressTest);
             assertEquals(address, addressTest);
+            verify(addressRepository, times(1)).save(address);
         }
 
         @Test
@@ -89,6 +93,6 @@ import static org.mockito.ArgumentMatchers.any;
 
             addressService.deleteAddress(address.getId());
 
-            Mockito.verify(addressRepository, Mockito.times(1)).deleteById(address.getId());
+            verify(addressRepository, times(1)).deleteById(address.getId());
         }
     }

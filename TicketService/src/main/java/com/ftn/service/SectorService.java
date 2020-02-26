@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class SectorService {
@@ -32,20 +31,18 @@ public class SectorService {
                     "Sector with id : "+id+" not found."));
     }
 
-    public Optional<Sector> findOneSectorOptional(Long id){
-        return sectorRepository.findById(id);
-    }
 
     public Sector addSector(SectorDto sd) {
 
         Sector sector = new Sector();
 
+        if(locationService.findOneLocation(sd.getLocationId()) == null){
+            throw new LocationNotFoundException("Location with id : " +sd.getLocationId() +" not found.");
+        }
 
         Location l = locationService.findOneLocation(sd.getLocationId());
 
-        if(l == null){
-            throw new LocationNotFoundException("Location not exits, pick another location.");
-        }else{
+
             sector = mapFromDto(sd);
             sector.setLocation(l);
 
@@ -53,7 +50,6 @@ public class SectorService {
 
             sectorRepository.save(sector);
 
-        }
         return sector;
     }
 
@@ -65,17 +61,14 @@ public class SectorService {
         sectorRepository.deleteAll();
     }
 
-    public Boolean ifExist(Long id){
-        return sectorRepository.existsById(id);
-    }
-
     public List<SectorDto> allSectorsForLocation(Long idLocation){
+
+        if(locationService.findOneLocation(idLocation) == null){
+            throw new LocationNotFoundException("Location not exits, pick another location.");
+        }
 
         Location l = locationService.findOneLocation(idLocation);
 
-        if(l == null){
-            throw new LocationNotFoundException("Location not exits, pick another location.");
-        }
 
         ArrayList<Sector> sectors = new ArrayList<Sector>();
 
@@ -87,11 +80,13 @@ public class SectorService {
 
     public Sector updateSector(SectorDto sd) {
 
-        Location l = locationService.findOneLocation(sd.getLocationId());
-
-        if(l == null){
+        if(locationService.findOneLocation(sd.getLocationId()) == null){
             throw new LocationNotFoundException("Location not exits, pick another location.");
         }
+
+        Location l = locationService.findOneLocation(sd.getLocationId());
+
+
             Sector s = findOneSector(sd.getId());
 
             s.setSectorName(sd.getSectorName());

@@ -6,6 +6,7 @@ import com.ftn.service.SectorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,6 +34,7 @@ public class SectorController {
     }
 
     @PostMapping(value = "/addSector", consumes = "application/json")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<SectorDto> addSector(@RequestBody SectorDto sd) {
 
         Sector sector = sectorService.addSector(sd);
@@ -41,6 +43,7 @@ public class SectorController {
     }
 
     @PutMapping(value = "/updateSector", consumes = "application/json")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<SectorDto> updateAddress(@RequestBody SectorDto sd){
 
         Sector s = sectorService.updateSector(sd);
@@ -49,6 +52,7 @@ public class SectorController {
     }
 
     @DeleteMapping(value = "/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> deleteSector(@PathVariable Long id){
 
         sectorService.deleteSector(id);

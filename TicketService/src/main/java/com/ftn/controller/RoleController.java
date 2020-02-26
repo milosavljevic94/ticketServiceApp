@@ -2,6 +2,7 @@ package com.ftn.controller;
 
 
 import com.ftn.dtos.RoleDto;
+import com.ftn.model.Role;
 import com.ftn.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,17 +35,17 @@ public class RoleController {
     @PostMapping(value = "/addRole", consumes = "application/json")
     public ResponseEntity<RoleDto> addRole(@RequestBody RoleDto roleDto) {
 
-        roleService.addRole(roleService.mapFromDto(roleDto));
+        Role r = roleService.addRole(roleService.mapFromDto(roleDto));
 
-        return new ResponseEntity<>(new RoleDto(roleService.mapFromDto(roleDto)) , HttpStatus.CREATED);
+        return new ResponseEntity<>(new RoleDto(r) , HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/updateRole", consumes = "application/json")
     public ResponseEntity<RoleDto> updateRole(@RequestBody RoleDto roleDto){
 
-        roleService.updateRole(roleDto);
+        Role r = roleService.updateRole(roleDto);
 
-        return new ResponseEntity<>(new RoleDto(roleService.mapFromDto(roleDto)), HttpStatus.OK);
+        return new ResponseEntity<>(new RoleDto(r), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")

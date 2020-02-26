@@ -1,6 +1,7 @@
 package com.ftn.service;
 
 import com.ftn.dtos.RoleDto;
+import com.ftn.exceptions.EntityNotFoundException;
 import com.ftn.model.Role;
 import com.ftn.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +21,12 @@ public class RoleService {
     }
 
     public Role findOneRole(Long id){
-        return roleRepository.findById(id).orElse(null);
+        return roleRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Role with id : "+ id +" dont exist."));
     }
 
-    public void addRole(Role u){
-        roleRepository.save(u);
+    public Role addRole(Role r){
+        roleRepository.save(r);
+        return r;
     }
 
     public void deleteRole(Long id){
@@ -35,15 +37,13 @@ public class RoleService {
         roleRepository.deleteAll();
     }
 
-    public void updateRole(RoleDto roleDto){
+    public Role updateRole(RoleDto roleDto){
         Role r = findOneRole(roleDto.getId());
         r.setRoleName(roleDto.getRoleName());
         addRole(r);
+        return r;
     }
 
-    public Boolean ifExist(Long id){
-        return roleRepository.existsById(id);
-    }
 
     public RoleDto mapToDTO(Role role){
 

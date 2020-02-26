@@ -16,8 +16,6 @@ public class ManifestationSectorService {
 
     public ManifestationSector getSectorPriceById(Long id){
 
-        System.out.println("Id koji stize je: "+id);
-
         ManifestationSector ms = manSecRepo.findById(id).orElseThrow(()->new EntityNotFoundException(
         "Sector price with id : "+id+" not found."));
 

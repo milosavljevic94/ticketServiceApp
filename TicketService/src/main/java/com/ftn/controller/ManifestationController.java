@@ -8,6 +8,7 @@ import com.ftn.service.ManifestationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,6 +43,7 @@ public class ManifestationController {
     }
 
     @PostMapping(value = "/addManifestation", consumes = "application/json")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ManifestationDto> addManifestation(@RequestBody ManifestationDto manifestationDto) {
 
         Manifestation m = manifestationService.addManifestation(manifestationDto);
@@ -50,6 +52,7 @@ public class ManifestationController {
     }
 
     @PutMapping(value = "/updateManifestation", consumes = "application/json")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ManifestationDto> updateManifestation(@RequestBody ManifestationDto mdto) {
 
         Manifestation m = manifestationService.updateManifestation(mdto);
@@ -58,6 +61,7 @@ public class ManifestationController {
     }
 
     @PutMapping(value = "/addSectorPrice/{manifestationId}", consumes = "application/json")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ManifestationInfoDto> setSectorPriceForManifestation(
             @PathVariable Long manifestationId, @RequestBody ManifestationSectorPriceDto sectorPriceDto) {
 
@@ -67,6 +71,7 @@ public class ManifestationController {
     }
 
     @DeleteMapping(value = "/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> deleteManifestation(@PathVariable Long id) {
 
         manifestationService.deleteManifestation(id);

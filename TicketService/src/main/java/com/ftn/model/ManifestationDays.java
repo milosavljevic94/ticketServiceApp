@@ -1,5 +1,7 @@
 package com.ftn.model;
 
+import com.ftn.dtos.ManifestationDaysDto;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -41,6 +43,12 @@ public class ManifestationDays {
         this.manifestation = manifestation;
         this.tickets = tickets;
         this.manifestationSectors = manifestationSectors;
+    }
+
+    public ManifestationDays(ManifestationDaysDto manifestationDaysDto) {
+        this.name = manifestationDaysDto.getName();
+        this.description = manifestationDaysDto.getDescription();
+        this.startTime = manifestationDaysDto.getStartTime();
     }
 
     public Long getId() {

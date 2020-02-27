@@ -6,7 +6,6 @@ import com.ftn.dtos.ManifestationSectorPriceDto;
 import com.ftn.exceptions.AplicationException;
 import com.ftn.exceptions.DateException;
 import com.ftn.exceptions.EntityNotFoundException;
-import com.ftn.exceptions.LocationNotFoundException;
 import com.ftn.model.*;
 import com.ftn.repository.LocationRepository;
 import com.ftn.repository.ManifestationRepository;
@@ -16,7 +15,10 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class ManifestationService {
@@ -38,16 +40,15 @@ public class ManifestationService {
     }
 
     public Manifestation findOneManifestation(Long id){
-        try {
-            return manifestationRepository.findById(id).orElse(null);
-        }catch (NoSuchElementException e){
-            throw new EntityNotFoundException("Manifestation with id : " + id + "not found.");
-        }
+
+            return manifestationRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Manifestation with id: "+ id +" not found."));
     }
 
+    /* Currently not used.
     public Optional<Manifestation> findOneManifestationOptional(Long id){
         return manifestationRepository.findById(id);
     }
+    */
 
     public Manifestation addManifestation(ManifestationDto mDto){
 
@@ -64,6 +65,7 @@ public class ManifestationService {
         m.setStartTime(start);
 
         m.setEndTime(end);
+
 
         Location l = locationRepository.findById(mDto.getLocationId()).orElseThrow(()-> new EntityNotFoundException(
                                                 "Location with id: " + mDto.getLocationId() + "not found."));
@@ -104,6 +106,8 @@ public class ManifestationService {
         manifestationRepository.deleteById(id);
     }
 
+    /* For now, the methods are not used.
+
     public void deleteAll(){
         manifestationRepository.deleteAll();
     }
@@ -111,6 +115,7 @@ public class ManifestationService {
     public Boolean ifExist(Long id){
         return manifestationRepository.existsById(id);
     }
+    */
 
     public Manifestation updateManifestation(ManifestationDto mdto) {
 
@@ -121,46 +126,38 @@ public class ManifestationService {
         m.setName(mdto.getName());
         m.setDescription(mdto.getDescription());
         m.setManifestationCategory(mdto.getManifestationCategory());
-        m.setStartTime(mdto.getStartTime());
-        m.setEndTime(mdto.getEndTime());
+
+        //again check date and time.
+        LocalDateTime start = LocalDateTime.of(mdto.getStartTime().toLocalDate(), mdto.getStartTime().toLocalTime());
+        LocalDateTime end = LocalDateTime.of(mdto.getEndTime().toLocalDate(), mdto.getEndTime().toLocalTime());
+        if(start.isAfter(end)){
+            throw new DateException("Start date is after end date, please insert correctly.");
+        }
+
+        m.setStartTime(start);
+        m.setEndTime(end);
 
         manifestationRepository.save(m);
 
         return m;
     }
 
+    public List<ManifestationSectorPriceDto> getPricesForManifestation(Long id) {
 
-    public ManifestationDto mapToDTO(Manifestation m){
+        Manifestation m = manifestationRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(
+                "Manifestation with id : "+ id +" not found"));
 
-        ManifestationDto md = new ManifestationDto(m);
-
-        return md;
-    }
-
-    public List<ManifestationDto> allToDto() {
-
-        List<Manifestation> m = finfAllManifestation();
-        List<ManifestationDto> md = new ArrayList<>();
-
-        for (Manifestation mm : m) {
-            md.add(mapToDTO(mm));
+        List<ManifestationSectorPriceDto> prices = new ArrayList<>();
+        for(ManifestationDays md : m.getManifestationDays()) {
+            for(ManifestationSector s : md.getManifestationSectors()) {
+                ManifestationSectorPriceDto price = new ManifestationSectorPriceDto();
+                price.setDayId(md.getId());
+                price.setSectorId(s.getSector().getId());
+                price.setPrice(s.getPrice());
+                prices.add(price);
+            }
         }
-        return md;
-    }
-
-
-    public Manifestation mapFromDto(ManifestationDto md) {
-
-        Manifestation m = new Manifestation();
-
-        m.setName(md.getName());
-        m.setDescription(md.getDescription());
-        m.setManifestationCategory(md.getManifestationCategory());
-        m.setStartTime(md.getStartTime());
-        m.setEndTime(md.getEndTime());
-
-
-        return m;
+        return prices;
     }
 
     public Manifestation setPriceForSectorAndDay(Long id, ManifestationSectorPriceDto sectorPriceDto) {
@@ -206,21 +203,36 @@ public class ManifestationService {
         return m;
     }
 
-    public List<ManifestationSectorPriceDto> getPricesForManifestation(Long id) {
+    public ManifestationDto mapToDTO(Manifestation m){
 
-        Manifestation m = manifestationRepository.findById(id).orElseThrow(()-> new LocationNotFoundException(
-        "Manifestation with id : "+id+" not found"));
+        ManifestationDto md = new ManifestationDto(m);
 
-        List<ManifestationSectorPriceDto> prices = new ArrayList<>();
-        for(ManifestationDays md : m.getManifestationDays()) {
-            for(ManifestationSector s : md.getManifestationSectors()) {
-                ManifestationSectorPriceDto price = new ManifestationSectorPriceDto();
-                price.setDayId(md.getId());
-                price.setSectorId(s.getSector().getId());
-                price.setPrice(s.getPrice());
-                prices.add(price);
-            }
+        return md;
+    }
+
+    public List<ManifestationDto> allToDto() {
+
+        List<Manifestation> m = finfAllManifestation();
+        List<ManifestationDto> md = new ArrayList<>();
+
+        for (Manifestation mm : m) {
+            md.add(mapToDTO(mm));
         }
-        return prices;
+        return md;
+    }
+
+
+    public Manifestation mapFromDto(ManifestationDto md) {
+
+        Manifestation m = new Manifestation();
+
+        m.setName(md.getName());
+        m.setDescription(md.getDescription());
+        m.setManifestationCategory(md.getManifestationCategory());
+        m.setStartTime(md.getStartTime());
+        m.setEndTime(md.getEndTime());
+
+
+        return m;
     }
 }

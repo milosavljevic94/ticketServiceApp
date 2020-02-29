@@ -5,6 +5,7 @@ import com.ftn.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class ReservationController {
     ReservationService reservationService;
 
     @GetMapping(value = "/allReservation")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<ReservationDto>> getAllReservation(){
 
         List<ReservationDto> reservationDtos = reservationService.allToDto();
@@ -34,12 +36,14 @@ public class ReservationController {
     }
 
     @GetMapping(value = "/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ReservationDto> getReservation(@PathVariable Long id) {
 
         return new ResponseEntity<>(new ReservationDto(reservationService.findOneReservation(id)), HttpStatus.OK);
     }
 
     @PostMapping(value = "/addReservation", consumes = "application/json")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ReservationDto> addReservation(@RequestBody ReservationDto reservationDto) {
 
         reservationService.addReservation(reservationService.mapFromDto(reservationDto));
@@ -48,6 +52,7 @@ public class ReservationController {
     }
 
     @PutMapping(value = "/updateReservation", consumes = "application/json")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ReservationDto> updateReservation(@RequestBody ReservationDto reservationDto){
 
         reservationService.addReservation(reservationService.mapFromDto(reservationDto));

@@ -185,9 +185,11 @@ public class UserService{
 
 	public User getloggedInUser(){
 
+        System.out.println("Usao ovde");
         Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
         String username = loggedInUser.getName();
 
+        System.out.println("Username koji je stigao: "+ username);
         User u = findByUsername(username);
 
         return u;

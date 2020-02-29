@@ -81,7 +81,7 @@ public class Reservation {
     public String toString() {
         return "Reservation{" +
                 "id=" + id +
-                ", user=" + user +
+                ", user=" + user.getUsername() +
                 ", expDays=" + expDays +
                 ", active=" + active +
                 '}';

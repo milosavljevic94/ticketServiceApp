@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ReservationService {
@@ -36,9 +35,11 @@ public class ReservationService {
                 "Reservation with id : "+ id+" not found"));
     }
 
+/*  Not currently used.
     public Optional<Reservation> findOneReservationOptional(Long id){
         return reservationRepository.findById(id);
     }
+*/
 
     public void addReservation(Reservation r){
         reservationRepository.save(r);
@@ -46,28 +47,37 @@ public class ReservationService {
 
     public void deleteReservation(Long id){
 
+        if(userService.getloggedInUser() == null){
+            throw new AplicationException("You must log in first!");
+        }
+
         User u = userService.getloggedInUser();
 
         List<Reservation> reservationsOfUser = new ArrayList<>();
         reservationsOfUser.addAll(u.getReservations());
 
-            Reservation r = findOneReservation(id);
+        Reservation r = findOneReservation(id);
 
-            if(reservationsOfUser.contains(r)) {
-                ticketService.deleteTicket(r.getTicket().getId());
-                reservationRepository.deleteById(id);
-            }else{
-                throw new AplicationException("Can't cancel other users reservations!");
-            }
+        if(reservationsOfUser.contains(r)) {
+
+            ticketService.deleteTicket(r.getTicket().getId());
+            reservationRepository.deleteById(id);
+        }else{
+            throw new AplicationException("Can't cancel other users reservations!");
+        }
     }
 
+    /*  Not currently used.
     public void deleteAll(){
         reservationRepository.deleteAll();
     }
+    */
 
+    /*  Not currently used.
     public Boolean ifExist(Long id){
         return reservationRepository.existsById(id);
     }
+    */
 
     public List<ReservationDto> reservationOfUser(){
 

@@ -6,6 +6,7 @@ import com.ftn.dtos.SeatWithPriceDto;
 import com.ftn.dtos.TicketDto;
 import com.ftn.dtos.TicketReportDto;
 import com.ftn.exceptions.AplicationException;
+import com.ftn.exceptions.EntityNotFoundException;
 import com.ftn.exceptions.SeatIsNotFreeException;
 import com.ftn.exceptions.SectorIsFullException;
 import com.ftn.model.*;
@@ -50,14 +51,15 @@ public class TicketService {
     }
 
     public Ticket findOneTicket(Long id) {
-        return ticketRepository.findById(id).orElse(null);
+        return ticketRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Ticket with id : "+ id + "not found."));
     }
 
-    public void addTicket(Ticket t) {
+    public Ticket addTicket(Ticket t) {
         ticketRepository.save(t);
+        return t;
     }
 
-    public void updateTicket(TicketDto ticketDto) {
+    public Ticket updateTicket(TicketDto ticketDto) {
         Ticket t = findOneTicket(ticketDto.getId());
         t.setRowNum(ticketDto.getRowNum());
         t.setSeatNum(ticketDto.getSeatNum());
@@ -67,26 +69,29 @@ public class TicketService {
             t.setReservation(null);
         }
         addTicket(t);
+        return t;
     }
 
     public void deleteTicket(Long id) {
         ticketRepository.deleteById(id);
     }
 
+
     public void deleteAll() {
         ticketRepository.deleteAll();
     }
 
+    /* Not currently used.
     public Boolean ifExist(Long id) {
         return ticketRepository.existsById(id);
     }
+    */
 
 
     /*
         Checking if seat free for position, day and sector.
         Return value boolean.
      */
-
     public Boolean isSeatFree(int row, int seatNum, Long dayId, Long sectorId){
 
         Boolean free = true;
@@ -105,10 +110,11 @@ public class TicketService {
 
     public Ticket buyTicket(BuyTicketDto ticketToBuy) {
 
-        User u = userService.getloggedInUser();
-        if(u == null){
+        if(userService.getloggedInUser() == null){
             throw new AplicationException("You must be logged in to buy ticket!");
         }
+
+        User u = userService.getloggedInUser();
 
         Boolean forBuying = true;
 
@@ -121,20 +127,19 @@ public class TicketService {
 
     public Reservation reserveTicket(BuyTicketDto ticketToReserve) {
 
-        User u = userService.getloggedInUser();
-        if(u == null){
-            throw new AplicationException("You must be logged in to reserve ticket!");
+        if(userService.getloggedInUser() == null){
+            throw new AplicationException("You must be logged in to buy ticket!");
         }
+
+        User u = userService.getloggedInUser();
 
         Boolean forBuying = false;
 
         ManifestationDays md = manDayService.findOneManifestationDays(ticketToReserve.getDayId());
 
         LocalDateTime start = md.getStartTime();
-        long days = ChronoUnit.DAYS.between(LocalDateTime.now(), start);
+        long days = ChronoUnit.DAYS.between(start, LocalDateTime.now());
         int intDays = (int)days;
-
-        System.out.println("Razlika je : "+intDays);
 
         if(intDays < Restrictions.DAYS_BEFORE_MANIFESTATION){
             throw new AplicationException("You can't reserve ticket because manifestation starts for "+Restrictions.DAYS_BEFORE_MANIFESTATION+" days.");
@@ -203,12 +208,12 @@ public class TicketService {
             return t;
 
         }else{
-            Reservation reservation = reserveTicket(seatPrice, md, ms, u);
+            Reservation reservation = makeReservationForTicket(seatPrice, md, ms, u);
             return reservation.getTicket();
         }
     }
 
-    public Reservation reserveTicket(SeatWithPriceDto seatPrice, ManifestationDays md, ManifestationSector ms, User u){
+    public Reservation makeReservationForTicket(SeatWithPriceDto seatPrice, ManifestationDays md, ManifestationSector ms, User u){
 
         Reservation r = new Reservation();
         r.setActive(true);
@@ -238,15 +243,16 @@ public class TicketService {
         reservationService.addReservation(r);
 
         return r;
-
     }
 
     public Ticket buyReservedTicket(Long idReservation) {
 
-        User u = userService.getloggedInUser();
-        if(u == null){
-            throw new AplicationException("You must be logged in first.");
+        if(userService.getloggedInUser() == null){
+            throw new AplicationException("You must be logged in to buy ticket!");
         }
+
+        User u = userService.getloggedInUser();
+
 
         List<Reservation> reservations = new ArrayList<>();
         reservations.addAll(u.getReservations());
@@ -328,11 +334,11 @@ public class TicketService {
         List<Ticket> tickets = new ArrayList<>();
         List<TicketDto> ticketDtos = new ArrayList<>();
 
-        User u = userService.getloggedInUser();
-
-        if (u == null) {
-            throw new AplicationException("You must be logged in to get your tickets.");
+        if(userService.getloggedInUser() == null){
+            throw new AplicationException("You must be logged in to buy ticket!");
         }
+
+        User u = userService.getloggedInUser();
 
         tickets.addAll(u.getTickets());
         for (Ticket t : tickets) {
@@ -360,7 +366,7 @@ public class TicketService {
                 }
             }
         }catch (DateTimeParseException e){
-            throw new AplicationException("Please import date in format : yyyy-MM-dd");
+            throw new AplicationException("Please import date in format : yyyy-MM-dd, "+ e);
         }
 
         TicketReportDto report = new TicketReportDto();
@@ -388,7 +394,7 @@ public class TicketService {
                 }
             }
         }catch (DateTimeParseException e){
-            throw new AplicationException("Please import date in format : yyyy-MM");
+            throw new AplicationException("Please import date in format : yyyy-MM, "+ e);
         }
 
         TicketReportDto report = new TicketReportDto();
@@ -416,7 +422,7 @@ public class TicketService {
                 }
             }
         }catch (DateTimeParseException e){
-            throw new AplicationException("Please import date in format : yyyy");
+            throw new AplicationException("Please import date in format : yyyy, " + e);
         }
 
         TicketReportDto report = new TicketReportDto();
@@ -433,14 +439,13 @@ public class TicketService {
         int soldTickets = 0;
 
         for (ManifestationDays md : manDays) {
-            if (md.getId() == idDayManifestation) {
-            for (Ticket t : md.getTickets()) {
-                    profit = profit + t.getManifestationSector().getPrice();
-                    soldTickets = soldTickets + 1;
+
+                if (md.getId() == idDayManifestation) {
+                    for (Ticket t : md.getTickets()) {
+                        profit = profit + t.getManifestationSector().getPrice();
+                        soldTickets = soldTickets + 1;
+                    }
                 }
-            }else{
-                throw new AplicationException("Manifestation dont have a day with id : "+idDayManifestation);
-            }
         }
         return new TicketReportDto(profit,soldTickets);
     }

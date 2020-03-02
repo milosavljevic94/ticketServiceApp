@@ -33,7 +33,6 @@ public class TicketController {
     }
 
     @GetMapping(value = "/allUserTicket")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     public ResponseEntity<List<TicketDto>> getAllTicketOfUser(){
 
         List<TicketDto> ticketDtos = ticketService.ticketsOfUser();
@@ -49,7 +48,6 @@ public class TicketController {
     }
 
     @GetMapping(value = "/buyTicket")
-    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<TicketDto> buyTicketMakeNewTicket(@RequestBody BuyTicketDto ticketToBuy) {
 
         Ticket t = ticketService.buyTicket(ticketToBuy);
@@ -58,7 +56,6 @@ public class TicketController {
     }
 
     @GetMapping(value = "/reserveTicket")
-    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<ReservationDto> reserveTicketMakeNewTicket(@RequestBody BuyTicketDto ticketToReserve) {
 
         Reservation r = ticketService.reserveTicket(ticketToReserve);
@@ -68,7 +65,6 @@ public class TicketController {
 
 
     @GetMapping(value = "/buyReservedTicket/{idReservation}")
-    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<TicketDto> buyReservedTicket(@PathVariable Long idReservation) {
 
         Ticket t = ticketService.buyReservedTicket(idReservation);
@@ -78,7 +74,6 @@ public class TicketController {
 
 
     @PutMapping(value = "/updateTicket", consumes = "application/json")
-    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<TicketDto> updateTicket(@RequestBody TicketDto ticketDto){
 
         ticketService.updateTicket(ticketDto);
@@ -87,7 +82,6 @@ public class TicketController {
     }
 
     @DeleteMapping(value = "/{id}")
-    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> deleteTicket(@PathVariable Long id){
 
         ticketService.deleteTicket(id);

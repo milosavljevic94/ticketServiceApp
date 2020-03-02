@@ -46,6 +46,12 @@ public class UserConst {
 
         Ticket ticket = new Ticket();
         ticket.setId(11L);
+        Ticket ticket2 = new Ticket();
+        ticket.setId(11L);
+
+        Set<Ticket> ticketsOfUser = new HashSet<>();
+        ticketsOfUser.add(ticket);
+        ticketsOfUser.add(ticket2);
 
         Reservation reservation = new Reservation();
         reservation.setId(11L);
@@ -62,6 +68,8 @@ public class UserConst {
         user.setPassword(MOCK_USER_PASS);
         user.setActive(true);
         user.setReservations(reservationSet);
+        user.setTickets(ticketsOfUser);
+
 
         reservation.setUser(user);
 

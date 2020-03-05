@@ -19,7 +19,10 @@ public class ExceptionsHandlers {
         return new ResponseEntity<>(exeptionMessage, status);
     }
 
-    @ExceptionHandler(value = EntityAlreadyExistException.class)
+    @ExceptionHandler(value = {
+            EntityAlreadyExistException.class,
+            EmailExistsException.class
+    })
     public ResponseEntity<ExceptionMessage> entityAlreadyExistExceptionHandler(Exception e){
 
         HttpStatus status = HttpStatus.ALREADY_REPORTED;

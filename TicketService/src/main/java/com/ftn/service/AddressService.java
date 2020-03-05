@@ -36,7 +36,7 @@ public class AddressService {
         addressRepository.deleteById(id);
     }
 
-    public void updateAddress(AddressDto addressDto) {
+    public Address updateAddress(AddressDto addressDto) {
 
         Address address = findOneAddress(addressDto.getId());
 
@@ -48,6 +48,8 @@ public class AddressService {
         address.setLatitude(addressDto.getLatitude());
 
         addressRepository.save(address);
+
+        return address;
     }
 
 

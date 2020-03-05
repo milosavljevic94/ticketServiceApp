@@ -62,8 +62,7 @@ public class UserServiceTest {
         roleDto.setRoleName("USER");
 
         UserDto userDto = new UserDto();
-        userDto.setUserName("existing");
-        userDto.setFirstName("Existing");
+//      userDto.setFirstName("Existing");
         userDto.setLastName("User");
         userDto.setPassword("password");
         userDto.setEmail("existing.email@gmail.com");
@@ -87,7 +86,7 @@ public class UserServiceTest {
         roleDto.setRoleName("USER");
 
         UserDto userDto = new UserDto();
-        userDto.setUserName("existing");
+        //userDto.setUserName("existing");
         userDto.setFirstName("Pera");
         userDto.setLastName("Peric");
         userDto.setPassword("password");

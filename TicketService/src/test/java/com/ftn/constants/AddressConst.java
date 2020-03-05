@@ -43,6 +43,23 @@ public class AddressConst {
         return addressDto;
     }
 
+    //for integration testing
+
+    public static Long VALID_ID_ADDRESS = 1L;
+    public static Long NOT_VALID_ID_ADDRESS = 111L;
+
+    public static AddressDto newAddressDtoForUpdate(){
+
+        AddressDto addressDto = new AddressDto();
+        addressDto.setId(VALID_ID_ADDRESS);
+        addressDto.setCity("testCity");
+        addressDto.setState("testState");
+        addressDto.setStreet("testStreet");
+        addressDto.setNumber("testNumber");
+
+        return addressDto;
+    }
+
     public AddressConst() {
     }
 }

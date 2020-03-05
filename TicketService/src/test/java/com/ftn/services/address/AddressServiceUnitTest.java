@@ -22,8 +22,6 @@ import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-    //@RunWith(SpringRunner.class)
-    //@SpringBootTest(classes = TicketServiceApplication.class)
     @RunWith(MockitoJUnitRunner.class)
     public class AddressServiceUnitTest {
 
@@ -49,8 +47,6 @@ import static org.mockito.Mockito.*;
 
             when(addressRepository.findById(AddressConst.ADDRESS_MOCK_ID))
                     .thenReturn(Optional.of(a));
-            when(addressRepository.findById(AddressConst.ADDRESS_MOCK_ID2))
-                    .thenReturn(Optional.of(a1));
             when(addressRepository.findAll()).thenReturn(addresses);
         }
 

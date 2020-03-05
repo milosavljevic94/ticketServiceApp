@@ -2,7 +2,7 @@ package com.ftn.exceptions;
 
 import org.springframework.http.HttpStatus;
 
-public class EmailExistsException extends Exception {
+public class EmailExistsException extends RuntimeException {
 	private HttpStatus status;
     private String message;
     

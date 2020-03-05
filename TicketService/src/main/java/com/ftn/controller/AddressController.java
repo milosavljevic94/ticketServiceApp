@@ -46,9 +46,9 @@ public class AddressController {
     @PutMapping(value = "/updateAddress", consumes = "application/json")
     public ResponseEntity<AddressDto> updateAddress(@RequestBody AddressDto addressDto){
 
-        addressService.updateAddress(addressDto);
+        Address a = addressService.updateAddress(addressDto);
 
-        return new ResponseEntity<>(new AddressDto(addressService.mapFromDto(addressDto)), HttpStatus.OK);
+        return new ResponseEntity<>(new AddressDto(a), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")

@@ -11,7 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
@@ -21,6 +21,8 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = TicketServiceApplication.class)
+@Transactional
+@TestPropertySource("classpath:application-test.properties")
 public class AddressServiceIntegrationTest {
 
     @Autowired
@@ -52,7 +54,6 @@ public class AddressServiceIntegrationTest {
     }
 
     @Test
-    @Transactional @Rollback(true)
     public void addAddressSuccessTest(){
 
         int sizeBeforeAdd = addressRepository.findAll().size();
@@ -73,11 +74,13 @@ public class AddressServiceIntegrationTest {
     }
 
     @Test
-    @Transactional @Rollback(true)
     public void deleteAddressSuccessTest(){
 
+        Address address = new Address();
+        address.setId(AddressConst.ID_ADDRESS_FOR_DELETE);
+        addressService.addAddress(address);
         int sizeBeforeDelete = addressRepository.findAll().size();
-        addressService.deleteAddress(AddressConst.VALID_ID_ADDRESS);
+        addressService.deleteAddress(AddressConst.ID_ADDRESS_FOR_DELETE);
         int sizeAfterDelete = addressRepository.findAll().size();
 
         assertEquals(sizeBeforeDelete-1, sizeAfterDelete);
@@ -92,7 +95,6 @@ public class AddressServiceIntegrationTest {
     }
 
     @Test
-    @Transactional @Rollback(true)
     public void updateAddressSuccessTest(){
         AddressDto addressDto = AddressConst.newAddressDtoForUpdate();
 

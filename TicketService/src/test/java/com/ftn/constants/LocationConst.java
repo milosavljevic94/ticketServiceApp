@@ -5,13 +5,28 @@ import com.ftn.dtos.LocationDto;
 import com.ftn.dtos.SectorDto;
 import com.ftn.model.Location;
 
+import java.util.Collections;
+
 public class LocationConst {
 
-    //exist in db
-    public static final String REAL_LOCATION_NAME = "Spens";
+    //for integration tests
+    public static final Long VALID_LOC_ID = 1L;
+    public static final Long NOT_VALID_LOC_ID = 111L;
 
-    //not exist in db
-    public static final String BAD_LOCATION_NAME = "NijeSpens";
+    public static LocationDto newDtoToAdd(){
+
+        AddressDto addressDto = AddressConst.newAddressDto();
+
+        LocationDto locationDto = new LocationDto();
+
+        locationDto.setLocationName("novo test ime");
+        locationDto.setManifestations(Collections.emptySet());
+        locationDto.setSectors(Collections.emptySet());
+        locationDto.setAddress(addressDto);
+
+        return locationDto;
+    }
+
 
     //for unit testing
     public static final Long REAL_LOCATION_ID = 123L;
@@ -22,6 +37,8 @@ public class LocationConst {
     public static final Long LOCATION_WRONG_ID = 6563L;
 
     public static final String LOCATION_UPDATE_NAME = "Name uprade test";
+    public static final String REAL_LOCATION_NAME = "Spens";
+    public static final String BAD_LOCATION_NAME = "wrong name";
 
     public static LocationDto newLocationDto(){
 

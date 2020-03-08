@@ -47,6 +47,7 @@ public class AddressConst {
 
     public static Long VALID_ID_ADDRESS = 1L;
     public static Long NOT_VALID_ID_ADDRESS = 111L;
+    public static Long ID_ADDRESS_FOR_DELETE = 3L;
 
     public static AddressDto newAddressDtoForUpdate(){
 

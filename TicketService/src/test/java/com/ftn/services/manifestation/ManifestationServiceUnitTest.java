@@ -216,6 +216,21 @@ public class ManifestationServiceUnitTest {
                 .setPriceForSectorAndDay(ManifestationConst.BAD_MAN_ID, ManifestationConst.newSectorPrice());
     }
 
+    @Test(expected = AplicationException.class)
+    public void setPriceForDayNotValid_thenThrowException(){
+        ManifestationSectorPriceDto price = new ManifestationSectorPriceDto();
+        price.setDayId(4L);
+        Manifestation result = manifestationService
+                .setPriceForSectorAndDay(ManifestationConst.OK_MAN_ID, price);
+    }
+
+    @Test(expected = AplicationException.class)
+    public void setPriceForSectorNotValid_thenThrowException(){
+        ManifestationSectorPriceDto price = new ManifestationSectorPriceDto();
+        price.setSectorId(6L);
+        Manifestation result = manifestationService
+                .setPriceForSectorAndDay(ManifestationConst.OK_MAN_ID, price);
+    }
     @Test
     public void setPricesForSectorAndDaySuccessTest(){
 

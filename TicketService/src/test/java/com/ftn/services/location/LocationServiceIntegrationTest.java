@@ -1,12 +1,19 @@
 package com.ftn.services.location;
 
+import com.ftn.constants.AddressConst;
 import com.ftn.constants.LocationConst;
+import com.ftn.constants.SectorConst;
+import com.ftn.dtos.AddressDto;
 import com.ftn.dtos.LocationDto;
+import com.ftn.dtos.ManifestationInfoDto;
+import com.ftn.dtos.SectorDto;
 import com.ftn.exceptions.EntityAlreadyExistException;
 import com.ftn.exceptions.LocationNotFoundException;
 import com.ftn.model.Location;
+import com.ftn.model.Sector;
 import com.ftn.project.TicketServiceApplication;
 import com.ftn.repository.LocationRepository;
+import com.ftn.repository.SectorRepository;
 import com.ftn.service.LocationService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,6 +39,9 @@ public class LocationServiceIntegrationTest {
 
     @Autowired
     private LocationRepository locationRepository;
+
+    @Autowired
+    private SectorRepository sectorRepository;
 
     @Test
     public void findAllSuccessTest(){
@@ -80,5 +90,100 @@ public class LocationServiceIntegrationTest {
         assertEquals(locationDto.getAddress().getStreet(), result.getAddress().getStreet());
     }
 
-    
+    @Test(expected = LocationNotFoundException.class)
+    public void addSectorLocationNotExist_thenThrowException(){
+
+        SectorDto sectorToAdd = SectorConst.newDtoToAdd();
+        Location result = locationService.addSectorToLocation(LocationConst.NOT_VALID_LOC_ID, sectorToAdd);
+    }
+
+    @Test
+    public void addSectorSuccessTest(){
+        int sectorSizeBeforeAdd = locationRepository.findById(1L).get().getSectors().size();
+        SectorDto sectorToAdd = SectorConst.newDtoToAdd();
+        Location result = locationService.addSectorToLocation(LocationConst.VALID_LOC_ID, sectorToAdd);
+        int sectorSizeAfterAdd = locationRepository.findById(1L).get().getSectors().size();
+        Sector addedSector = sectorRepository.findBySectorName(sectorToAdd.getSectorName());
+
+        assertNotNull(result);
+        assertEquals(sectorSizeBeforeAdd+1, sectorSizeAfterAdd);
+        assertEquals(sectorToAdd.getSectorName(), addedSector.getSectorName());
+        assertEquals(sectorToAdd.getColumns(), addedSector.getColumns());
+        assertEquals(sectorToAdd.getRows(), addedSector.getRows());
+        assertEquals(sectorToAdd.getSeatsNumber(), addedSector.getSeatsNumber());
+
+    }
+
+    @Test
+    public void deleteLocationSuccessTest(){
+
+        int sizeBeforeDelete = locationRepository.findAll().size();
+        locationService.deleteLocation(LocationConst.VALID_LOC_ID);
+        int sizeAfterDelete = locationRepository.findAll().size();
+
+        assertEquals(sizeBeforeDelete-1, sizeAfterDelete);
+    }
+
+    @Test(expected = LocationNotFoundException.class)
+    public void updateLocationNotValidId_thenThrowException(){
+        LocationDto locationDto = new LocationDto();
+        locationDto.setId(LocationConst.NOT_VALID_LOC_ID);
+        locationDto.setLocationName("novo ime update");
+
+        Location result = locationService.updateLocation(locationDto);
+    }
+
+    @Test
+    public void updateLocationSuccessTest(){
+
+        LocationDto locationDto = new LocationDto();
+        locationDto.setId(LocationConst.VALID_LOC_ID);
+        locationDto.setLocationName("novo ime update");
+
+        Location result = locationService.updateLocation(locationDto);
+
+        assertNotNull(result);
+        assertEquals(locationDto.getLocationName(), result.getLocationName());
+    }
+
+    @Test(expected = LocationNotFoundException.class)
+    public void updateLocationAddressNotValidID_thenThrowException(){
+
+        AddressDto addressDto = AddressConst.newAddressDtoForUpdate();
+
+        Location result = locationService.updateAddress(LocationConst.NOT_VALID_LOC_ID, addressDto);
+    }
+
+    @Test
+    public void updateLocationAddressSuccessTest(){
+
+        AddressDto addressDto = AddressConst.newAddressDtoForUpdate();
+
+        Location result = locationService.updateAddress(LocationConst.VALID_LOC_ID, addressDto);
+
+        assertNotNull(result);
+        assertEquals(addressDto.getState(), result.getAddress().getState());
+        assertEquals(addressDto.getCity(), result.getAddress().getCity());
+        assertEquals(addressDto.getStreet(), result.getAddress().getStreet());
+        assertEquals(addressDto.getNumber(), result.getAddress().getNumber());
+        assertEquals(addressDto.getLatitude(), result.getAddress().getLatitude());
+        assertEquals(addressDto.getLongitude(), result.getAddress().getLongitude());
+    }
+
+    @Test(expected = LocationNotFoundException.class)
+    public void getManifestationOfLocationNotValidID_thenThrowException(){
+
+        List<ManifestationInfoDto> result = locationService.getManifestationsOfLocation(LocationConst.NOT_VALID_LOC_ID);
+
+    }
+
+    @Test
+    public void getManifestationOfLocationSuccessTest(){
+
+        List<ManifestationInfoDto> result = locationService.getManifestationsOfLocation(LocationConst.VALID_LOC_ID);
+        Location expected = locationRepository.findById(LocationConst.VALID_LOC_ID).get();
+
+        assertFalse(result.isEmpty());
+        assertEquals(expected.getManifestations().size(),result.size());
+    }
 }

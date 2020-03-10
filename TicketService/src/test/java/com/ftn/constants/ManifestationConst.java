@@ -11,6 +11,10 @@ import java.util.Set;
 
 public class ManifestationConst {
 
+
+    public static int MAN1_SECTOR_NUM = 4;
+    public static int MAN1_DAYS_NUM = 3;
+
     public static Long LOCATION_ID = 1L;
     public static Long WRONG_LOCATION_ID = 88L;
 

@@ -164,7 +164,7 @@ public class ManifestationService {
 
         /*
         id manifestacije, pronaci manifestaciju sa tim id - jem.
-        u objektu sectorPriceDto je smesten id sektora, id dana i cena.
+        U objektu sectorPriceDto je smesten id sektora, id dana i cena.
         pomocu njega iz manifestacije pronaci dan i
         pronaci sektor ili preko lokacije u manifestaciji ili preko liste u danima.
         napraviti novi objekat Manifestation sector i u njega setovati sve, sacuvati ga u bazu
@@ -180,6 +180,9 @@ public class ManifestationService {
                 md = md1;
             }
         }
+        if(md == null){
+            throw new AplicationException("Manifestation : " +m.getName()+ " dont have this day. Please try again.");
+        }
 
         Sector s = null;
 
@@ -187,6 +190,9 @@ public class ManifestationService {
             if(s1.getId() == sectorPriceDto.getSectorId()){
                 s = s1;
             }
+        }
+        if(s == null){
+            throw new AplicationException("Manifestation : " +m.getName()+ " dont have this sector. Please try again.");
         }
 
         ManifestationSector manSector = new ManifestationSector();

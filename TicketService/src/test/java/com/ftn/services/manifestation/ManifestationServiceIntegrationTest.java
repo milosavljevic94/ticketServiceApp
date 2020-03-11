@@ -96,7 +96,7 @@ public class ManifestationServiceIntegrationTest {
         assertEquals(dtoCorrect.getEndTime(), result.getEndTime());
 
     }
-    
+
     @Test
     public void deleteManifestationSuccessTest() {
 

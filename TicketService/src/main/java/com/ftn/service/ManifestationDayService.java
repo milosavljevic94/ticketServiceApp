@@ -33,6 +33,7 @@ public class ManifestationDayService {
         manifestationDaysRepository.deleteById(id);
     }
 
+    /* Current not in use.
     public void deleteAll(){
         manifestationDaysRepository.deleteAll();
     }
@@ -40,6 +41,7 @@ public class ManifestationDayService {
     public Boolean ifExist(Long id){
         return manifestationDaysRepository.existsById(id);
     }
+    */
 
     public ManifestationDays updateManifestationDays(ManifestationDaysDto mdd) {
 

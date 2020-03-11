@@ -16,20 +16,20 @@ public class ManifestationDayService {
     @Autowired
     ManifestationDaysRepository manifestationDaysRepository;
 
-    public List<ManifestationDays> finfAllManifestationDays(){
+    public List<ManifestationDays> finfAllManifestationDays() {
         return manifestationDaysRepository.findAll();
     }
 
-    public ManifestationDays findOneManifestationDays(Long id){
+    public ManifestationDays findOneManifestationDays(Long id) {
 
-            return manifestationDaysRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Manifestation day with id : "+ id +" not found."));
+        return manifestationDaysRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Manifestation day with id : " + id + " not found."));
     }
 
-    public void addManifestationDays(ManifestationDays md){
+    public void addManifestationDays(ManifestationDays md) {
         manifestationDaysRepository.save(md);
     }
 
-    public void deleteManifestationDays(Long id){
+    public void deleteManifestationDays(Long id) {
         manifestationDaysRepository.deleteById(id);
     }
 
@@ -56,7 +56,7 @@ public class ManifestationDayService {
     }
 
 
-    public ManifestationDaysDto mapToDTO(ManifestationDays md){
+    public ManifestationDaysDto mapToDTO(ManifestationDays md) {
 
         ManifestationDaysDto mdto = new ManifestationDaysDto(md);
 

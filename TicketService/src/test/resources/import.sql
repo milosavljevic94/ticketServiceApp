@@ -21,7 +21,7 @@ insert into location(location_name, address_id) values ('Stadion Rajko Mitic', 1
 insert into location(location_name, address_id) values ('Spens', 2);
 
 #Test data for sectors
-insert into sector(columns, rows, seats_number, sector_name, location_id) values (12, 22, 260, 'sectorSever', 1);
+insert into sector(columns, rows, seats_number, sector_name, location_id) values (12, 22, 264, 'sectorSever', 1);
 insert into sector(columns, rows, seats_number, sector_name, location_id) values (10, 30, 300, 'sectorJug', 1);
 insert into sector(columns, rows, seats_number, sector_name, location_id) values (40, 30, 1200, 'sectorIstok', 1);
 insert into sector(columns, rows, seats_number, sector_name, location_id) values (50, 40, 2000, 'sectorZapad', 1);

@@ -86,7 +86,7 @@ public class RoleServiceIntegrationTest {
     }
 
     @Test
-    public void updateRoleSucessTest(){
+    public void updateRoleSuccessTest(){
 
         RoleDto dto = RoleConst.newRoleDtoToUpdate();
         dto.setId(RoleConst.VALID_ID);

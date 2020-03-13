@@ -119,7 +119,7 @@ public class Manifestation {
                 ", endTime=" + endTime +
                 ", manifestationCategory=" + manifestationCategory +
                 ", manifestationDays=" + manifestationDays +
-                ", location=" + location +
+                ", location=" + location.getLocationName() +
                 '}';
     }
 }

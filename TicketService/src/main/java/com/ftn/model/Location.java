@@ -81,7 +81,7 @@ public class Location {
                 ", locationName='" + locationName + '\'' +
                 ", address=" + address +
                 ", sectors=" + sectors +
-                ", manifestations=" + manifestations +
+                ", manifestations=" + manifestations.stream().map(manifestation -> manifestation.getName()) +
                 '}';
     }
 }

@@ -96,7 +96,7 @@ public class Sector {
                 ", seatsNumber=" + seatsNumber +
                 ", rows=" + rows +
                 ", columns=" + columns +
-                ", location=" + location +
+                ", location=" + location.getLocationName() +
                 '}';
     }
 }

@@ -54,6 +54,7 @@ public class SectorService {
     }
 
     public void deleteSector(Long id){
+
         sectorRepository.deleteById(id);
     }
 

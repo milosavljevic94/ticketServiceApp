@@ -7,7 +7,6 @@ import com.ftn.exceptions.AplicationException;
 import com.ftn.exceptions.EntityNotFoundException;
 import com.ftn.model.*;
 import com.ftn.repository.ReservationRepository;
-import com.ftn.repository.TicketRepository;
 import com.ftn.service.ReservationService;
 import com.ftn.service.TicketService;
 import com.ftn.service.UserService;
@@ -38,12 +37,8 @@ public class ReservationServiceUnitTest {
     @Mock
     private ReservationRepository reservationRepository;
 
-
     @Mock
     private UserService userService;
-
-    @Mock
-    private TicketRepository ticketRepository;
 
     @Mock
     private TicketService ticketService;

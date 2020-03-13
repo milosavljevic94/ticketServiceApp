@@ -19,6 +19,11 @@ import static org.mockito.Mockito.mock;
 
 public class UserConst {
 
+    //for integration test
+    public static final String DB_USERNAME = "test1";
+    public static final String DB_PASS = "test123";
+
+
     public static final String REAL_USERNAME = "existing_username";
     public static final String FAKE_USERNAME = "username233";
     public static final String REAL_EMAIL = "existing.email@gmail.com";

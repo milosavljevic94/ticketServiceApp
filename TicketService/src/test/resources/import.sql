@@ -3,18 +3,12 @@ use kts_test;
 
 #Test data for roles
 insert into role (role_name) values ('USER');
-
 insert into role(role_name) values ('ADMIN');
 
 
-#test data for users, will be added when register.
-
-
-#Test data for ticket, will be added when user buy a ticket.
-
-
-#Test data for reservations, will be added when user reserve a ticket.
-
+#test data for users.
+insert into user(active, confirmation_token, email, first_name, last_name, matching_password, password, username, role_id) values (true , 'tokenexamplefortest', 'test1@gmail.com', 'TestName', 'TestLastName', '$2y$12$bGfo7MFUk1LjWhD9z./97.ZIqiyR/wvJFItU3CkJoAK0qm44tqJHa', '$2y$12$bGfo7MFUk1LjWhD9z./97.ZIqiyR/wvJFItU3CkJoAK0qm44tqJHa', 'test1', 1); #password: test123
+insert into user(active, confirmation_token, email, first_name, last_name, matching_password, password, username, role_id) values (true , 'tokenexampleforadmin', 'test_admin@gmail.com', 'TestAdmin', 'TestAdminLastName', '$2y$12$0aGkmk3OXPVatmHqicCns.tKNCpcQx3LQs3DxiGoost.ZEu7Yg28K', '$2y$12$0aGkmk3OXPVatmHqicCns.tKNCpcQx3LQs3DxiGoost.ZEu7Yg28K', 'testAdmin', 2);
 
 #Test data for address
 insert into address(city, latitude, longitude, number, state, street) values ('Beograd', 22.3323, 0.3233, '1a', 'Srbija', 'Ljutice Bogdana');
@@ -67,3 +61,17 @@ insert into manifestation_sector(price, manifestation_days_id, sector_id) values
 insert into manifestation_sector(price, manifestation_days_id, sector_id) values (1150.00, 4, 5);
 insert into manifestation_sector(price, manifestation_days_id, sector_id) values (1450.00, 4, 6);
 insert into manifestation_sector(price, manifestation_days_id, sector_id) values (1550.00, 4, 7);
+
+#Test data for ticket.
+insert into ticket(purchase_confirmed, purchase_time, row_num, seat_num, manifestation_days_id, manifestation_sector_id, user_id) values (true , '2020-02-10 10:00:00', 1, 1, 1, 1, 1);
+#Tickets for reservations.
+insert into ticket(purchase_confirmed, purchase_time, row_num, seat_num, manifestation_days_id, manifestation_sector_id, user_id) values (false , '2020-02-11 10:00:00', 2, 2, 1, 1, 1);
+insert into ticket(purchase_confirmed, purchase_time, row_num, seat_num, manifestation_days_id, manifestation_sector_id, user_id) values (false , '2020-02-10 10:00:00', 3, 3, 1, 1, 1);
+#Ticket for admin.
+insert into ticket(purchase_confirmed, purchase_time, row_num, seat_num, manifestation_days_id, manifestation_sector_id, user_id) values (false , '2020-02-09 10:00:00', 4, 4, 2, 2, 2);
+
+#Test data for reservations.
+insert into reservation(active, exp_days, ticket_id, user_id) values (true, 10, 2, 1);
+insert into reservation(active, exp_days, ticket_id, user_id) values (true, 10, 3, 1);
+
+insert into reservation(active, exp_days, ticket_id, user_id) values (true, 10, 4, 2);

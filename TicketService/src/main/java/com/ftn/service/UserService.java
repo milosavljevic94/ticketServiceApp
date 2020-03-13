@@ -147,6 +147,9 @@ public class UserService {
     public User getloggedInUser() {
 
         Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+        if(loggedInUser == null){
+            throw new AplicationException("You must log in first!");
+        }
         String username = loggedInUser.getName();
         User u = findByUsername(username);
 

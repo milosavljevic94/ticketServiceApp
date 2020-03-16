@@ -3,9 +3,12 @@ package com.ftn.dtos;
 import com.ftn.enums.ManifestationCategory;
 import com.ftn.model.Manifestation;
 import com.ftn.model.ManifestationDays;
+import com.ftn.model.ManifestationSector;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ManifestationDto {
@@ -44,6 +47,16 @@ public class ManifestationDto {
                 manDayDto.setName(md.getName());
                 manDayDto.setDescription(md.getDescription());
                 manDayDto.setStartTime(md.getStartTime());
+                List<ManifestationSectorPriceDto> pricesDtos = new ArrayList<>();
+                for(ManifestationSector ms : md.getManifestationSectors()){
+                    ManifestationSectorPriceDto priceDto = new ManifestationSectorPriceDto();
+                    priceDto.setId(ms.getId());
+                    priceDto.setPrice(ms.getPrice());
+                    priceDto.setDayId(ms.getManifestationDays().getId());
+                    priceDto.setSectorId(ms.getSector().getId());
+                    pricesDtos.add(priceDto);
+                }
+                manDayDto.setSectorPricesDtos(pricesDtos);
                 manDayDto.setManifestationId(manifestation.getId());
                 manDaysDtos.add(manDayDto);
             }

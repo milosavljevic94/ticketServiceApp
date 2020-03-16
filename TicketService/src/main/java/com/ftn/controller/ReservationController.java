@@ -68,4 +68,12 @@ public class ReservationController {
         return new ResponseEntity<>("Reservation and ticket deleted successfully!",HttpStatus.OK);
     }
 
+    //When manifestation is over, may you can delete all.
+    @DeleteMapping(value = "deleteAllReservations")
+    public ResponseEntity<?> deleteAllReservation(){
+
+        reservationService.deleteAll();
+
+        return new ResponseEntity<>("All reservation deleted successfully!",HttpStatus.OK);
+    }
 }

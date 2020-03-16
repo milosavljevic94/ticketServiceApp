@@ -13,9 +13,16 @@ import java.util.Set;
 
 public class TicketConst {
 
+    //integration testing.
+    public static int DB_TICKET_SIZE = 5;
+    public static LocalDateTime DB_PURCHASE_TIME = LocalDateTime.of(2020,02,10, 10,00,00);
+    public static Integer DB_ROW = 1;
+    public static Integer DB_COLUMN = 1;
+    public static String DAY_NAME = "Dan1 man1";
+    public static String TICKET_USER = "test1";
 
 
-    //for unit testing
+    //for unit testing.
     public static Long OK_TICKET_ID = 1L;
     public static Long WRONG_TICKET_ID = 14455L;
 

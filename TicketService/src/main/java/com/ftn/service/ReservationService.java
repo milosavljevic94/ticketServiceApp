@@ -67,11 +67,10 @@ public class ReservationService {
         }
     }
 
-    /*  Not currently used.
+
     public void deleteAll(){
         reservationRepository.deleteAll();
     }
-    */
 
     /*  Not currently used.
     public Boolean ifExist(Long id){

@@ -85,11 +85,12 @@ public class SectorServiceIntegrationTest {
 
     @Test
     public void deleteSectorTest(){
+
         Sector sector = sectorService.addSector(SectorConst.newDtoToAdd());
 
         int sizeBeforeDel = sectorRepository.findAll().size();
 
-        sectorService.deleteSector(SectorConst.ID_TO_DELETE);
+        sectorService.deleteSector(SectorConst.OK_ID_SECTOR);
 
         int sizeAfterDel = sectorRepository.findAll().size();
 

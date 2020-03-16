@@ -107,8 +107,19 @@ public class ReservationServiceIntegrationTest {
 
     @Test
     public void deleteReservationSuccessTest(){
-
+        int sizeBeforeDel = reservationRepository.findAll().size();
         reservationService.deleteReservation(ReservationConst.VALID_ID);
+        int sizeAfterDel = reservationRepository.findAll().size();
+
+        assertEquals(sizeBeforeDel - 1, sizeAfterDel);
+    }
+
+    @Test
+    public void deleteAllReservationsSuccessTest(){
+
+        reservationService.deleteAll();
+
+        assertTrue(reservationRepository.findAll().isEmpty());
     }
 
 

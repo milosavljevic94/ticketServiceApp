@@ -64,6 +64,8 @@ insert into manifestation_sector(price, manifestation_days_id, sector_id) values
 
 #Test data for ticket.
 insert into ticket(purchase_confirmed, purchase_time, row_num, seat_num, manifestation_days_id, manifestation_sector_id, user_id) values (true , '2020-02-10 10:00:00', 1, 1, 1, 1, 1);
+insert into ticket(purchase_confirmed, purchase_time, row_num, seat_num, manifestation_days_id, manifestation_sector_id, user_id) values (true , '2020-02-03 10:00:00', 6, 6, 2, 2, 1);
+
 #Tickets for reservations.
 insert into ticket(purchase_confirmed, purchase_time, row_num, seat_num, manifestation_days_id, manifestation_sector_id, user_id) values (false , '2020-02-11 10:00:00', 2, 2, 1, 1, 1);
 insert into ticket(purchase_confirmed, purchase_time, row_num, seat_num, manifestation_days_id, manifestation_sector_id, user_id) values (false , '2020-02-10 10:00:00', 3, 3, 1, 1, 1);

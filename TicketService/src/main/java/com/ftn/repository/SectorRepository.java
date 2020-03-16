@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SectorRepository extends JpaRepository<Sector, Long> {
+
     Sector findBySectorName(String name);
 }

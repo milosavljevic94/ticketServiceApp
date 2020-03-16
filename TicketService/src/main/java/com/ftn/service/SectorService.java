@@ -54,7 +54,7 @@ public class SectorService {
     }
 
     public void deleteSector(Long id){
-
+        System.out.println("Sector in delete method: "+ sectorRepository.findById(id).toString());
         sectorRepository.deleteById(id);
     }
 

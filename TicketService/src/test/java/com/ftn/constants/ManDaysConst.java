@@ -1,6 +1,7 @@
 package com.ftn.constants;
 
 import com.ftn.dtos.ManifestationDaysDto;
+import com.ftn.model.ManifestationDays;
 
 import java.time.LocalDateTime;
 
@@ -24,6 +25,15 @@ public class ManDaysConst {
         return daysDtoUpdate;
     }
 
+    public static ManifestationDays newManDay() {
+        ManifestationDays manifestationDays = new ManifestationDays();
+        manifestationDays.setName("Day for delete");
+
+        return manifestationDays;
+    }
+
     public ManDaysConst() {
     }
+
+
 }

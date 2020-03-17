@@ -57,6 +57,7 @@ public class ManifestationDaysIntegrationTest {
         ManifestationDays md = manifestationDayService.findOneManifestationDays(ManDaysConst.NOT_VALID_ID);
     }
 
+
     @Test
     public void addDaySuccessTest(){
 
@@ -64,14 +65,16 @@ public class ManifestationDaysIntegrationTest {
         ManifestationDays mdToAdd = new ManifestationDays();
         manifestationDayService.addManifestationDays(mdToAdd);
         int sizeAfterAdd = daysRepository.findAll().size();
-
         assertEquals(sizeBeforeAdd + 1, sizeAfterAdd);
     }
 
+
     @Test
     public void deleteDaySuccessTest(){
+        //daysRepository.save(ManDaysConst.newManDay());
+
         int sizeBeforeDel = daysRepository.findAll().size();
-        manifestationDayService.deleteManifestationDays(ManDaysConst.VALID_ID);
+        manifestationDayService.deleteManifestationDays(4L);
         int sizeAfterDel = daysRepository.findAll().size();
 
         assertEquals(sizeBeforeDel - 1, sizeAfterDel);

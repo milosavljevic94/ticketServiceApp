@@ -21,6 +21,22 @@ public class TicketConst {
     public static String DAY_NAME = "Dan1 man1";
     public static String TICKET_USER = "test1";
 
+    public static BuyTicketDto ticketWrongRowAndColumn(){
+
+        SeatWithPriceDto seatWithPriceDto = new SeatWithPriceDto();
+        seatWithPriceDto.setManSectorId(1L);
+        seatWithPriceDto.setRow(45);
+        seatWithPriceDto.setSeatNumber(145);
+
+
+        BuyTicketDto buyTicketDto = new BuyTicketDto();
+        buyTicketDto.setDayId(1L);
+        buyTicketDto.setWantedSeat(seatWithPriceDto);
+
+        return buyTicketDto;
+    }
+
+
 
     //for unit testing.
     public static Long OK_TICKET_ID = 1L;

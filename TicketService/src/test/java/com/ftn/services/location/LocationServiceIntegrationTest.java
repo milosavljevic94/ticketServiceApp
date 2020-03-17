@@ -117,8 +117,10 @@ public class LocationServiceIntegrationTest {
     @Test
     public void deleteLocationSuccessTest(){
 
+        Location location = locationService.addLocationAndAddress(LocationConst.newDtoToAdd());
+
         int sizeBeforeDelete = locationRepository.findAll().size();
-        locationService.deleteLocation(LocationConst.VALID_LOC_ID);
+        locationService.deleteLocation(3L);
         int sizeAfterDelete = locationRepository.findAll().size();
 
         assertEquals(sizeBeforeDelete-1, sizeAfterDelete);

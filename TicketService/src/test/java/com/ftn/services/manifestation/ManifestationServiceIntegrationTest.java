@@ -100,8 +100,10 @@ public class ManifestationServiceIntegrationTest {
     @Test
     public void deleteManifestationSuccessTest() {
 
+        Manifestation manifestation = manifestationService.addManifestation(ManifestationConst.newDto());
+
         int sizeBeforeDel = manifestationRepository.findAll().size();
-        manifestationService.deleteManifestation(ManifestationConst.OK_MAN_ID);
+        manifestationService.deleteManifestation(3L);
         int sizeAfterDel = manifestationRepository.findAll().size();
 
         assertEquals(sizeBeforeDel - 1, sizeAfterDel);

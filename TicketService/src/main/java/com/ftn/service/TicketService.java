@@ -101,6 +101,7 @@ public class TicketService {
         for(Ticket t : tickets){
             if(t.getManifestationDays().getId() == dayId && t.getManifestationSector().getSector().getId() == sectorId && t.getRowNum() == row && t.getSeatNum() == seatNum){
                 free = false;
+                return free;
             }else{
                 free = true;
             }

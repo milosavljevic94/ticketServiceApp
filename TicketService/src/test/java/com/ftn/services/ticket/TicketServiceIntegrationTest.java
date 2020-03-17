@@ -1,17 +1,29 @@
 package com.ftn.services.ticket;
 
 
+import com.ftn.constants.ManDaysConst;
 import com.ftn.constants.TicketConst;
+import com.ftn.constants.UserConst;
+import com.ftn.dtos.BuyTicketDto;
 import com.ftn.dtos.TicketDto;
+import com.ftn.exceptions.AplicationException;
 import com.ftn.exceptions.EntityNotFoundException;
+import com.ftn.exceptions.SeatIsNotFreeException;
+import com.ftn.model.Reservation;
 import com.ftn.model.Ticket;
 import com.ftn.project.TicketServiceApplication;
 import com.ftn.repository.TicketRepository;
 import com.ftn.service.TicketService;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -31,6 +43,20 @@ public class TicketServiceIntegrationTest {
 
     @Autowired
     TicketRepository ticketRepository;
+
+    @Qualifier("userDetailsServiceImpl")
+    @Autowired
+    UserDetailsService userDetailsService;
+
+    @Before
+    public void setUp(){
+        UserDetails userDetails = userDetailsService.loadUserByUsername(UserConst.DB_USERNAME);
+
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                userDetails, userDetails.getPassword(), userDetails.getAuthorities()
+        );
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+    }
 
    @Test
     public void findAllTicketTest_thenReturnTicketList(){
@@ -101,21 +127,19 @@ public class TicketServiceIntegrationTest {
         assertEquals(sizeBeforeDel - 1, sizeAfterDel);
     }
 
-    @Test
+    /*@Test
     public void deleteAllTicketSuccessTest(){
 
         ticketService.deleteAll();
 
         assertTrue(ticketRepository.findAll().isEmpty());
-    }
+    }*/
 
-/*
+
     @Test
     public void whenSeatFree_thenReturnTrue(){
 
-        when(ticketRepositoryMocked.findAll()).thenReturn(TicketConst.ticketsForCheckFreeSeats());
-
-        Boolean result = ticketService.isSeatFree(1,1,1L,1L);
+        Boolean result = ticketService.isSeatFree(6,6,1L,1L);
 
         assertTrue(result);
     }
@@ -123,18 +147,18 @@ public class TicketServiceIntegrationTest {
     @Test
     public void whenSeatIsNotFree_thenReturnFalse(){
 
-        when(ticketRepositoryMocked.findAll()).thenReturn(TicketConst.ticketsForCheckFreeSeats());
-
-        Boolean result = ticketService.isSeatFree(3,3,1L,1L);
+        Boolean result = ticketService.isSeatFree(1,1,1L,1L);
 
         assertFalse(result);
-    }
+        }
 
 
     //Tests for buying tickets.
 
     @Test(expected = AplicationException.class)
     public void buyTicketNotLoggedIn_thenThrowException(){
+
+        SecurityContextHolder.getContext().setAuthentication(null);
 
         BuyTicketDto testTicketToBuy = TicketConst.validTicketForBuyTest();
         Ticket result = ticketService.buyTicket(testTicketToBuy);
@@ -143,66 +167,25 @@ public class TicketServiceIntegrationTest {
     @Test(expected = EntityNotFoundException.class)
     public void buyTicketWrongManifestationDay_thenThrowException(){
 
-        Long WRONG_ID_OF_DAY = 22L;
-
-        ManifestationDays md = new ManifestationDays();
-        md.setId(1L);
-
-        when(userService.getloggedInUser()).thenReturn(UserConst.returnLoggedUserMock());
-
         BuyTicketDto testTicketToBuy = TicketConst.validTicketForBuyTest();
-        testTicketToBuy.setDayId(WRONG_ID_OF_DAY);
-
-        when(manifestationDayService.findOneManifestationDays(testTicketToBuy.getDayId())).thenThrow(EntityNotFoundException.class);
+        testTicketToBuy.setDayId(ManDaysConst.NOT_VALID_ID);
 
         Ticket result = ticketService.buyTicket(testTicketToBuy);
     }
 
+
     @Test(expected = AplicationException.class)
     public void buyTicketWrongRowAndColumn_thenThrowException(){
-        ManifestationDays md = new ManifestationDays();
-        md.setId(1L);
 
-        Sector sector = new Sector("testSector", 5, 10, new Location());
-        sector.setId(1L);
-
-
-        ManifestationSector ms = new ManifestationSector();
-        ms.setId(1L);
-        ms.setSector(sector);
-
-
-        when(userService.getloggedInUser()).thenReturn(UserConst.returnLoggedUserMock());
-
-        BuyTicketDto wrong_row_column = TicketConst.ticketForBuyWrongRowColumn();
-
-        when(manifestationDayService.findOneManifestationDays(wrong_row_column.getDayId())).thenReturn(md);
-        when(manSectorService.getSectorPriceById(wrong_row_column.getWantedSeat().getManSectorId())).thenReturn(ms);
-
+        BuyTicketDto wrong_row_column = TicketConst.ticketWrongRowAndColumn();
         Ticket result = ticketService.buyTicket(wrong_row_column);
     }
 
     @Test(expected = SeatIsNotFreeException.class)
     public void buyTicketTakenSeat_thenThrowException(){
-        ManifestationDays md = new ManifestationDays();
-        md.setId(1L);
 
-        Sector sector = new Sector("testSector", 5, 10, new Location());
-        sector.setId(1L);
-
-
-        ManifestationSector ms = new ManifestationSector();
-        ms.setId(1L);
-        ms.setSector(sector);
-
-
-        when(userService.getloggedInUser()).thenReturn(UserConst.returnLoggedUserMock());
 
         BuyTicketDto takenSeat = TicketConst.ticketForBuyTakenSeat();
-
-        when(manifestationDayService.findOneManifestationDays(takenSeat.getDayId())).thenReturn(md);
-        when(manSectorService.getSectorPriceById(takenSeat.getWantedSeat().getManSectorId())).thenReturn(ms);
-        when(ticketRepositoryMocked.findAll()).thenReturn(TicketConst.ticketsForCheckFreeSeats());
 
         Ticket result = ticketService.buyTicket(takenSeat);
     }
@@ -210,45 +193,26 @@ public class TicketServiceIntegrationTest {
     @Test
     public void buyTicketSuccessTest(){
 
-        ManifestationDays md = new ManifestationDays();
-        md.setId(1L);
-
-        Sector sector = new Sector("testSector", 5, 10, new Location());
-        sector.setId(1L);
-
-
-        ManifestationSector ms = new ManifestationSector();
-        ms.setId(1L);
-        ms.setSector(sector);
-
-        when(userService.getloggedInUser()).thenReturn(UserConst.returnLoggedUserMock());
-
-        BuyTicketDto testTicketToBuy = TicketConst.validTicketForBuyTest();
-
-        when(manifestationDayService.findOneManifestationDays(testTicketToBuy.getDayId())).thenReturn(md);
-
-        when(manSectorService.getSectorPriceById(testTicketToBuy.getWantedSeat().getManSectorId())).thenReturn(ms);
-
-        when(ticketRepositoryMocked.findAll()).thenReturn(TicketConst.ticketsForCheckFreeSeats());
-
-        Ticket result = ticketService.buyTicket(testTicketToBuy);
+        Ticket result = ticketService.buyTicket(TicketConst.validTicketForBuyTest());
 
         assertNotNull(result);
-        assertEquals(UserConst.MOCK_USER_USERNAME, result.getUser().getUsername());
+        assertEquals(UserConst.DB_USERNAME, result.getUser().getUsername());
         assertNull(result.getReservation());
         assertTrue(result.getPurchaseConfirmed());
-        verify(ticketRepositoryMocked, times(1)).save(result);
+        assertEquals(2, result.getRowNum(), 0);
+        assertEquals(5, result.getSeatNum(), 0);
     }
 
     //Tests for reservation ticket.
 
     @Test(expected = AplicationException.class)
     public void reserveTicketNotLoggedIn_thenThrowException(){
+        SecurityContextHolder.getContext().setAuthentication(null);
 
         BuyTicketDto testTicketToReserve = TicketConst.validTicketForBuyTest();
         Reservation result = ticketService.reserveTicket(testTicketToReserve);
     }
-
+/*
     @Test(expected = AplicationException.class)
     public void reserveTicketDayLimit_thenThrowException(){
 

@@ -332,7 +332,7 @@ public class TicketServiceIntegrationTest {
         assertEquals(5, result.getSoldTicketNumber());
         assertEquals(1450.00, result.getProfit(), 0);
     }
-/*
+
 
     @Test(expected = AplicationException.class)
     public void makeReportYearLocationBadDate_thenThrowException(){
@@ -342,46 +342,30 @@ public class TicketServiceIntegrationTest {
 
     @Test
     public void makeReportYearLocationSuccessTest(){
-
-        when(ticketRepositoryMocked.findAll()).thenReturn(TicketConst.returnValidTickets());
         TicketReportDto result = ticketService.makeReportYearLocation(TicketConst.OK_TICKET_ID, "2020");
 
         assertNotNull(result);
-        assertEquals(2, result.getSoldTicketNumber());
-        assertEquals(350.00, result.getProfit(), 0);
+        assertEquals(5, result.getSoldTicketNumber());
+        assertEquals(1450.00, result.getProfit(), 0);
     }
 
     @Test()
     public void makeReportDayManifestationSuccessTest(){
-
-        Manifestation validManifestation = TicketConst.manifestationWithValidDays();
-
-        when(manifestationService.findOneManifestation(1L)).thenReturn(validManifestation);
-
         TicketReportDto resultFirstDay = ticketService.makeReportDayManifestation(1L, 1L);
-        TicketReportDto resultSecondDay = ticketService.makeReportDayManifestation(1L, 2L);
 
         assertNotNull(resultFirstDay);
-        assertNotNull(resultSecondDay);
+        assertEquals(750.00, resultFirstDay.getProfit(), 0);
+        assertEquals(3, resultFirstDay.getSoldTicketNumber());
 
-        assertEquals(350.00, resultFirstDay.getProfit(), 0);
-        assertEquals(2, resultFirstDay.getSoldTicketNumber());
-
-        assertEquals(450.00, resultSecondDay.getProfit(), 0);
-        assertEquals(1, resultSecondDay.getSoldTicketNumber());
     }
 
     @Test()
     public void makeReportWholeManifestationSuccessTest(){
 
-        Manifestation validManifestation = TicketConst.manifestationWithValidDays();
-
-        when(manifestationService.findOneManifestation(1L)).thenReturn(validManifestation);
-
         TicketReportDto result = ticketService.makeReportWholeManifestation(1L);
 
         assertNotNull(result);
-        assertEquals(800.00, result.getProfit(), 0);
-        assertEquals(3, result.getSoldTicketNumber());
-    }*/
+        assertEquals(1450.00, result.getProfit(), 0);
+        assertEquals(5, result.getSoldTicketNumber());
+    }
 }

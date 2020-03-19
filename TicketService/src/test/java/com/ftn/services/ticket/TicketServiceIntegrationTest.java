@@ -1,17 +1,17 @@
 package com.ftn.services.ticket;
 
 
-import com.ftn.constants.ManDaysConst;
-import com.ftn.constants.TicketConst;
-import com.ftn.constants.UserConst;
+import com.ftn.constants.*;
 import com.ftn.dtos.BuyTicketDto;
 import com.ftn.dtos.TicketDto;
+import com.ftn.dtos.TicketReportDto;
 import com.ftn.exceptions.AplicationException;
 import com.ftn.exceptions.EntityNotFoundException;
 import com.ftn.exceptions.SeatIsNotFreeException;
 import com.ftn.model.Reservation;
 import com.ftn.model.Ticket;
 import com.ftn.project.TicketServiceApplication;
+import com.ftn.repository.ManifestationDaysRepository;
 import com.ftn.repository.TicketRepository;
 import com.ftn.service.TicketService;
 import org.junit.Before;
@@ -43,6 +43,9 @@ public class TicketServiceIntegrationTest {
 
     @Autowired
     TicketRepository ticketRepository;
+
+    @Autowired
+    ManifestationDaysRepository daysRepository;
 
     @Qualifier("userDetailsServiceImpl")
     @Autowired
@@ -212,15 +215,11 @@ public class TicketServiceIntegrationTest {
         BuyTicketDto testTicketToReserve = TicketConst.validTicketForBuyTest();
         Reservation result = ticketService.reserveTicket(testTicketToReserve);
     }
-/*
+
     @Test(expected = AplicationException.class)
     public void reserveTicketDayLimit_thenThrowException(){
 
-        when(userService.getloggedInUser()).thenReturn(UserConst.returnLoggedUserMock());
-
         BuyTicketDto testTicketToReserve = TicketConst.validTicketForBuyTest();
-
-        when(manifestationDayService.findOneManifestationDays(testTicketToReserve.getDayId())).thenReturn(TicketConst.dayForReservationLimitTest());
 
         Reservation result = ticketService.reserveTicket(testTicketToReserve);
     }
@@ -228,13 +227,7 @@ public class TicketServiceIntegrationTest {
     @Test(expected = AplicationException.class)
     public void reserveTicketWrongRowAndColumn_thenThrowException(){
 
-        when(userService.getloggedInUser()).thenReturn(UserConst.returnLoggedUserMock());
-
-        BuyTicketDto wrong_row_column = TicketConst.ticketForBuyWrongRowColumn();
-
-        when(manifestationDayService.findOneManifestationDays(wrong_row_column.getDayId())).thenReturn(TicketConst.validManDay());
-        when(manSectorService.getSectorPriceById(wrong_row_column.getWantedSeat().getManSectorId())).thenReturn(TicketConst.validManSector());
-
+        BuyTicketDto wrong_row_column = TicketConst.ticketWrongRowAndColumn();
         Reservation result = ticketService.reserveTicket(wrong_row_column);
     }
 
@@ -242,90 +235,68 @@ public class TicketServiceIntegrationTest {
     @Test(expected = SeatIsNotFreeException.class)
     public void reserveTicketTakenSeat_thenThrowException(){
 
-        when(userService.getloggedInUser()).thenReturn(UserConst.returnLoggedUserMock());
-
-        BuyTicketDto takenSeat = TicketConst.ticketForBuyTakenSeat();
-
-        when(manifestationDayService.findOneManifestationDays(takenSeat.getDayId())).thenReturn(TicketConst.validManDay());
-        when(manSectorService.getSectorPriceById(takenSeat.getWantedSeat().getManSectorId())).thenReturn(TicketConst.validManSector());
-        when(ticketRepositoryMocked.findAll()).thenReturn(TicketConst.ticketsForCheckFreeSeats());
-
+        BuyTicketDto takenSeat = TicketConst.ticketForReservce_takenSeat();
         Reservation result = ticketService.reserveTicket(takenSeat);
     }
 
     @Test
     public void reserveTicketSuccessTest(){
 
-        when(userService.getloggedInUser()).thenReturn(UserConst.returnLoggedUserMock());
-
-        BuyTicketDto testTicketToReserve = TicketConst.validTicketForBuyTest();
-
-        when(manifestationDayService.findOneManifestationDays(testTicketToReserve.getDayId())).thenReturn(TicketConst.validManDay());
-        when(manSectorService.getSectorPriceById(testTicketToReserve.getWantedSeat().getManSectorId())).thenReturn(TicketConst.validManSector());
-        when(ticketRepositoryMocked.findAll()).thenReturn(TicketConst.ticketsForCheckFreeSeats());
+        BuyTicketDto testTicketToReserve = TicketConst.integrationTest_validToReserve();
 
         Reservation result = ticketService.reserveTicket(testTicketToReserve);
 
         assertNotNull(result);
         assertTrue(result.getActive());
-
-        verify(ticketRepositoryMocked, times(1)).save(result.getTicket());
-        verify(reservationService, times(2)).addReservation(any(Reservation.class));
+        assertEquals(Restrictions.RESERVATION_DURATION, result.getExpDays());
+        assertEquals(UserConst.DB_USERNAME, result.getUser().getUsername());
     }
 
     //Buy reserved ticket tests.
 
     @Test(expected = AplicationException.class)
     public void buyReservedTicketNotLoggedIn_thenThrowException(){
-
+        SecurityContextHolder.getContext().setAuthentication(null);
         Ticket result = ticketService.buyReservedTicket(1L);
+    }
+
+    @Test(expected = EntityNotFoundException.class)
+    public void buyreservedTicket_reservationNotExist_thenThrowException(){
+
+        Ticket result = ticketService.buyReservedTicket(ReservationConst.NOT_VALID_ID);
     }
 
     @Test(expected = AplicationException.class)
     public void buyreservedTicket_notHaveReservation_thenThrowException(){
-        User currentUser = UserConst.returnLoggedUserMock();
 
-        when(userService.getloggedInUser()).thenReturn(currentUser);
-        when(reservationService.findOneReservation(anyLong())).thenReturn(TicketConst.wrongReservation());
-
-        Ticket result = ticketService.buyReservedTicket(1L);
+        Ticket result = ticketService.buyReservedTicket(ReservationConst.OTHER_USER_RESERVATION);
     }
 
     @Test
     public void buyReservedTicketSuccessTest(){
 
-        User currentUser = UserConst.returnLoggedUserMock();
-
-        when(userService.getloggedInUser()).thenReturn(currentUser);
-        when(reservationService.findOneReservation(anyLong())).thenReturn(currentUser.getReservations().iterator().next());
-
-        Ticket result = ticketService.buyReservedTicket(1L);
+        Ticket result = ticketService.buyReservedTicket(ReservationConst.VALID_ID);
 
         assertNotNull(result);
         assertTrue(result.getPurchaseConfirmed());
-
-        verify(ticketRepositoryMocked, times(1)).save(result);
+        assertEquals(UserConst.DB_USERNAME, result.getUser().getUsername());
     }
 
     //Ticket of user tests.
 
     @Test(expected = AplicationException.class)
     public void ticketOfUserNotLoggedIn_thenThrowException(){
-
+        SecurityContextHolder.getContext().setAuthentication(null);
         List<TicketDto> result = ticketService.ticketsOfUser();
     }
 
     @Test
     public void ticketOfUserSuccessTest(){
-
-        //user with 2 tickets.
-        User currentUser = UserConst.returnLoggedUserMock();
-        when(userService.getloggedInUser()).thenReturn(currentUser);
-
+        //user with 2 tickets(reserved or purchased).
         List<TicketDto> result = ticketService.ticketsOfUser();
 
         assertFalse(result.isEmpty());
-        assertEquals(2, result.size());
+        assertEquals(4, result.size());
     }
 
     //Reports tests.
@@ -338,33 +309,30 @@ public class TicketServiceIntegrationTest {
 
     @Test
     public void makeReportDayLocationSuccessTest(){
-
-        when(ticketRepositoryMocked.findAll()).thenReturn(TicketConst.returnValidTickets());
-        TicketReportDto result = ticketService.makeReportDayLocation(TicketConst.OK_TICKET_ID, "2020-03-01");
+        TicketReportDto result = ticketService.makeReportDayLocation(LocationConst.VALID_LOC_ID, "2020-02-10");
 
         assertNotNull(result);
         assertEquals(2, result.getSoldTicketNumber());
-        assertEquals(350.00, result.getProfit(), 0);
+        assertEquals(500.00, result.getProfit(), 0);
     }
 
 
     @Test(expected = AplicationException.class)
     public void makeReportMonthLocationBadDate_thenThrowException(){
 
-        TicketReportDto result = ticketService.makeReportMonthLocation(TicketConst.OK_TICKET_ID, "2020");
+        TicketReportDto result = ticketService.makeReportMonthLocation(LocationConst.VALID_LOC_ID, "2020");
     }
 
     @Test
     public void makeReportMonthLocationSuccessTest(){
 
-        when(ticketRepositoryMocked.findAll()).thenReturn(TicketConst.returnValidTickets());
-        TicketReportDto result = ticketService.makeReportMonthLocation(TicketConst.OK_TICKET_ID, "2020-03");
+        TicketReportDto result = ticketService.makeReportMonthLocation(TicketConst.OK_TICKET_ID, "2020-02");
 
         assertNotNull(result);
-        assertEquals(2, result.getSoldTicketNumber());
-        assertEquals(350.00, result.getProfit(), 0);
+        assertEquals(5, result.getSoldTicketNumber());
+        assertEquals(1450.00, result.getProfit(), 0);
     }
-
+/*
 
     @Test(expected = AplicationException.class)
     public void makeReportYearLocationBadDate_thenThrowException(){

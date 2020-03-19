@@ -21,6 +21,7 @@ public class TicketConst {
     public static String DAY_NAME = "Dan1 man1";
     public static String TICKET_USER = "test1";
 
+
     public static BuyTicketDto ticketWrongRowAndColumn(){
 
         SeatWithPriceDto seatWithPriceDto = new SeatWithPriceDto();
@@ -30,12 +31,41 @@ public class TicketConst {
 
 
         BuyTicketDto buyTicketDto = new BuyTicketDto();
-        buyTicketDto.setDayId(1L);
+        buyTicketDto.setDayId(2L);
         buyTicketDto.setWantedSeat(seatWithPriceDto);
 
         return buyTicketDto;
     }
 
+    public static BuyTicketDto ticketForReservce_takenSeat(){
+
+        SeatWithPriceDto seatWithPriceDto = new SeatWithPriceDto();
+        seatWithPriceDto.setManSectorId(2L);
+        seatWithPriceDto.setRow(6);
+        seatWithPriceDto.setSeatNumber(6);
+
+
+        BuyTicketDto buyTicketDto = new BuyTicketDto();
+        buyTicketDto.setDayId(2L);
+        buyTicketDto.setWantedSeat(seatWithPriceDto);
+
+        return buyTicketDto;
+    }
+
+    public static BuyTicketDto integrationTest_validToReserve(){
+
+        SeatWithPriceDto seatWithPriceDto = new SeatWithPriceDto();
+        seatWithPriceDto.setManSectorId(2L);
+        seatWithPriceDto.setRow(7);
+        seatWithPriceDto.setSeatNumber(7);
+
+
+        BuyTicketDto buyTicketDto = new BuyTicketDto();
+        buyTicketDto.setDayId(2L);
+        buyTicketDto.setWantedSeat(seatWithPriceDto);
+
+        return buyTicketDto;
+    }
 
 
     //for unit testing.
@@ -144,7 +174,7 @@ public class TicketConst {
 
     public static ManifestationDays validManDay(){
 
-        ManifestationDays md = new ManifestationDays("validtestDay","valid test description", LocalDateTime.of(2020,02,02,20,20,00), new Manifestation(), new HashSet<>(), new HashSet<>());
+        ManifestationDays md = new ManifestationDays("validtestDay","valid test description", LocalDateTime.of(2020,05,02,20,20,00), new Manifestation(), new HashSet<>(), new HashSet<>());
         md.setId(1L);
 
         return md;

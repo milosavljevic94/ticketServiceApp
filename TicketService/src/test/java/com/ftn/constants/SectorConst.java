@@ -4,6 +4,7 @@ import com.ftn.dtos.SectorDto;
 
 public class SectorConst {
 
+    public static final Long SECTOR_DELETE = 8L;
     //integration testing.
     public static int VALID_SIZE_SECTOR = 7;
     public static String VALID_NAME = "sectorSever";

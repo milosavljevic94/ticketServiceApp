@@ -139,11 +139,13 @@ public class TicketService {
         ManifestationDays md = manDayService.findOneManifestationDays(ticketToReserve.getDayId());
 
         LocalDateTime start = md.getStartTime();
-        long days = ChronoUnit.DAYS.between(start, LocalDateTime.now());
+        long days = ChronoUnit.DAYS.between(LocalDateTime.now(), start);
         int intDays = (int)days;
 
-        if(intDays < Restrictions.DAYS_BEFORE_MANIFESTATION){
-            throw new AplicationException("You can't reserve ticket because manifestation starts for "+Restrictions.DAYS_BEFORE_MANIFESTATION+" days.");
+
+
+        if(intDays < Restrictions.DAYS_BEFORE_MANIFESTATION ){
+            throw new AplicationException("You can't reserve ticket because manifestation starts for "+intDays+" days. Restriction is : "+Restrictions.DAYS_BEFORE_MANIFESTATION);
         }
 
 
@@ -160,7 +162,7 @@ public class TicketService {
         Sector s = ms.getSector();
 
         if(seatPrice.getRow() > s.getRows() || seatPrice.getSeatNumber() > s.getColumns()){
-            throw new AplicationException("This sector have "+s.getRows()+" rows and "+s.getColumns()+" columns. Please try again and insert correcttly seat position!");
+            throw new AplicationException("This sector have "+s.getRows()+" rows and "+s.getColumns()+" columns. Please try again and insert correctly seat position!");
         }
 
         if(!isSeatFree(seatPrice.getRow(), seatPrice.getSeatNumber(), md.getId(), s.getId())) {

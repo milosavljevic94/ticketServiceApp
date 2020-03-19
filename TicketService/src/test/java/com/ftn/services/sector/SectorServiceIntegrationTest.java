@@ -90,7 +90,7 @@ public class SectorServiceIntegrationTest {
 
         int sizeBeforeDel = sectorRepository.findAll().size();
 
-        sectorService.deleteSector(SectorConst.OK_ID_SECTOR);
+        sectorService.deleteSector(SectorConst.SECTOR_DELETE);
 
         int sizeAfterDel = sectorRepository.findAll().size();
 

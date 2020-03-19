@@ -9,7 +9,7 @@ public class ManDaysConst {
 
     public static Long VALID_ID = 1l;
     public static Long NOT_VALID_ID = 111L;
-    public static int DAYS_SIZE = 4;
+    public static int DAYS_SIZE = 5;
 
     public static String VALID_NAME = "Dan1 man1";
     public static String VALID_DESC = "Opis dana prvog za manifestaciju 1.";

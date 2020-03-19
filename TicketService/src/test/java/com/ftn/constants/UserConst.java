@@ -10,32 +10,92 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.mockito.Mockito.mock;
 
 public class UserConst {
 
     //for integration test
-    public static final String DB_USERNAME = "test1";
-    public static final String DB_PASS = "test123";
+
+    public static Long DB_ID = 1L;
+    public static Long NOT_VALID_ID = 111L;
+    public static Long ADMIN_ID = 2L;
+    public static String NOT_VALID_USERNAME = "not valid username";
+
+    public static String DB_USERNAME = "test1";
+    public static String DB_EMAIL = "test1@gmail.com";
+    public static String DB_NAME = "TestName";
+    public static String DB_LAST_NAME = "TestLastName";
 
 
     public static final String REAL_USERNAME = "existing_username";
     public static final String FAKE_USERNAME = "username233";
     public static final String REAL_EMAIL = "existing.email@gmail.com";
     public static final String FAKE_EMAIL = "fake.email@smsms.com";
-    public static final int ID = 2;
 
-    public static final String USERNAME = "stefaBot";
-    public static final String FIRST_NAME = "Stefan";
-    public static final String LAST_NAME = "Stefic";
-    public static final String EMAIL = "stefa@gmail.com";
+    public static User userToAdd(){
+
+        User user = new User();
+        user.setUsername("testAdd");
+        user.setEmail("testAdd@gmail.com");
+        user.setActive(true);
+        user.setTickets(Collections.emptySet());
+        user.setReservations(Collections.emptySet());
+        user.setPassword("testaddsifra");
+        user.setMatchingPassword("testaddsifra");
+        user.setLastName("addlastName");
+        user.setFirstName("addFirstname");
+        return user;
+    }
 
 
+    public static UserDto registerDtoExistEmail(){
+
+        UserDto userDto = new UserDto();
+        userDto.setUserName(DB_USERNAME);
+        userDto.setEmail(DB_EMAIL);
+
+        return userDto;
+    }
+
+
+    public static UserDto registerDtoAdminRole(){
+
+        RoleDto roleDto = new RoleDto();
+        roleDto.setId(2L);
+        roleDto.setRoleName("ADMIN");
+
+        UserDto userDto = new UserDto();
+        userDto.setId(1L);
+        userDto.setUserName("testUsername");
+        userDto.setEmail("testEmail.com");
+        userDto.setPassword("testPassword");
+        userDto.setMatchingPassword("testPassword");
+        userDto.setFirstName("testName");
+        userDto.setLastName("testLastName");
+        userDto.setRole(roleDto);
+
+        return userDto;
+    }
+
+    public static UserDto validDtoUser(){
+
+        RoleDto roleDto = new RoleDto();
+        roleDto.setId(1L);
+        roleDto.setRoleName("USER");
+
+        UserDto userDto = new UserDto();
+        userDto.setUserName("testUsername");
+        userDto.setEmail("testEmail.com");
+        userDto.setPassword("testPassword");
+        userDto.setMatchingPassword("testPassword");
+        userDto.setFirstName("testName");
+        userDto.setLastName("testLastName");
+        userDto.setRole(roleDto);
+
+        return userDto;
+    }
 
     //for unit testing
 
@@ -60,7 +120,6 @@ public class UserConst {
 
     public static User returnOneUser(){
         User existingUser = new User();
-        existingUser.setId(1L);
         existingUser.setUsername("testUsername");
         existingUser.setEmail("test@gmail.com");
         return existingUser;

@@ -1,5 +1,6 @@
 package com.ftn.controller;
 
+import com.ftn.dtos.ManifestationDaysDto;
 import com.ftn.dtos.ManifestationDto;
 import com.ftn.dtos.ManifestationInfoDto;
 import com.ftn.dtos.ManifestationSectorPriceDto;
@@ -34,6 +35,13 @@ public class ManifestationController {
 
         return new ResponseEntity<>(new ManifestationDto(manifestationService.findOneManifestation(id)), HttpStatus.OK);
     }
+    
+    @GetMapping(value = "/manifestationDay/{id}")
+    public ResponseEntity<ManifestationDaysDto> getManifestationDay(@PathVariable Long id) {
+
+        return new ResponseEntity<>(manifestationService.getManifestationDay(id), HttpStatus.OK);
+    }
+    
 
     @GetMapping(value = "/manifestationInfo/{id}")
     public ResponseEntity<ManifestationInfoDto> getManifestationInfoById(@PathVariable Long id) {

@@ -287,13 +287,13 @@ public class TicketServiceIntegrationTest {
     @Test(expected = AplicationException.class)
     public void ticketOfUserNotLoggedIn_thenThrowException(){
         SecurityContextHolder.getContext().setAuthentication(null);
-        List<TicketDto> result = ticketService.ticketsOfUser();
+        List<BuyTicketDto> result = ticketService.ticketsOfUser();
     }
 
     @Test
     public void ticketOfUserSuccessTest(){
         //user with 2 tickets(reserved or purchased).
-        List<TicketDto> result = ticketService.ticketsOfUser();
+        List<BuyTicketDto> result = ticketService.ticketsOfUser();
 
         assertFalse(result.isEmpty());
         assertEquals(4, result.size());

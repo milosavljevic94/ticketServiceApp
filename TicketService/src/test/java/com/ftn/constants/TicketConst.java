@@ -159,6 +159,8 @@ public class TicketConst {
 
         BuyTicketDto buyTicketDto = new BuyTicketDto();
         buyTicketDto.setDayId(1L);
+        buyTicketDto.setPurchaseConfirmed(false);
+        buyTicketDto.setPurchaseTime(LocalDateTime.now());
         buyTicketDto.setWantedSeat(seatWithPriceDto);
 
         return buyTicketDto;

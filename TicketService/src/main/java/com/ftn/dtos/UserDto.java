@@ -1,13 +1,13 @@
 package com.ftn.dtos;
 
-import com.ftn.model.Reservation;
-import com.ftn.model.User;
-
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+import com.ftn.model.Reservation;
+import com.ftn.model.User;
 
 public class UserDto {
 	
@@ -57,11 +57,14 @@ public class UserDto {
             rdto.setId(r.getId());
             rdto.setActive(r.getActive());
             rdto.setExpDays(r.getExpDays());
-            TicketDto ticketDto = new TicketDto();
-                ticketDto.setId(r.getTicket().getId());
-                ticketDto.setRowNum(r.getTicket().getRowNum());
-                ticketDto.setSeatNum(r.getTicket().getSeatNum());
-            rdto.setTicket(ticketDto);
+             BuyTicketDto ticketDto = new BuyTicketDto();
+            ticketDto.setDayId(r.getTicket().getId());
+            
+            SeatWithPriceDto wantedSeat = new SeatWithPriceDto();
+            wantedSeat.setRow(r.getTicket().getRowNum());
+            wantedSeat.setSeatNumber(r.getTicket().getSeatNum());
+            wantedSeat.setManSectorId(r.getTicket().getManifestationSector().getId());
+            ticketDto.setWantedSeat(wantedSeat);
 
             this.reservations.add(rdto);
         }

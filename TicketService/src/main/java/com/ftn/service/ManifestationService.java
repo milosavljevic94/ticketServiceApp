@@ -241,4 +241,16 @@ public class ManifestationService {
 
         return m;
     }
+    
+    public ManifestationDaysDto getManifestationDay(Long id) {
+    	ManifestationDays mDays = this.manifestationDayService.findOneManifestationDays(id);
+    	Manifestation manifestation = mDays.getManifestation();
+    	ManifestationDaysDto mDayDto = new ManifestationDaysDto();
+    	mDayDto.setId(id);
+    	mDayDto.setManifestation(new ManifestationDto(manifestation));
+    	mDayDto.setName(mDays.getName());
+    	mDayDto.setStartTime(mDays.getStartTime());
+    	
+    	return mDayDto;
+    }
 }

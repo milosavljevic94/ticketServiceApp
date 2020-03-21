@@ -27,9 +27,7 @@ public class ManifestationConst {
         ManifestationDaysDto testDay = new ManifestationDaysDto();
         testDay.setId(11L);
         testDay.setName("testdan");
-        testDay.setDescription("testDesc");
         testDay.setStartTime(LocalDateTime.of(2020, 03, 01, 12, 12, 00));
-        testDay.setManifestationId(OK_MAN_ID);
         Set<ManifestationDaysDto> days = new HashSet<>();
         days.add(testDay);
 
@@ -73,9 +71,7 @@ public class ManifestationConst {
         ManifestationDaysDto testDay = new ManifestationDaysDto();
         testDay.setId(11L);
         testDay.setName("testdan");
-        testDay.setDescription("testDesc");
         testDay.setStartTime(LocalDateTime.of(2020, 03, 01, 12, 12, 00));
-        testDay.setManifestationId(OK_MAN_ID);
         Set<ManifestationDaysDto> days = new HashSet<>();
         days.add(testDay);
 

@@ -48,7 +48,6 @@ public class ManifestationDayService {
         ManifestationDays md = findOneManifestationDays(mdd.getId());
 
         md.setName(mdd.getName());
-        md.setDescription(mdd.getDescription());
 
         manifestationDaysRepository.save(md);
 
@@ -79,7 +78,6 @@ public class ManifestationDayService {
         ManifestationDays md = new ManifestationDays();
 
         md.setName(mdto.getName());
-        md.setDescription(mdto.getDescription());
         md.setStartTime(mdto.getStartTime());
 
         return md;

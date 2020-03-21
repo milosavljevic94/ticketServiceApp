@@ -1,11 +1,54 @@
 package com.ftn.dtos;
 
+import com.ftn.model.Ticket;
+
+import java.time.LocalDateTime;
+
 public class BuyTicketDto {
 
     private Long dayId;
-    private SeatWithPriceDto wantedSeat;
+    private Long ticketId;
+    private SeatWithPriceDto wantedSeat = new SeatWithPriceDto();
+    private Boolean purchaseConfirmed;
+    private LocalDateTime purchaseTime;
 
-    public BuyTicketDto() {
+
+    public BuyTicketDto(Ticket ticket){
+
+        this.dayId = ticket.getManifestationDays().getId();
+        this.wantedSeat.setRow(ticket.getRowNum());
+        this.wantedSeat.setSeatNumber(ticket.getSeatNum());
+        this.purchaseConfirmed = ticket.getPurchaseConfirmed();
+        this.purchaseTime = ticket.getPurchaseTime();
+        this.ticketId = ticket.getId();
+    }
+    
+    public Long getTicketId() {
+		return ticketId;
+	}
+
+	public void setTicketId(Long ticketId) {
+		this.ticketId = ticketId;
+	}
+
+    
+    public Boolean getPurchaseConfirmed() {
+		return purchaseConfirmed;
+	}
+
+	public void setPurchaseConfirmed(Boolean purchaseConfirmed) {
+		this.purchaseConfirmed = purchaseConfirmed;
+	}
+
+	public LocalDateTime getPurchaseTime() {
+		return purchaseTime;
+	}
+
+	public void setPurchaseTime(LocalDateTime purchaseTime) {
+		this.purchaseTime = purchaseTime;
+	}
+
+	public BuyTicketDto() {
     }
 
     public Long getDayId() {

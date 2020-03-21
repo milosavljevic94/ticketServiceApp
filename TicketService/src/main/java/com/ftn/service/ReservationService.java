@@ -4,13 +4,16 @@ package com.ftn.service;
 import com.ftn.dtos.ReservationDto;
 import com.ftn.exceptions.AplicationException;
 import com.ftn.exceptions.EntityNotFoundException;
+import com.ftn.model.ManifestationSector;
 import com.ftn.model.Reservation;
 import com.ftn.model.Ticket;
 import com.ftn.model.User;
+import com.ftn.repository.ManifestationSectorRepository;
 import com.ftn.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +28,15 @@ public class ReservationService {
 
     @Autowired
     UserService userService;
+    
+    @Autowired
+    ManifestationDayService manifestationDayService;
+    
+    @Autowired
+    SectorService manifestationSectorService;
+    
+    @Autowired
+    ManifestationSectorRepository manifestationSectorRepository;
 
     public List<Reservation> finfAllReservation(){
         return reservationRepository.findAll();
@@ -118,20 +130,29 @@ public class ReservationService {
     public Reservation mapFromDto(ReservationDto reservationDto){
 
         Reservation r = new Reservation();
-        r.setId(reservationDto.getId());
+        //r.setId(reservationDto.getId());
         r.setActive(reservationDto.getActive());
         r.setExpDays(reservationDto.getExpDays());
 
-        if(ticketService.findOneTicket(reservationDto.getTicket().getId()) != null){
+        /*if(ticketService.findOneTicket(reservationDto.getTicket().getId()) != null){
             r.setTicket(ticketService.findOneTicket(reservationDto.getTicket().getId()));
         }else {
 
-            Ticket t = new Ticket();
-            t.setId(reservationDto.getTicket().getId());
-            t.setRowNum(reservationDto.getTicket().getRowNum());
-            t.setSeatNum(reservationDto.getTicket().getSeatNum());
+            */Ticket t = new Ticket();
+            //t.setId(reservationDto.getTicket().getId());
+            
+            t.setRowNum(reservationDto.getTicket().getWantedSeat().getRow());
+            t.setSeatNum(reservationDto.getTicket().getWantedSeat().getRow());
+            t.setPurchaseConfirmed(false);
+            t.setUser(userService.findOneUser(reservationDto.getUser().getId()));
+            t.setPurchaseTime(LocalDateTime.now());
+            t.setManifestationDays(this.manifestationDayService.findOneManifestationDays(reservationDto.getTicket().getDayId()));
+            ManifestationSector ms = this.manifestationSectorRepository.findById(reservationDto.getTicket()
+            		.getWantedSeat().getManSectorId())
+                    .orElse(null);
+            t.setManifestationSector(ms);
             r.setTicket(t);
-        }
+        //}
         if(userService.findOneUser(reservationDto.getUser().getId()) != null) {
             r.setUser(userService.findOneUser(reservationDto.getUser().getId()));
         }else{

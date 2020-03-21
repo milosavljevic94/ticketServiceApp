@@ -142,10 +142,8 @@ public class TicketService {
         long days = ChronoUnit.DAYS.between(LocalDateTime.now(), start);
         int intDays = (int)days;
 
-
-
-        if(intDays < Restrictions.DAYS_BEFORE_MANIFESTATION ){
-            throw new AplicationException("You can't reserve ticket because manifestation starts for "+intDays+" days. Restriction is : "+Restrictions.DAYS_BEFORE_MANIFESTATION);
+        if(intDays < Restrictions.DAYS_BEFORE_MANIFESTATION){
+            throw new AplicationException("You can't reserve ticket because manifestation starts for "+Restrictions.DAYS_BEFORE_MANIFESTATION+" days.");
         }
 
 
@@ -162,7 +160,7 @@ public class TicketService {
         Sector s = ms.getSector();
 
         if(seatPrice.getRow() > s.getRows() || seatPrice.getSeatNumber() > s.getColumns()){
-            throw new AplicationException("This sector have "+s.getRows()+" rows and "+s.getColumns()+" columns. Please try again and insert correctly seat position!");
+            throw new AplicationException("This sector have "+s.getRows()+" rows and "+s.getColumns()+" columns. Please try again and insert correcttly seat position!");
         }
 
         if(!isSeatFree(seatPrice.getRow(), seatPrice.getSeatNumber(), md.getId(), s.getId())) {
@@ -230,7 +228,7 @@ public class TicketService {
 
         Ticket tRes = new Ticket();
 
-        tRes.setUser(null);
+        tRes.setUser(u);
         tRes.setSeatNum(seatPrice.getSeatNumber());
         tRes.setPurchaseConfirmed(false);
         tRes.setPurchaseTime(LocalDateTime.now());
@@ -238,6 +236,7 @@ public class TicketService {
         tRes.setManifestationDays(md);
         tRes.setRowNum(seatPrice.getRow());
         tRes.setReservation(r);
+        
 
         ticketRepository.save(tRes);
 
@@ -280,17 +279,17 @@ public class TicketService {
     }
 
 
-    public TicketDto mapToDTO(Ticket ticket) {
+    public BuyTicketDto mapToDTO(Ticket ticket) {
 
-        TicketDto tDto = new TicketDto(ticket);
+        BuyTicketDto tDto = new BuyTicketDto(ticket);
 
         return tDto;
     }
 
-    public List<TicketDto> allToDto() {
+    public List<BuyTicketDto> allToDto() {
 
         List<Ticket> tickets = finfAllTickets();
-        List<TicketDto> tdto = new ArrayList<>();
+        List<BuyTicketDto> tdto = new ArrayList<>();
 
         for (Ticket t : tickets) {
             tdto.add(mapToDTO(t));
@@ -332,10 +331,10 @@ public class TicketService {
     }
 
 
-    public List<TicketDto> ticketsOfUser() {
+    public List<BuyTicketDto> ticketsOfUser() {
 
         List<Ticket> tickets = new ArrayList<>();
-        List<TicketDto> ticketDtos = new ArrayList<>();
+        List<BuyTicketDto> ticketDtos = new ArrayList<>();
 
         if(userService.getloggedInUser() == null){
             throw new AplicationException("You must be logged in to buy ticket!");

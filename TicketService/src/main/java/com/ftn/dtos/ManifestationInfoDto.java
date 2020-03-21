@@ -44,9 +44,7 @@ public class ManifestationInfoDto {
             ManifestationDaysDto mdDto = new ManifestationDaysDto();
             mdDto.setId(md.getId());
             mdDto.setName(md.getName());
-            mdDto.setDescription(md.getDescription());
             mdDto.setStartTime(md.getStartTime());
-            mdDto.setManifestationId(md.getManifestation().getId());
             mdDtos.add(mdDto);
         }
         this.days =mdDtos;

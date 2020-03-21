@@ -45,7 +45,6 @@ public class ManifestationDto {
                 ManifestationDaysDto manDayDto = new ManifestationDaysDto();
                 manDayDto.setId(md.getId());
                 manDayDto.setName(md.getName());
-                manDayDto.setDescription(md.getDescription());
                 manDayDto.setStartTime(md.getStartTime());
                 List<ManifestationSectorPriceDto> pricesDtos = new ArrayList<>();
                 for(ManifestationSector ms : md.getManifestationSectors()){
@@ -56,8 +55,6 @@ public class ManifestationDto {
                     priceDto.setSectorId(ms.getSector().getId());
                     pricesDtos.add(priceDto);
                 }
-                manDayDto.setSectorPricesDtos(pricesDtos);
-                manDayDto.setManifestationId(manifestation.getId());
                 manDaysDtos.add(manDayDto);
             }
 

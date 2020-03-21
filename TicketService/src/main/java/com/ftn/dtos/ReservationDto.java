@@ -12,7 +12,7 @@ public class ReservationDto {
 
     private Boolean active;
 
-    private TicketDto ticket;
+    private BuyTicketDto ticket;
 
     public ReservationDto(){ }
 
@@ -30,10 +30,18 @@ public class ReservationDto {
         this.expDays = reservation.getExpDays();
         this.active = reservation.getActive();
 
-        TicketDto ticketDto = new TicketDto();
-            ticketDto.setId(reservation.getTicket().getId());
-            ticketDto.setRowNum(reservation.getTicket().getRowNum());
-            ticketDto.setSeatNum(reservation.getTicket().getSeatNum());
+        BuyTicketDto ticketDto = new BuyTicketDto();
+        ticketDto.setDayId(reservation.getTicket().getManifestationDays().getId());
+        ticketDto.setTicketId(reservation.getTicket().getId());
+        ticketDto.setPurchaseConfirmed(reservation.getTicket().getPurchaseConfirmed());
+        ticketDto.setPurchaseTime(reservation.getTicket().getPurchaseTime());
+        
+        SeatWithPriceDto wantedSeat = new SeatWithPriceDto();
+        wantedSeat.setRow(reservation.getTicket().getRowNum());
+        wantedSeat.setSeatNumber(reservation.getTicket().getSeatNum());
+        wantedSeat.setManSectorId(reservation.getTicket().getManifestationSector().getId());
+        ticketDto.setWantedSeat(wantedSeat);
+        
         this.ticket = ticketDto;
     }
 
@@ -69,11 +77,11 @@ public class ReservationDto {
         this.active = active;
     }
 
-    public TicketDto getTicket() {
+    public BuyTicketDto getTicket() {
         return ticket;
     }
 
-    public void setTicket(TicketDto ticket) {
+    public void setTicket(BuyTicketDto ticket) {
         this.ticket = ticket;
     }
 

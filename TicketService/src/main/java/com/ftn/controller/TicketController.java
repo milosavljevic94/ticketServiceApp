@@ -25,17 +25,17 @@ public class TicketController {
 
     @GetMapping(value = "/allTicket")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<List<TicketDto>> getAllTicket(){
+    public ResponseEntity<List<BuyTicketDto>> getAllTicket(){
 
-        List<TicketDto> ticketDtos = ticketService.allToDto();
+        List<BuyTicketDto> ticketDtos = ticketService.allToDto();
 
         return new ResponseEntity<>(ticketDtos, HttpStatus.OK);
     }
 
     @GetMapping(value = "/allUserTicket")
-    public ResponseEntity<List<TicketDto>> getAllTicketOfUser(){
+    public ResponseEntity<List<BuyTicketDto>> getAllTicketOfUser(){
 
-        List<TicketDto> ticketDtos = ticketService.ticketsOfUser();
+        List<BuyTicketDto> ticketDtos = ticketService.ticketsOfUser();
 
         return new ResponseEntity<>(ticketDtos, HttpStatus.OK);
     }
@@ -47,7 +47,7 @@ public class TicketController {
         return new ResponseEntity<>(new TicketDto(ticketService.findOneTicket(id)), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/buyTicket")
+    @PostMapping(value = "/buyTicket")
     public ResponseEntity<TicketDto> buyTicketMakeNewTicket(@RequestBody BuyTicketDto ticketToBuy) {
 
         Ticket t = ticketService.buyTicket(ticketToBuy);
@@ -55,7 +55,7 @@ public class TicketController {
         return new ResponseEntity<>(new TicketDto(t), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/reserveTicket")
+    @PutMapping(value = "/reserveTicket")
     public ResponseEntity<ReservationDto> reserveTicketMakeNewTicket(@RequestBody BuyTicketDto ticketToReserve) {
 
         Reservation r = ticketService.reserveTicket(ticketToReserve);

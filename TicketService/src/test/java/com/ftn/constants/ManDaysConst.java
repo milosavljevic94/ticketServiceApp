@@ -20,7 +20,6 @@ public class ManDaysConst {
         ManifestationDaysDto daysDtoUpdate = new ManifestationDaysDto();
         daysDtoUpdate.setId(VALID_ID);
         daysDtoUpdate.setName("novoIme");
-        daysDtoUpdate.setDescription("noviOpis");
 
         return daysDtoUpdate;
     }

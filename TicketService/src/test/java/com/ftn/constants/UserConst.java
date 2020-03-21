@@ -2,10 +2,7 @@ package com.ftn.constants;
 
 import com.ftn.dtos.RoleDto;
 import com.ftn.dtos.UserDto;
-import com.ftn.model.Reservation;
-import com.ftn.model.Role;
-import com.ftn.model.Ticket;
-import com.ftn.model.User;
+import com.ftn.model.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,9 +26,7 @@ public class UserConst {
     public static String DB_LAST_NAME = "TestLastName";
 
 
-    public static final String REAL_USERNAME = "existing_username";
-    public static final String FAKE_USERNAME = "username233";
-    public static final String REAL_EMAIL = "existing.email@gmail.com";
+    public static final String FAKE_USERNAME = "fakeUsername";
     public static final String FAKE_EMAIL = "fake.email@smsms.com";
 
     public static User userToAdd(){
@@ -127,10 +122,25 @@ public class UserConst {
 
     public static User returnLoggedUserMock(){
 
+        ManifestationDays manifestationDays = new ManifestationDays();
+        manifestationDays.setId(1L);
+
+        ManifestationSector manifestationSector = new ManifestationSector();
+        manifestationSector.setId(1L);
+
         Ticket ticket = new Ticket();
         ticket.setId(11L);
+        ticket.setRowNum(2);
+        ticket.setSeatNum(8);
+        ticket.setManifestationSector(manifestationSector);
+        ticket.setManifestationDays(manifestationDays);
+
         Ticket ticket2 = new Ticket();
-        ticket.setId(11L);
+        ticket2.setId(11L);
+        ticket2.setRowNum(3);
+        ticket2.setSeatNum(9);
+        ticket2.setManifestationSector(manifestationSector);
+        ticket2.setManifestationDays(manifestationDays);
 
         Set<Ticket> ticketsOfUser = new HashSet<>();
         ticketsOfUser.add(ticket);

@@ -47,7 +47,6 @@ public class ManifestationDays {
 
     public ManifestationDays(ManifestationDaysDto manifestationDaysDto) {
         this.name = manifestationDaysDto.getName();
-        this.description = manifestationDaysDto.getDescription();
         this.startTime = manifestationDaysDto.getStartTime();
     }
 

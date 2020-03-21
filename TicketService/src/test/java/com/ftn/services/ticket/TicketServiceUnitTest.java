@@ -377,7 +377,7 @@ public class TicketServiceUnitTest {
     @Test(expected = AplicationException.class)
     public void ticketOfUserNotLoggedIn_thenThrowException(){
 
-        List<TicketDto> result = ticketService.ticketsOfUser();
+        List<BuyTicketDto> result = ticketService.ticketsOfUser();
     }
 
     @Test
@@ -387,7 +387,7 @@ public class TicketServiceUnitTest {
         User currentUser = UserConst.returnLoggedUserMock();
         when(userService.getloggedInUser()).thenReturn(currentUser);
 
-        List<TicketDto> result = ticketService.ticketsOfUser();
+        List<BuyTicketDto> result = ticketService.ticketsOfUser();
 
         assertFalse(result.isEmpty());
         assertEquals(2, result.size());

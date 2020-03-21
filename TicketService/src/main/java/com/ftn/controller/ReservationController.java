@@ -43,7 +43,6 @@ public class ReservationController {
     }
 
     @PostMapping(value = "/addReservation", consumes = "application/json")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ReservationDto> addReservation(@RequestBody ReservationDto reservationDto) {
 
         reservationService.addReservation(reservationService.mapFromDto(reservationDto));

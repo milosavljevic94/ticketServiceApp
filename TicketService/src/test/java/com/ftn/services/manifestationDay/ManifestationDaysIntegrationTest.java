@@ -88,7 +88,6 @@ public class ManifestationDaysIntegrationTest {
 
         assertNotNull(result);
         assertEquals(dto.getName(), result.getName());
-        assertEquals(dto.getDescription(), result.getDescription());
     }
 
     @Test(expected = EntityNotFoundException.class)

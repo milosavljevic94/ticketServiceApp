@@ -6,8 +6,8 @@ insert into role (role_name) values ('USER');
 insert into role(role_name) values ('ADMIN');
 
 -- test data for users.
-insert into user(active, confirmation_token, email, first_name, last_name, matching_password, password, username, role_id) values (true , 'tokenexamplefortest', 'test1@gmail.com', 'TestName', 'TestLastName', '$2y$12$bGfo7MFUk1LjWhD9z./97.ZIqiyR/wvJFItU3CkJoAK0qm44tqJHa', '$2y$12$bGfo7MFUk1LjWhD9z./97.ZIqiyR/wvJFItU3CkJoAK0qm44tqJHa', 'test1', 1); -- password: test123
-insert into user(active, confirmation_token, email, first_name, last_name, matching_password, password, username, role_id) values (true , 'tokenexampleforadmin', 'test_admin@gmail.com', 'TestAdmin', 'TestAdminLastName', '$2y$12$0aGkmk3OXPVatmHqicCns.tKNCpcQx3LQs3DxiGoost.ZEu7Yg28K', '$2y$12$0aGkmk3OXPVatmHqicCns.tKNCpcQx3LQs3DxiGoost.ZEu7Yg28K', 'testAdmin', 2);
+insert into user(active, confirmation_token, email, first_name, last_name, matching_password, password, username, role_id) values (true , 'tokenexamplefortest', 'test1@gmail.com', 'TestName', 'TestLastName', '$2a$10$zVmg.K.gRtclVbX3DKnbR.ItYbKM6DXrbphFjmNDtPQc/ugKemuoW', '$2a$10$zVmg.K.gRtclVbX3DKnbR.ItYbKM6DXrbphFjmNDtPQc/ugKemuoW', 'test1', 1); -- password: test123
+insert into user(active, confirmation_token, email, first_name, last_name, matching_password, password, username, role_id) values (true , 'tokenexampleforadmin', 'test_admin@gmail.com', 'TestAdmin', 'TestAdminLastName', '$2a$10$0XFCOGokcC4jkYjlS96eqeGL9P6miUr.ogavuGiRYN0SYlKd0I6Aa', '$2a$10$0XFCOGokcC4jkYjlS96eqeGL9P6miUr.ogavuGiRYN0SYlKd0I6Aa', 'testAdmin', 2); -- password: admin
 
 -- Test data for address
 insert into address(city, latitude, longitude, number, state, street) values ('Beograd', 22.3323, 0.3233, '1a', 'Srbija', 'Ljutice Bogdana');

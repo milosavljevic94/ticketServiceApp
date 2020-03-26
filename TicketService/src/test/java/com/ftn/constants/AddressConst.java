@@ -45,6 +45,11 @@ public class AddressConst {
 
     //for integration testing
 
+    public static String DB_STATE = "Srbija";
+    public static String DB_CITY = "Beograd";
+    public static String DB_STREET = "Ljutice Bogdana";
+    public static String DB_NUM = "1a";
+
     public static Long VALID_ID_ADDRESS = 1L;
     public static Long NOT_VALID_ID_ADDRESS = 111L;
     public static Long ID_ADDRESS_FOR_DELETE = 3L;

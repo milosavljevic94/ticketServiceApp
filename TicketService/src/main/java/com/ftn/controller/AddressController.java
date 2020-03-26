@@ -32,7 +32,7 @@ public class AddressController {
     @GetMapping(value = "/{id}")
     public ResponseEntity<AddressDto> getAddress(@PathVariable Long id) {
 
-        return new ResponseEntity<>(new AddressDto(addressService.findOneAddress(id)), HttpStatus.OK);
+        return new ResponseEntity<AddressDto>(new AddressDto(addressService.findOneAddress(id)), HttpStatus.OK);
     }
 
     @PostMapping(value = "/addAddress", consumes = "application/json")

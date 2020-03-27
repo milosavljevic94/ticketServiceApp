@@ -54,6 +54,20 @@ public class AddressConst {
     public static Long NOT_VALID_ID_ADDRESS = 111L;
     public static Long ID_ADDRESS_FOR_DELETE = 3L;
 
+
+    public static AddressDto newAddressDtoToAdd(){
+        AddressDto address = new AddressDto();
+
+        address.setLongitude(12.33);
+        address.setLatitude(14.22);
+        address.setNumber("12");
+        address.setStreet("Ulica add test");
+        address.setCity("Grad add test");
+        address.setState("Drzava add test");
+
+        return address;
+    }
+
     public static AddressDto newAddressDtoForUpdate(){
 
         AddressDto addressDto = new AddressDto();

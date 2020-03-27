@@ -37,7 +37,6 @@ public class AddressController {
 
     @PostMapping(value = "/addAddress", consumes = "application/json")
     public ResponseEntity<AddressDto> addAddress(@RequestBody AddressDto addressDto) {
-
         Address a =  addressService.addAddress(addressService.mapFromDto(addressDto));
 
         return new ResponseEntity<>(new AddressDto(a) , HttpStatus.CREATED);

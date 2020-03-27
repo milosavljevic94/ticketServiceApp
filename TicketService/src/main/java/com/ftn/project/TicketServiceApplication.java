@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
-@ComponentScan(value = {"com.ftn.controller", "com.ftn.service", "com.ftn.security", "com.ftn.swagger"})
+@ComponentScan(value = {"com.ftn.controller", "com.ftn.service", "com.ftn.security", "com.ftn.swagger", "com.ftn.exceptions"})
 @EnableJpaRepositories(value = "com.ftn.repository")
 @EntityScan("com.ftn.model")
 @EnableSwagger2

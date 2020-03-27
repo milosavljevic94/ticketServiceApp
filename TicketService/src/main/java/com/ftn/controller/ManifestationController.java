@@ -59,6 +59,18 @@ public class ManifestationController {
         return new ResponseEntity<>(new ManifestationDto(m), HttpStatus.CREATED);
     }
 
+    /*
+        Request for add dey to manifestation.
+     */
+    @PostMapping(value = "/addManDay/{manId}", consumes = "application/json")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<ManifestationDto> addManifestationDay(@PathVariable Long manId, @RequestBody ManifestationDaysDto daysDto) {
+
+        Manifestation m = manifestationService.addManifestationDay(manId, daysDto);
+
+        return new ResponseEntity<>(new ManifestationDto(m), HttpStatus.CREATED);
+    }
+
     @PutMapping(value = "/updateManifestation", consumes = "application/json")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ManifestationDto> updateManifestation(@RequestBody ManifestationDto mdto) {
@@ -85,6 +97,18 @@ public class ManifestationController {
         manifestationService.deleteManifestation(id);
 
         return new ResponseEntity<>("Manifestation deleted successfully!", HttpStatus.OK);
+    }
+
+    /*
+        Request for delete dey from manifestation.
+     */
+    @DeleteMapping(value = "deleteDay/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<?> deleteManifestationDay(@PathVariable Long id) {
+
+        manifestationService.deleteManifestationDay(id);
+
+        return new ResponseEntity<>("Manifestation day deleted successfully!", HttpStatus.OK);
     }
 
     @GetMapping(value = "/manifestationPrices/{id}")

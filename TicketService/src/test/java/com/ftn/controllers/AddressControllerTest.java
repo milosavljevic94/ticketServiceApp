@@ -70,6 +70,8 @@ public class AddressControllerTest {
 
     @Test
     public void testGetAddress_thenReturnAddress() {
+        Address expected = addressRepository.findById(AddressConst.VALID_ID_ADDRESS).get();
+
         ResponseEntity<AddressDto> response = restTemplate.exchange("/api/address/"+AddressConst.VALID_ID_ADDRESS,
                 HttpMethod.GET, createRequestEntity(), AddressDto.class);
         AddressDto found = response.getBody();
@@ -77,8 +79,11 @@ public class AddressControllerTest {
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(found);
-        assertEquals(AddressConst.VALID_ID_ADDRESS, found.getId());
-        assertEquals(AddressConst.DB_STREET, found.getStreet());
+        assertEquals(expected.getId(), found.getId());
+        assertEquals(expected.getState(), found.getState());
+        assertEquals(expected.getStreet(), found.getStreet());
+        assertEquals(expected.getCity(), found.getCity());
+        assertEquals(expected.getNumber(), found.getNumber());
     }
 
     @Test

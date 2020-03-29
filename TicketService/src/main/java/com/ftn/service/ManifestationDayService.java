@@ -78,6 +78,7 @@ public class ManifestationDayService {
         ManifestationDays md = new ManifestationDays();
 
         md.setName(mdto.getName());
+        md.setDescription(mdto.getDescription());
         md.setStartTime(mdto.getStartTime());
 
         return md;

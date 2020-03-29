@@ -13,6 +13,8 @@ public class LocationConst {
     public static final Long VALID_LOC_ID = 1L;
     public static final Long NOT_VALID_LOC_ID = 111L;
 
+    public static String VALID_LOCATION_NAME = "Stadion Rajko Mitic";
+
     public static LocationDto newDtoToAdd(){
 
         AddressDto addressDto = AddressConst.newAddressDto();

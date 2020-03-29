@@ -10,6 +10,7 @@ public class ManifestationDaysDto {
 	private Long id;
 	private ManifestationDto manifestation;
 	private String name;
+	private String description;
 	private LocalDateTime startTime;
 
     public ManifestationDaysDto() {
@@ -28,6 +29,7 @@ public class ManifestationDaysDto {
             manifestationDto.setManDaysDto(Collections.emptySet());
         this.manifestation = manifestationDto;
         this.name = md.getName();
+        this.description = md.getDescription();
         this.startTime = md.getStartTime();
     }
 
@@ -49,6 +51,15 @@ public class ManifestationDaysDto {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public LocalDateTime getStartTime() {
 		return startTime;
 	}

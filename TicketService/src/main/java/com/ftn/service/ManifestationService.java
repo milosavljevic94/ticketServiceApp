@@ -273,4 +273,28 @@ public class ManifestationService {
         ManifestationDays md = this.manifestationDayService.findOneManifestationDays(id);
         this.manifestationDayService.deleteManifestationDays(id);
     }
+
+    public Manifestation updateManifestationDay(Long manId, ManifestationDaysDto daysDto) {
+        Manifestation m = findOneManifestation(manId);
+        Boolean changed = false;
+
+        for (ManifestationDays md : m.getManifestationDays()) {
+            if (md.getId() == daysDto.getId()) {
+                md.setName(daysDto.getName());
+                md.setDescription(daysDto.getDescription());
+                md.setStartTime(daysDto.getStartTime());
+
+                manifestationRepository.save(m);
+                changed = true;
+                return m;
+            }
+        }
+
+        if(!changed){
+            throw  new AplicationException("Manifestation with id: "+ manId +" dont have day :"+ daysDto.getName()+
+                    ", or your request body is not valid");
+        }
+
+        return m;
+    }
 }

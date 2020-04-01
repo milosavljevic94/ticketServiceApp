@@ -85,6 +85,6 @@ public class LocationController {
 
         locationService.deleteLocation(id);
 
-        return new ResponseEntity<>("Location deleted successfully!", HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

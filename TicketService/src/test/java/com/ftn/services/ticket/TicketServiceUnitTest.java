@@ -455,8 +455,8 @@ public class TicketServiceUnitTest {
 
         when(manifestationService.findOneManifestation(1L)).thenReturn(validManifestation);
 
-        TicketReportDto resultFirstDay = ticketService.makeReportDayManifestation(1L, 1L);
-        TicketReportDto resultSecondDay = ticketService.makeReportDayManifestation(1L, 2L);
+        TicketReportDto resultFirstDay = ticketService.makeReportDayManifestation(1L);
+        TicketReportDto resultSecondDay = ticketService.makeReportDayManifestation(2L);
 
         assertNotNull(resultFirstDay);
         assertNotNull(resultSecondDay);

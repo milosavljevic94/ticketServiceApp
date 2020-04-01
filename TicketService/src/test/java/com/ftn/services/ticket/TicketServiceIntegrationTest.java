@@ -351,7 +351,7 @@ public class TicketServiceIntegrationTest {
 
     @Test()
     public void makeReportDayManifestationSuccessTest(){
-        TicketReportDto resultFirstDay = ticketService.makeReportDayManifestation(1L, 1L);
+        TicketReportDto resultFirstDay = ticketService.makeReportDayManifestation(1L);
 
         assertNotNull(resultFirstDay);
         assertEquals(750.00, resultFirstDay.getProfit(), 0);

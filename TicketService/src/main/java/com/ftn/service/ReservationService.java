@@ -1,6 +1,13 @@
 package com.ftn.service;
 
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.ftn.dtos.ReservationDto;
 import com.ftn.exceptions.AplicationException;
 import com.ftn.exceptions.EntityNotFoundException;
@@ -10,12 +17,6 @@ import com.ftn.model.Ticket;
 import com.ftn.model.User;
 import com.ftn.repository.ManifestationSectorRepository;
 import com.ftn.repository.ReservationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class ReservationService {
@@ -144,7 +145,9 @@ public class ReservationService {
             t.setRowNum(reservationDto.getTicket().getWantedSeat().getRow());
             t.setSeatNum(reservationDto.getTicket().getWantedSeat().getRow());
             t.setPurchaseConfirmed(false);
-            t.setUser(userService.findOneUser(reservationDto.getUser().getId()));
+            t.setUser(userService.findOneUser(reservationDto.getUser().getId()));	
+            
+            
             t.setPurchaseTime(LocalDateTime.now());
             t.setManifestationDays(this.manifestationDayService.findOneManifestationDays(reservationDto.getTicket().getDayId()));
             ManifestationSector ms = this.manifestationSectorRepository.findById(reservationDto.getTicket()

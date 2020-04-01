@@ -25,6 +25,7 @@ public class ReservationDto {
             udto.setFirstName(reservation.getUser().getFirstName());
             udto.setLastName(reservation.getUser().getLastName());
             udto.setActive(reservation.getUser().getActive());
+            //udto.setId(reservation.getUser().getId());
         this.user = udto;
 
         this.expDays = reservation.getExpDays();

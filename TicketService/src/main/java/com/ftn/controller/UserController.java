@@ -1,18 +1,26 @@
 package com.ftn.controller;
 
-import com.ftn.dtos.UserDto;
-import com.ftn.dtos.UserDtoRes;
-import com.ftn.exceptions.EmailExistsException;
-import com.ftn.model.User;
-import com.ftn.service.UserService;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.ftn.dtos.UserDto;
+import com.ftn.dtos.UserDtoRes;
+import com.ftn.exceptions.EmailExistsException;
+import com.ftn.model.User;
+import com.ftn.service.UserService;
 
 @RestController
 @RequestMapping(value = "api/user")
@@ -29,6 +37,15 @@ public class UserController {
         List<UserDto> usersDto = userService.allToDto();
 
         return new ResponseEntity<>(usersDto, HttpStatus.OK);
+    }
+    
+    @GetMapping(value = "/byUsername/{username}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<UserDto> getUserByUsername(@PathVariable String username){
+
+        UserDto user = userService.mapToDTO(userService.findByUsername(username));
+
+        return new ResponseEntity<>(user,HttpStatus.OK);
     }
     
     @PostMapping("/register")
@@ -53,6 +70,6 @@ public class UserController {
 
         userService.deleteUser(id);
 
-        return new ResponseEntity<>("User successfully deleted!", HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

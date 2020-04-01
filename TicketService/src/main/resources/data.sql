@@ -90,7 +90,7 @@ insert into ticket(purchase_confirmed, purchase_time, row_num, seat_num, manifes
 insert into ticket(purchase_confirmed, purchase_time, row_num, seat_num, manifestation_days_id, manifestation_sector_id, user_id) values (false , '2020-02-10 10:00:00', 3, 3, 1, 1, 1);
 insert into ticket(purchase_confirmed, purchase_time, row_num, seat_num, manifestation_days_id, manifestation_sector_id, user_id) values (false , '2020-02-11 13:00:00', 1, 3, 2, 2, 2);
 insert into ticket(purchase_confirmed, purchase_time, row_num, seat_num, manifestation_days_id, manifestation_sector_id, user_id) values (false , '2020-02-10 14:00:00', 3, 4, 2, 2, 2);
-insert into ticket(purchase_confirmed, purchase_time, row_num, seat_num, manifestation_days_id, manifestation_sector_id, user_id) values (false , '2020-02-20 14:00:00', 15, 13, 5, 16, 2);
+insert into ticket(purchase_confirmed, purchase_time, row_num, seat_num, manifestation_days_id, manifestation_sector_id, user_id) values (false , '2020-02-20 14:00:00', 15, 13, 2, 2, 2);
 
 -- Test data for reservations, will be added when user reserve a ticket.
 insert into reservation(active, exp_days, ticket_id, user_id) values (true, 10, 5, 1);

@@ -1,8 +1,8 @@
 package com.ftn.dtos;
 
-import com.ftn.model.Ticket;
-
 import java.time.LocalDateTime;
+
+import com.ftn.model.Ticket;
 
 public class BuyTicketDto {
 
@@ -11,11 +11,11 @@ public class BuyTicketDto {
     private SeatWithPriceDto wantedSeat = new SeatWithPriceDto();
     private Boolean purchaseConfirmed;
     private LocalDateTime purchaseTime;
-
-
+    
     public BuyTicketDto(Ticket ticket){
 
         this.dayId = ticket.getManifestationDays().getId();
+        this.wantedSeat.setManSectorId(ticket.getManifestationSector().getId());
         this.wantedSeat.setRow(ticket.getRowNum());
         this.wantedSeat.setSeatNumber(ticket.getSeatNum());
         this.purchaseConfirmed = ticket.getPurchaseConfirmed();

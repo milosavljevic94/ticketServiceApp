@@ -86,7 +86,7 @@ public class TicketController {
 
         ticketService.deleteTicket(id);
 
-        return new ResponseEntity<>("Ticket deleted successfully!", HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/deleteAllTickets")
@@ -126,19 +126,20 @@ public class TicketController {
     }
 
 
-    @PostMapping(value = "/reportDayManifestation/{idMan}")
+    //menjan url i path variable
+    @GetMapping(value = "/reportDayManifestation/{idDayManifestation}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<TicketReportDto> reportForDayOfManifestation(@PathVariable Long idMan, @RequestBody Long idDayManifestation) {
+    public ResponseEntity<TicketReportDto> reportForDayOfManifestation(@PathVariable Long idDayManifestation) {
 
-        TicketReportDto report = ticketService.makeReportDayManifestation(idMan, idDayManifestation);
+        TicketReportDto report = ticketService.makeReportDayManifestation(idDayManifestation);
 
         return new ResponseEntity<TicketReportDto>(report, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/reportManifestation/{idMan}")
+    //dodat get umesto posta
+    @GetMapping(value = "/reportManifestation/{idMan}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<TicketReportDto> reportForWholeManifestation(@PathVariable Long idMan) {
-
         TicketReportDto report = ticketService.makeReportWholeManifestation(idMan);
 
         return new ResponseEntity<TicketReportDto>(report, HttpStatus.OK);

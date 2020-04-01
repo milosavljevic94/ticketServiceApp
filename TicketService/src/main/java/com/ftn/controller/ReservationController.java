@@ -64,7 +64,7 @@ public class ReservationController {
 
         reservationService.deleteReservation(id);
 
-        return new ResponseEntity<>("Reservation and ticket deleted successfully!",HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     //When manifestation is over, may you can delete all.

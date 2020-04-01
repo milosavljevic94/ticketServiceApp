@@ -1,19 +1,5 @@
 package com.ftn.service;
 
-import com.ftn.constants.Restrictions;
-import com.ftn.dtos.BuyTicketDto;
-import com.ftn.dtos.SeatWithPriceDto;
-import com.ftn.dtos.TicketDto;
-import com.ftn.dtos.TicketReportDto;
-import com.ftn.exceptions.AplicationException;
-import com.ftn.exceptions.EntityNotFoundException;
-import com.ftn.exceptions.SeatIsNotFreeException;
-import com.ftn.exceptions.SectorIsFullException;
-import com.ftn.model.*;
-import com.ftn.repository.TicketRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Year;
@@ -24,6 +10,26 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.ftn.constants.Restrictions;
+import com.ftn.dtos.BuyTicketDto;
+import com.ftn.dtos.SeatWithPriceDto;
+import com.ftn.dtos.TicketDto;
+import com.ftn.dtos.TicketReportDto;
+import com.ftn.exceptions.AplicationException;
+import com.ftn.exceptions.EntityNotFoundException;
+import com.ftn.exceptions.SeatIsNotFreeException;
+import com.ftn.exceptions.SectorIsFullException;
+import com.ftn.model.ManifestationDays;
+import com.ftn.model.ManifestationSector;
+import com.ftn.model.Reservation;
+import com.ftn.model.Sector;
+import com.ftn.model.Ticket;
+import com.ftn.model.User;
+import com.ftn.repository.TicketRepository;
 
 @Service
 public class TicketService {
@@ -101,7 +107,6 @@ public class TicketService {
         for(Ticket t : tickets){
             if(t.getManifestationDays().getId() == dayId && t.getManifestationSector().getSector().getId() == sectorId && t.getRowNum() == row && t.getSeatNum() == seatNum){
                 free = false;
-                return free;
             }else{
                 free = true;
             }
@@ -139,7 +144,7 @@ public class TicketService {
         ManifestationDays md = manDayService.findOneManifestationDays(ticketToReserve.getDayId());
 
         LocalDateTime start = md.getStartTime();
-        long days = ChronoUnit.DAYS.between(LocalDateTime.now(), start);
+        long days = ChronoUnit.DAYS.between(start, LocalDateTime.now());
         int intDays = (int)days;
 
         if(intDays < Restrictions.DAYS_BEFORE_MANIFESTATION){
@@ -434,31 +439,27 @@ public class TicketService {
         return report;
     }
 
-    public TicketReportDto makeReportDayManifestation(Long idMan, Long idDayManifestation) {
+    public TicketReportDto makeReportDayManifestation(Long idDayManifestation) {
 
-        Set<ManifestationDays> manDays = manifestationService.findOneManifestation(idMan).getManifestationDays();
+        ManifestationDays md = manDayService.findOneManifestationDays(idDayManifestation);
         double profit = 0.0;
         int soldTickets = 0;
 
-        for (ManifestationDays md : manDays) {
-
-                if (md.getId() == idDayManifestation) {
-                    for (Ticket t : md.getTickets()) {
-                        profit = profit + t.getManifestationSector().getPrice();
-                        soldTickets = soldTickets + 1;
-                    }
-                }
+        for (Ticket t : md.getTickets()) {
+        	profit = profit + t.getManifestationSector().getPrice();
+            soldTickets = soldTickets + 1;
         }
+        
         return new TicketReportDto(profit,soldTickets);
     }
 
     public TicketReportDto makeReportWholeManifestation(Long idMan) {
-
-        Set<ManifestationDays> manDays = manifestationService.findOneManifestation(idMan).getManifestationDays();
+    	Set<ManifestationDays> manDays = manifestationService.findOneManifestation(idMan).getManifestationDays();
         double profit = 0.0;
         int soldTickets = 0;
-
+        
         for (ManifestationDays md : manDays) {
+        	System.out.println("bbb");
                 for (Ticket t : md.getTickets()) {
                     profit = profit + t.getManifestationSector().getPrice();
                     soldTickets = soldTickets + 1;

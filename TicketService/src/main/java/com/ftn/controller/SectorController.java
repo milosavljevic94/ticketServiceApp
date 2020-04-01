@@ -57,7 +57,7 @@ public class SectorController {
 
         sectorService.deleteSector(id);
 
-        return new ResponseEntity<>("Sector deleted successfully!", HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

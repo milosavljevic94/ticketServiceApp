@@ -1,24 +1,33 @@
 package com.ftn.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ftn.dtos.ManifestationDayDto;
 import com.ftn.dtos.ManifestationDaysDto;
 import com.ftn.dtos.ManifestationDto;
 import com.ftn.dtos.ManifestationInfoDto;
 import com.ftn.dtos.ManifestationSectorPriceDto;
 import com.ftn.model.Manifestation;
 import com.ftn.service.ManifestationService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/manifestation")
 public class ManifestationController {
 
-    @Autowired
+	@Autowired
     ManifestationService manifestationService;
 
 
@@ -37,7 +46,7 @@ public class ManifestationController {
     }
     
     @GetMapping(value = "/manifestationDay/{id}")
-    public ResponseEntity<ManifestationDaysDto> getManifestationDay(@PathVariable Long id) {
+    public ResponseEntity<ManifestationDayDto> getManifestationDay(@PathVariable Long id) {
 
         return new ResponseEntity<>(manifestationService.getManifestationDay(id), HttpStatus.OK);
     }
@@ -50,6 +59,8 @@ public class ManifestationController {
         return new ResponseEntity<ManifestationInfoDto>(new ManifestationInfoDto(manifestationService.findOneManifestation(id)), HttpStatus.OK);
     }
 
+
+
     @PostMapping(value = "/addManifestation", consumes = "application/json")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ManifestationDto> addManifestation(@RequestBody ManifestationDto manifestationDto) {
@@ -58,6 +69,7 @@ public class ManifestationController {
 
         return new ResponseEntity<>(new ManifestationDto(m), HttpStatus.CREATED);
     }
+
 
 
     @PutMapping(value = "/updateManifestation", consumes = "application/json")
@@ -69,6 +81,7 @@ public class ManifestationController {
         return new ResponseEntity<>(manifestationService.mapToDTO(m), HttpStatus.OK);
     }
 
+
     @PutMapping(value = "/addSectorPrice/{manifestationId}", consumes = "application/json")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ManifestationInfoDto> setSectorPriceForManifestation(
@@ -77,15 +90,6 @@ public class ManifestationController {
         Manifestation m = manifestationService.setPriceForSectorAndDay(manifestationId, sectorPriceDto);
 
         return new ResponseEntity<>(new ManifestationInfoDto(m), HttpStatus.OK);
-    }
-
-    @DeleteMapping(value = "/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<?> deleteManifestation(@PathVariable Long id) {
-
-        manifestationService.deleteManifestation(id);
-
-        return new ResponseEntity<>("Manifestation deleted successfully!", HttpStatus.OK);
     }
 
 
@@ -110,14 +114,26 @@ public class ManifestationController {
     }
 
 
-    @DeleteMapping(value = "/deleteDay/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<?> deleteManifestationDay(@PathVariable Long id) {
+    /*
+    Request for delete dey from manifestation.
+ */
+@DeleteMapping(value = "deleteDay/{id}")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
+public ResponseEntity<?> deleteManifestationDay(@PathVariable Long id) {
 
-        manifestationService.deleteManifestationDay(id);
+    manifestationService.deleteManifestationDay(id);
 
-        return new ResponseEntity<>("Manifestation day deleted successfully!", HttpStatus.OK);
-    }
+    return new ResponseEntity<>("Manifestation day deleted successfully!", HttpStatus.OK);
+}
+
+@DeleteMapping(value = "/{id}")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
+public ResponseEntity<?> deleteManifestation(@PathVariable Long id) {
+
+    manifestationService.deleteManifestation(id);
+
+    return new ResponseEntity<>(HttpStatus.OK);
+}
 
     @PutMapping(value = "/updateManDay/{manId}", consumes = "application/json")
     @PreAuthorize("hasRole('ROLE_ADMIN')")

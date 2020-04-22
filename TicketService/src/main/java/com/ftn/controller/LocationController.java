@@ -2,7 +2,6 @@ package com.ftn.controller;
 
 import com.ftn.dtos.LocationDto;
 import com.ftn.dtos.ManifestationInfoDto;
-import com.ftn.dtos.SectorDto;
 import com.ftn.model.Location;
 import com.ftn.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,14 +50,6 @@ public class LocationController {
         return new ResponseEntity<>(new LocationDto(l) , HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "/addSectorInLocation/{id}", consumes = "application/json")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<LocationDto> addLocationSector(@PathVariable Long id, @RequestBody SectorDto sd) {
-
-        Location l = locationService.addSectorToLocation(id, sd);
-
-        return new ResponseEntity<LocationDto>(new LocationDto(l) , HttpStatus.CREATED);
-    }
 
 
     @PutMapping(value = "/updateLocation", consumes = "application/json")
@@ -70,14 +61,6 @@ public class LocationController {
         return new ResponseEntity<>(new LocationDto(l), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/updateLocationAddress", consumes = "application/json")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<LocationDto> updateLocationAddress(@RequestBody LocationDto locationDto){
-
-        Location l = locationService.updateAddress(locationDto.getId(),locationDto.getAddress());
-
-        return new ResponseEntity<>(new LocationDto(l), HttpStatus.OK);
-    }
 
     @DeleteMapping(value = "/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")

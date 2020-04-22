@@ -8,4 +8,10 @@ import org.springframework.stereotype.Repository;
 public interface LocationRepository extends JpaRepository<Location, Long> {
 
      Location findByLocationName(String name);
+
+     /* Not in use, but can by helpful
+
+     @Query("select l from Location l join fetch l.sectors where l.id = ?1")
+     Location findByIdAndFetchSectors(Long id);
+     */
 }

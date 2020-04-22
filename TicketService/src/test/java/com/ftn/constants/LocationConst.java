@@ -12,7 +12,9 @@ public class LocationConst {
     //for integration tests
     public static final Long VALID_LOC_ID = 1L;
     public static final Long NOT_VALID_LOC_ID = 111L;
+    public static final Long ID_ADDRESS_FOR_DELETE = 4L;
 
+    public static final String EXITS_NAME = "Spens";
     public static String VALID_LOCATION_NAME = "Stadion Rajko Mitic";
 
     public static LocationDto newDtoToAdd(){
@@ -27,6 +29,25 @@ public class LocationConst {
         locationDto.setAddress(addressDto);
 
         return locationDto;
+    }
+
+    public static LocationDto newDtoToUpdate(){
+
+        LocationDto locationDto = new LocationDto();
+
+        locationDto.setId(VALID_LOC_ID);
+        locationDto.setLocationName("update test ime");
+        locationDto.setManifestations(Collections.emptySet());
+        locationDto.setSectors(Collections.emptySet());
+
+        return locationDto;
+    }
+
+    public static Location newLocationToDelete() {
+        Location location = new Location();
+        location.setLocationName("delete test location");
+
+        return location;
     }
 
 
@@ -93,4 +114,6 @@ public class LocationConst {
 
     public LocationConst() {
     }
+
+
 }

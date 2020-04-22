@@ -25,7 +25,7 @@ public class ExceptionsHandlers extends ResponseEntityExceptionHandler {
     })
     public ResponseEntity<ExceptionMessage> entityAlreadyExistExceptionHandler(Exception e){
 
-        HttpStatus status = HttpStatus.ALREADY_REPORTED;
+        HttpStatus status = HttpStatus.CONFLICT;
         ExceptionMessage exeptionMessage = new ExceptionMessage(e.getMessage(), status);
         return new ResponseEntity<>(exeptionMessage, status);
     }

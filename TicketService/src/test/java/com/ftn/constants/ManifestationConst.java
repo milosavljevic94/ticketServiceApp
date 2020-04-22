@@ -12,14 +12,16 @@ import java.util.Set;
 public class ManifestationConst {
 
 
+    public static Long OK_MAN_ID = 1L;
+    public static Long BAD_MAN_ID = 144L;
+
+    public static String VALID_NAME = "Koncert 1234";
+
     public static int MAN1_SECTOR_NUM = 4;
     public static int MAN1_DAYS_NUM = 3;
 
     public static Long LOCATION_ID = 1L;
     public static Long WRONG_LOCATION_ID = 88L;
-
-    public static Long OK_MAN_ID = 1L;
-    public static Long BAD_MAN_ID = 144L;
 
 
     public static ManifestationDto newDto(){

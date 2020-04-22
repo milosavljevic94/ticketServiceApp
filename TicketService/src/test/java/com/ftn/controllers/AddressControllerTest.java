@@ -113,7 +113,7 @@ public class AddressControllerTest {
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertNotNull(responseAddress);
 
-        int sizeAfterAdd = this.addressRepository.findAll().size();
+        int sizeAfterAdd = addressRepository.findAll().size();
         assertEquals(sizeBeforeAdd + 1, sizeAfterAdd);
 
         List<Address> addresses = addressRepository.findAll();
@@ -186,7 +186,7 @@ public class AddressControllerTest {
         ResponseEntity<?> response = restTemplate.exchange("/api/address/"+AddressConst.ID_ADDRESS_FOR_DELETE, HttpMethod.DELETE,
                 createRequestEntity(), String.class);
 
-        int sizeAfterDel = this.addressRepository.findAll().size();
+        int sizeAfterDel = addressRepository.findAll().size();
         assertEquals(sizeBeforeDel - 1, sizeAfterDel);
     }
 }

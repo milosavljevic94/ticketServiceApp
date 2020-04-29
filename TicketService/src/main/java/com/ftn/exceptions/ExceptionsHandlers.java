@@ -33,7 +33,7 @@ public class ExceptionsHandlers extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = DateException.class)
     public ResponseEntity<ExceptionMessage> wrongDateExceptionHandler(DateException e){
 
-        HttpStatus status = HttpStatus.BAD_REQUEST;
+        HttpStatus status = HttpStatus.CONFLICT;
         ExceptionMessage exeptionMessage = new ExceptionMessage(e.getMessage(), status);
         return new ResponseEntity<>(exeptionMessage, status);
     }

@@ -17,6 +17,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
+
 import javax.transaction.Transactional;
 
 import static org.junit.Assert.*;
@@ -36,7 +37,7 @@ public class ManifestationControllerTest {
 
     @Before
     public void login() {
-        ResponseEntity<LoggedInUserDTO> login = restTemplate.postForEntity("/login",  new LoginDTO("testAdmin", "admin"),
+        ResponseEntity<LoggedInUserDTO> login = restTemplate.postForEntity("/login", new LoginDTO("testAdmin", "admin"),
                 LoggedInUserDTO.class);
 
         accessToken = login.getBody().getToken();
@@ -49,7 +50,7 @@ public class ManifestationControllerTest {
     }
 
     @Test
-    public void testGetAllManifestations_thenReturnManifestationsLisst(){
+    public void testGetAllManifestations_thenReturnManifestationsLisst() {
 
         ResponseEntity<ManifestationDto[]> response = restTemplate.exchange("/api/manifestation/allManifestations", HttpMethod.GET,
                 createRequestEntity(), ManifestationDto[].class);
@@ -67,7 +68,7 @@ public class ManifestationControllerTest {
     public void testGetManifestation_thenReturnManifestation() {
         Manifestation expected = repository.findById(ManifestationConst.OK_MAN_ID).get();
 
-        ResponseEntity<ManifestationDto> response = restTemplate.exchange("/api/manifestation/"+ManifestationConst.OK_MAN_ID,
+        ResponseEntity<ManifestationDto> response = restTemplate.exchange("/api/manifestation/" + ManifestationConst.OK_MAN_ID,
                 HttpMethod.GET, createRequestEntity(), ManifestationDto.class);
         ManifestationDto found = response.getBody();
 
@@ -93,7 +94,7 @@ public class ManifestationControllerTest {
     @Test
     public void testGetManifestationDay_thenReturnManDay() {
 
-        ResponseEntity<ManifestationDayDto> response = restTemplate.exchange("/api/manifestation/manifestationDay/"+ ManDaysConst.VALID_ID,
+        ResponseEntity<ManifestationDayDto> response = restTemplate.exchange("/api/manifestation/manifestationDay/" + ManDaysConst.VALID_ID,
                 HttpMethod.GET, createRequestEntity(), ManifestationDayDto.class);
         ManifestationDayDto found = response.getBody();
 
@@ -108,7 +109,7 @@ public class ManifestationControllerTest {
     @Test
     public void testGetManifestationDayNotValidId_thenReturnNotFoun() {
 
-        ResponseEntity<ManifestationDayDto> response = restTemplate.exchange("/api/manifestation/manifestationDay/"+ ManDaysConst.NOT_VALID_ID,
+        ResponseEntity<ManifestationDayDto> response = restTemplate.exchange("/api/manifestation/manifestationDay/" + ManDaysConst.NOT_VALID_ID,
                 HttpMethod.GET, createRequestEntity(), ManifestationDayDto.class);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -117,7 +118,7 @@ public class ManifestationControllerTest {
     @Test
     public void testGetManifestationInfo_thenReturnInfoDto() {
 
-        ResponseEntity<ManifestationInfoDto> response = restTemplate.exchange("/api/manifestation/manifestationInfo/"+ ManifestationConst.OK_MAN_ID,
+        ResponseEntity<ManifestationInfoDto> response = restTemplate.exchange("/api/manifestation/manifestationInfo/" + ManifestationConst.OK_MAN_ID,
                 HttpMethod.GET, createRequestEntity(), ManifestationInfoDto.class);
         ManifestationInfoDto found = response.getBody();
 
@@ -137,11 +138,68 @@ public class ManifestationControllerTest {
     @Test
     public void testGetManifestationInfoNotValidId_thenReturnNotFound() {
 
-        ResponseEntity<ManifestationInfoDto> response = restTemplate.exchange("/api/manifestation/manifestationInfo/"+ ManifestationConst.BAD_MAN_ID,
+        ResponseEntity<ManifestationInfoDto> response = restTemplate.exchange("/api/manifestation/manifestationInfo/" + ManifestationConst.BAD_MAN_ID,
                 HttpMethod.GET, createRequestEntity(), ManifestationInfoDto.class);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
-    
+    @Test
+    public void testAddManifestation_thenReturnAdded() {
+
+        ManifestationDto dtoToAdd = ManifestationConst.newDto();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer " + this.accessToken);
+        HttpEntity<ManifestationDto> requestEntity = new HttpEntity<>(dtoToAdd, headers);
+
+        ResponseEntity<ManifestationDto> response = restTemplate.exchange("/api/manifestation/addManifestation", HttpMethod.POST,
+                requestEntity, ManifestationDto.class);
+
+        ManifestationDto result = response.getBody();
+
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertNotNull(result);
+        assertEquals(dtoToAdd.getName(), result.getName());
+        assertEquals(dtoToAdd.getDescription(), result.getDescription());
+        assertEquals(dtoToAdd.getStartTime(), result.getStartTime());
+        assertEquals(dtoToAdd.getEndTime(), result.getEndTime());
+        assertEquals(dtoToAdd.getManifestationCategory(), result.getManifestationCategory());
+        assertEquals(2, result.getManDaysDto().size());
+        assertEquals(dtoToAdd.getLocationId(), result.getLocationId());
+
+        //when test ends, delete added item.
+        repository.deleteById(3L);
+    }
+
+    @Test
+    public void testAddManStartIsAfterEnd_thenReturnConflict() {
+
+        ManifestationDto dtoToAdd = ManifestationConst.newDtoWrongDate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer " + this.accessToken);
+        HttpEntity<ManifestationDto> requestEntity = new HttpEntity<>(dtoToAdd, headers);
+
+        ResponseEntity<ManifestationDto> response = restTemplate.exchange("/api/manifestation/addManifestation", HttpMethod.POST,
+                requestEntity, ManifestationDto.class);
+
+        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
+    }
+
+
+    @Test
+    public void testAddManWrongLocation_thenReturnNotFound() {
+
+        ManifestationDto dtoToAdd = ManifestationConst.newDtoWrongLocation();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer " + this.accessToken);
+        HttpEntity<ManifestationDto> requestEntity = new HttpEntity<>(dtoToAdd, headers);
+
+        ResponseEntity<ManifestationDto> response = restTemplate.exchange("/api/manifestation/addManifestation", HttpMethod.POST,
+                requestEntity, ManifestationDto.class);
+
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
 }

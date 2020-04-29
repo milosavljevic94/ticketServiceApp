@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping(value = "api/manifestation")
 public class ManifestationController {
 
-	@Autowired
+    @Autowired
     ManifestationService manifestationService;
 
 
@@ -32,13 +32,13 @@ public class ManifestationController {
 
         return new ResponseEntity<>(new ManifestationDto(manifestationService.findOneManifestation(id)), HttpStatus.OK);
     }
-    
+
     @GetMapping(value = "/manifestationDay/{id}")
     public ResponseEntity<ManifestationDayDto> getManifestationDay(@PathVariable Long id) {
 
         return new ResponseEntity<>(manifestationService.getManifestationDay(id), HttpStatus.OK);
     }
-    
+
 
     @GetMapping(value = "/manifestationInfo/{id}")
     public ResponseEntity<ManifestationInfoDto> getManifestationInfoById(@PathVariable Long id) {
@@ -46,7 +46,6 @@ public class ManifestationController {
 
         return new ResponseEntity<>(new ManifestationInfoDto(manifestationService.findOneManifestation(id)), HttpStatus.OK);
     }
-
 
 
     @PostMapping(value = "/addManifestation", consumes = "application/json")
@@ -57,7 +56,6 @@ public class ManifestationController {
 
         return new ResponseEntity<>(new ManifestationDto(m), HttpStatus.CREATED);
     }
-
 
 
     @PutMapping(value = "/updateManifestation", consumes = "application/json")
@@ -79,7 +77,6 @@ public class ManifestationController {
 
         return new ResponseEntity<>(new ManifestationInfoDto(m), HttpStatus.OK);
     }
-
 
 
     @GetMapping(value = "/manifestationPrices/{id}")
@@ -105,23 +102,23 @@ public class ManifestationController {
     /*
     Request for delete dey from manifestation.
  */
-@DeleteMapping(value = "deleteDay/{id}")
-@PreAuthorize("hasRole('ROLE_ADMIN')")
-public ResponseEntity<?> deleteManifestationDay(@PathVariable Long id) {
+    @DeleteMapping(value = "deleteDay/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<?> deleteManifestationDay(@PathVariable Long id) {
 
-    manifestationService.deleteManifestationDay(id);
+        manifestationService.deleteManifestationDay(id);
 
-    return new ResponseEntity<>("Manifestation day deleted successfully!", HttpStatus.OK);
-}
+        return new ResponseEntity<>("Manifestation day deleted successfully!", HttpStatus.OK);
+    }
 
-@DeleteMapping(value = "/{id}")
-@PreAuthorize("hasRole('ROLE_ADMIN')")
-public ResponseEntity<?> deleteManifestation(@PathVariable Long id) {
+    @DeleteMapping(value = "/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<?> deleteManifestation(@PathVariable Long id) {
 
-    manifestationService.deleteManifestation(id);
+        manifestationService.deleteManifestation(id);
 
-    return new ResponseEntity<>(HttpStatus.OK);
-}
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     @PutMapping(value = "/updateManDay/{manId}", consumes = "application/json")
     @PreAuthorize("hasRole('ROLE_ADMIN')")

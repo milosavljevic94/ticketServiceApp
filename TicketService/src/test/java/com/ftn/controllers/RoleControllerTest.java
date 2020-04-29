@@ -15,6 +15,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.*;
@@ -83,7 +84,7 @@ public class RoleControllerTest {
     }
 
     @Test
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
+    @Sql(statements = "ALTER TABLE role AUTO_INCREMENT = 2")
     public void testAddRole_thenReturnAdded(){
 
         int sizeBeforeAdd = roleRepository.findAll().size();
@@ -136,7 +137,7 @@ public class RoleControllerTest {
     @Test
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
     public void testDeleteRole(){
-        
+
         roleRepository.save(new Role("ROLA_ZA_BRISANJETEST"));
 
         int sizeBeforeDel = roleRepository.findAll().size();

@@ -41,18 +41,22 @@ public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> login(@RequestBody LoginDTO user) {
         try {
-            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(),
-                    user.getPassword());
+
+            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
             Authentication authentication = authenticationManager.authenticate(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);
+
             UserDetails details = userDetailsService.loadUserByUsername(user.getUsername());
             User userDb = userService.findByUsername(user.getUsername());
-            LoggedInUserDTO loggedIn = new LoggedInUserDTO(userDb.getId(), tokenUtils.generateToken(details), userDb.getUsername(),
-                    userDb.getEmail(), details.getAuthorities());
+            LoggedInUserDTO loggedIn = new LoggedInUserDTO(userDb.getId(), tokenUtils.generateToken(details),
+                    userDb.getUsername(), userDb.getEmail(), details.getAuthorities());
+
             if (!userDb.getActive()) {
                 return new ResponseEntity<>("You must confirm registration to login!", HttpStatus.BAD_REQUEST);
             }
+
             return new ResponseEntity<>(loggedIn, HttpStatus.OK);
+
         } catch (Exception ex) {
             return new ResponseEntity<>(ex.getMessage(),HttpStatus.BAD_REQUEST);
         }

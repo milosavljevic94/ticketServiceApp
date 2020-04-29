@@ -12,6 +12,7 @@ public class LocationConst {
     //for integration tests
     public static final Long VALID_LOC_ID = 1L;
     public static final Long NOT_VALID_LOC_ID = 111L;
+    public static final Long ID_LOCATION_FOR_DELETE = 3L;
     public static final Long ID_ADDRESS_FOR_DELETE = 4L;
 
     public static final String EXITS_NAME = "Spens";

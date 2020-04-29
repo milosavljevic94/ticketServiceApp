@@ -16,6 +16,10 @@ public class ManifestationConst {
     public static Long BAD_MAN_ID = 144L;
 
     public static String VALID_NAME = "Koncert 1234";
+    public static String VALID_DESC = "Neki opis manifestacije sa id 1, koja traje 3 dana.";
+    public static LocalDateTime START = LocalDateTime.of(2020,02,19, 20,00,00);
+    public static LocalDateTime END = LocalDateTime.of(2020,02,21, 20,00,00);
+
 
     public static int MAN1_SECTOR_NUM = 4;
     public static int MAN1_DAYS_NUM = 3;

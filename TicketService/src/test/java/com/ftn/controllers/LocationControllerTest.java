@@ -20,6 +20,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -193,13 +194,14 @@ public class LocationControllerTest {
     }
 
     @Test
+    @Sql(statements = "ALTER TABLE location AUTO_INCREMENT = 2")
     public void testDeleteLocation(){
 
         locationRepository.save(LocationConst.newLocationToDelete());
 
         int sizeBeforeDel = locationRepository.findAll().size();
 
-        ResponseEntity<?> response = restTemplate.exchange("/api/location/"+LocationConst.ID_ADDRESS_FOR_DELETE, HttpMethod.DELETE,
+        ResponseEntity<?> response = restTemplate.exchange("/api/location/"+LocationConst.ID_LOCATION_FOR_DELETE, HttpMethod.DELETE,
                 createRequestEntity(), String.class);
 
         int sizeAfterDel = locationRepository.findAll().size();

@@ -1,27 +1,15 @@
 package com.ftn.controller;
 
-import java.util.List;
-
+import com.ftn.dtos.*;
+import com.ftn.model.Manifestation;
+import com.ftn.service.ManifestationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.ftn.dtos.ManifestationDayDto;
-import com.ftn.dtos.ManifestationDaysDto;
-import com.ftn.dtos.ManifestationDto;
-import com.ftn.dtos.ManifestationInfoDto;
-import com.ftn.dtos.ManifestationSectorPriceDto;
-import com.ftn.model.Manifestation;
-import com.ftn.service.ManifestationService;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "api/manifestation")
@@ -56,7 +44,7 @@ public class ManifestationController {
     public ResponseEntity<ManifestationInfoDto> getManifestationInfoById(@PathVariable Long id) {
 
 
-        return new ResponseEntity<ManifestationInfoDto>(new ManifestationInfoDto(manifestationService.findOneManifestation(id)), HttpStatus.OK);
+        return new ResponseEntity<>(new ManifestationInfoDto(manifestationService.findOneManifestation(id)), HttpStatus.OK);
     }
 
 

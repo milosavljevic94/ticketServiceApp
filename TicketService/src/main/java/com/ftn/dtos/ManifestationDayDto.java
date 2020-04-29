@@ -8,6 +8,7 @@ public class ManifestationDayDto {
 	private ManifestationDto manifestation;
 	private String name;
 	private LocalDateTime startTime;
+
 	public Long getId() {
 		return id;
 	}

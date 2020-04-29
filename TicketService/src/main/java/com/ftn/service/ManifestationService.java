@@ -1,15 +1,5 @@
 package com.ftn.service;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.ftn.dtos.ManifestationDayDto;
 import com.ftn.dtos.ManifestationDaysDto;
 import com.ftn.dtos.ManifestationDto;
@@ -17,14 +7,19 @@ import com.ftn.dtos.ManifestationSectorPriceDto;
 import com.ftn.exceptions.AplicationException;
 import com.ftn.exceptions.DateException;
 import com.ftn.exceptions.EntityNotFoundException;
-import com.ftn.model.Location;
-import com.ftn.model.Manifestation;
-import com.ftn.model.ManifestationDays;
-import com.ftn.model.ManifestationSector;
-import com.ftn.model.Sector;
+import com.ftn.model.*;
 import com.ftn.repository.LocationRepository;
 import com.ftn.repository.ManifestationRepository;
 import com.ftn.repository.ManifestationSectorRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class ManifestationService {
@@ -260,17 +255,6 @@ public class ManifestationService {
         return m;
     }
 
-    /*public ManifestationDaysDto getManifestationDay(Long id) {
-    ManifestationDays mDays = this.manifestationDayService.findOneManifestationDays(id);
-    Manifestation manifestation = mDays.getManifestation();
-    ManifestationDaysDto mDayDto = new ManifestationDaysDto();
-    mDayDto.setId(id);
-    mDayDto.setManifestation(new ManifestationDto(manifestation));
-    mDayDto.setName(mDays.getName());
-    mDayDto.setStartTime(mDays.getStartTime());
-
-    return mDayDto;
-}*/
 
 public ManifestationDayDto getManifestationDay(Long id) {
 	ManifestationDays mDays = this.manifestationDayService.findOneManifestationDays(id);

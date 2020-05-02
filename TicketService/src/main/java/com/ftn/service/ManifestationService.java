@@ -256,37 +256,37 @@ public class ManifestationService {
     }
 
 
-public ManifestationDayDto getManifestationDay(Long id) {
-	ManifestationDays mDays = this.manifestationDayService.findOneManifestationDays(id);
-	Manifestation manifestation = mDays.getManifestation();
-	ManifestationDayDto mDayDto = new ManifestationDayDto();
-	mDayDto.setId(id);
-	mDayDto.setManifestation(new ManifestationDto(manifestation));
-	mDayDto.setName(mDays.getName());
-	mDayDto.setStartTime(mDays.getStartTime());
-	
-	return mDayDto;
-}
+    public ManifestationDayDto getManifestationDay(Long id) {
+        ManifestationDays mDays = this.manifestationDayService.findOneManifestationDays(id);
+        Manifestation manifestation = mDays.getManifestation();
+        ManifestationDayDto mDayDto = new ManifestationDayDto();
+        mDayDto.setId(id);
+        mDayDto.setManifestation(new ManifestationDto(manifestation));
+        mDayDto.setName(mDays.getName());
+        mDayDto.setStartTime(mDays.getStartTime());
 
-//find manifestation, and add day.
-public Manifestation addManifestationDay(Long manId, ManifestationDaysDto daysDto) {
+        return mDayDto;
+    }
 
-    Manifestation m = findOneManifestation(manId);
+    //find manifestation, and add day.
+    public Manifestation addManifestationDay(Long manId, ManifestationDaysDto daysDto) {
 
-    ManifestationDays md = new ManifestationDays();
-    md = this.manifestationDayService.mapFromDto(daysDto);
-    m.getManifestationDays().add(md);
-    manifestationRepository.save(m);
+        Manifestation m = findOneManifestation(manId);
 
-    return m;
-}
+        ManifestationDays md = new ManifestationDays();
+        md = this.manifestationDayService.mapFromDto(daysDto);
+        m.getManifestationDays().add(md);
+        manifestationRepository.save(m);
+
+        return m;
+    }
 
 
-public void deleteManifestationDay(Long id) {
-    //if exist delete.
-    ManifestationDays md = this.manifestationDayService.findOneManifestationDays(id);
-    this.manifestationDayService.deleteManifestationDays(id);
-}
+    public void deleteManifestationDay(Long id) {
+        //if exist delete.
+        ManifestationDays md = this.manifestationDayService.findOneManifestationDays(id);
+        this.manifestationDayService.deleteManifestationDays(id);
+    }
 
     public Manifestation updateManifestationDay(Long manId, ManifestationDaysDto daysDto) {
         Manifestation m = findOneManifestation(manId);
@@ -304,8 +304,8 @@ public void deleteManifestationDay(Long id) {
             }
         }
 
-        if(!changed){
-            throw  new AplicationException("Manifestation with id: "+ manId +" dont have day :"+ daysDto.getName()+
+        if (!changed) {
+            throw new AplicationException("Manifestation with id: " + manId + " dont have day :" + daysDto.getName() +
                     ", or your request body is not valid");
         }
 

@@ -101,7 +101,7 @@ public class ManifestationController {
 
     /*
     Request for delete dey from manifestation.
- */
+    */
     @DeleteMapping(value = "deleteDay/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> deleteManifestationDay(@PathVariable Long id) {

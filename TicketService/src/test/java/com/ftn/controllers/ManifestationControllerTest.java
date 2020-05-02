@@ -202,4 +202,86 @@ public class ManifestationControllerTest {
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
+
+    @Test
+    public void testUpdateManifestation_thenReturnUpdated(){
+        // TODO: 2.5.2020
+    }
+
+    @Test
+    public void testUpdateManNotValidId_thenReturnNotFound(){
+        // TODO: 2.5.2020
+    }
+
+    @Test
+    public void testUpdateManStartIsAfterEnd_thenReturnConflict(){
+        // TODO: 2.5.2020
+    }
+    
+    @Test
+    public void testSetSectorPriceForManifestation_thenReturnManInfo(){
+        // // TODO: 2.5.2020
+    }
+
+    @Test
+    public void testSetSectorPriceForManWrongDay_thenReturnBadRequest(){
+        // // TODO: 2.5.2020
+    }
+
+    @Test
+    public void testSetSectorPriceForManWrongSector_thenReturnBadRequest(){
+        // // TODO: 2.5.2020
+    }
+
+    @Test
+    public void testGetManifestationPrices_thenReturnPricesList(){
+        // TODO: 2.5.2020
+    }
+
+    @Test
+    public void testGetManifestationPricesWrongId_thenReturnNotFound(){
+        // TODO: 2.5.2020
+    }
+
+    @Test
+    public void testAddManifestationDay_thenReturnManifestation(){
+        // TODO: 2.5.2020
+    }
+
+    @Test
+    public void testAddManifestationDayWrongId_thenReturnNotFound(){
+        // TODO: 2.5.2020
+    }
+
+    @Test
+    public void testDeleteManifestationDay_thenDeleteDay(){
+        // TODO: 2.5.2020 delete day success test
+    }
+
+    @Test
+    public void testDeleteManifestationDayWrongId_thenReturnNotFound(){
+        // TODO: 2.5.2020 delete day, day with id not exist
+    }
+
+    @Test
+    public void testDeleteManifestation_thenDeleteManifestation(){
+        // TODO: 2.5.2020 success delete man return OK
+    }
+
+    @Test
+    public void testUpdateManifestationDay_thenReturnUpdated(){
+        // TODO: 2.5.2020 update day success test
+    }
+
+    @Test
+    public void testUpdateManifestationDayWrongId_thenReturnNotFound(){
+        // TODO: 2.5.2020 update day, manifestation not exist
+    }
+
+    @Test
+    public void testUpdateNotValidDay_thenReturnBadRequest(){
+        // TODO: 2.5.2020 update day, manifestation dont have that day
+    }
+
+
 }

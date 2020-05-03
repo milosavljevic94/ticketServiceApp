@@ -12,6 +12,7 @@ import java.util.Set;
 public class ManifestationConst {
 
 
+    public static Long DELETE_ID = 3L;
     public static Long OK_MAN_ID = 1L;
     public static Long BAD_MAN_ID = 144L;
 

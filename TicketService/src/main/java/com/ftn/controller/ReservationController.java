@@ -67,7 +67,10 @@ public class ReservationController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    //When manifestation is over, may you can delete all.
+    /*
+    When manifestation is over, may you can delete all.
+    May be used during project development.
+    */
     @DeleteMapping(value = "deleteAllReservations")
     public ResponseEntity<?> deleteAllReservation(){
 

@@ -78,29 +78,19 @@ public class ManifestationController {
         return new ResponseEntity<>(new ManifestationInfoDto(m), HttpStatus.OK);
     }
 
-
+    /*
+        May be used during project development.
+    */
     @GetMapping(value = "/manifestationPrices/{id}")
     public ResponseEntity<List<ManifestationSectorPriceDto>> getManifestationPrices(@PathVariable Long id) {
 
         List<ManifestationSectorPriceDto> prices = manifestationService.getPricesForManifestation(id);
+
         return new ResponseEntity<>(prices, HttpStatus.OK);
     }
 
     /*
-        Requests for dey of manifestation.
-     */
-    @PostMapping(value = "/addManDay/{manId}", consumes = "application/json")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<ManifestationDto> addManifestationDay(@PathVariable Long manId, @RequestBody ManifestationDaysDto daysDto) {
-
-        Manifestation m = manifestationService.addManifestationDay(manId, daysDto);
-
-        return new ResponseEntity<>(new ManifestationDto(m), HttpStatus.CREATED);
-    }
-
-
-    /*
-    Request for delete dey from manifestation.
+        May be used during project development.
     */
     @DeleteMapping(value = "deleteDay/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -128,11 +118,4 @@ public class ManifestationController {
         return new ResponseEntity<>(manifestationService.mapToDTO(m), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/updateManSector/{manId}", consumes = "application/json")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<ManifestationDto> updateManifestationSector(@PathVariable Long manId, @RequestBody ManifestationDaysDto daysDto) {
-        Manifestation m = manifestationService.updateManifestationDay(manId, daysDto);
-
-        return new ResponseEntity<>(manifestationService.mapToDTO(m), HttpStatus.OK);
-    }
 }

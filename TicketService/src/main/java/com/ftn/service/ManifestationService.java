@@ -159,7 +159,6 @@ public class ManifestationService {
 
         Manifestation m = manifestationRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(
                 "Manifestation with id : " + id + " not found"));
-
         List<ManifestationSectorPriceDto> prices = new ArrayList<>();
         for (ManifestationDays md : m.getManifestationDays()) {
             for (ManifestationSector s : md.getManifestationSectors()) {

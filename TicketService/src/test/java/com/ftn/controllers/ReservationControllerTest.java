@@ -5,6 +5,7 @@ import com.ftn.dtos.LoginDTO;
 import com.ftn.project.TicketServiceApplication;
 import com.ftn.repository.ReservationRepository;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -42,6 +43,29 @@ public class ReservationControllerTest {
         return new HttpEntity<>(headers);
     }
 
-    
+    @Test
+    public void testGetAllReservation_thenReturnReservationList(){
+        // TODO: 3.5.2020 : get all success test
+    }
 
+    @Test
+    public void testGetReservation_thenReturnReservation(){
+        // TODO: 3.5.2020 : get one reservation success test
+    }
+
+    @Test
+    public void testGetReservationWrongId_thenReturnNotFound(){
+        // TODO: 3.5.2020 : get one res, wrong id
+    }
+
+    @Test
+    public void testCancelReservation_thenDeleteReservation(){
+        // TODO: 3.5.2020 : delete res, success test
+    }
+
+    /*
+    * Metode koje se ne koriste su add, update i delete all.
+    * Videti sta sa njima raditi da, li zakomentarisati, obrisati ili ostaviti.
+    * Proceniti da li ih treba testirati ili ne.
+    * */
 }

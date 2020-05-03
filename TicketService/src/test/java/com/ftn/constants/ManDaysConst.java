@@ -7,9 +7,10 @@ import java.time.LocalDateTime;
 
 public class ManDaysConst {
 
-    public static Long VALID_ID = 1l;
+    public static Long VALID_ID = 1L;
     public static Long NOT_VALID_ID = 111L;
     public static int DAYS_SIZE = 5;
+    public static Long DELETE_ID = 6L;
 
     public static String VALID_NAME = "Dan1 man1";
     public static String VALID_DESC = "Opis dana prvog za manifestaciju 1.";
@@ -23,6 +24,7 @@ public class ManDaysConst {
 
         return daysDtoUpdate;
     }
+
 
     public static ManifestationDays newManDay() {
         ManifestationDays manifestationDays = new ManifestationDays();

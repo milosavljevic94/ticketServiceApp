@@ -14,6 +14,7 @@ import com.ftn.security.SecurityConfiguration;
 import com.ftn.security.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -147,7 +148,8 @@ public class UserService {
     public User getloggedInUser() {
 
         Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-        if(loggedInUser == null){
+
+        if(loggedInUser instanceof AnonymousAuthenticationToken){
             throw new AplicationException("You must log in first!");
         }
         String username = loggedInUser.getName();

@@ -30,7 +30,6 @@ public class SectorConst {
         return sectorDto;
     }
 
-
     public SectorConst() {
     }
 }

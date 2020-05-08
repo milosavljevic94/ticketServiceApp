@@ -15,7 +15,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -37,10 +40,8 @@ public class ReservationServiceIntegrationTest {
     @Autowired
     private ReservationRepository reservationRepository;
 
-
     @Autowired
     private ReservationService reservationService;
-
 
     @Qualifier("userDetailsServiceImpl")
     @Autowired
@@ -51,9 +52,12 @@ public class ReservationServiceIntegrationTest {
         UserDetails userDetails = userDetailsService.loadUserByUsername(UserConst.DB_USERNAME);
 
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-               userDetails, userDetails.getPassword(), userDetails.getAuthorities()
-        );
+               userDetails, userDetails.getPassword(), userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+    }
+
+    private Authentication createAnonymousPrincipal() {
+        return new AnonymousAuthenticationToken("key-1234", "anonymousUser", AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS"));
     }
 
     @Test
@@ -88,8 +92,8 @@ public class ReservationServiceIntegrationTest {
     }
 
     @Test(expected = AplicationException.class)
-    public void deleteReservationNotLoggedIn_thenThrovException(){
-        SecurityContextHolder.getContext().setAuthentication(null);
+    public void deleteReservationNotLoggedIn_thenThrowException(){
+        SecurityContextHolder.getContext().setAuthentication(createAnonymousPrincipal());
         reservationService.deleteReservation(ReservationConst.VALID_ID);
     }
 
@@ -125,7 +129,7 @@ public class ReservationServiceIntegrationTest {
 
     @Test(expected = AplicationException.class)
     public void reservationOfUserNotLoggedIn_thenThrowException(){
-        SecurityContextHolder.getContext().setAuthentication(null);
+        SecurityContextHolder.getContext().setAuthentication(createAnonymousPrincipal());
         List<ReservationDto> result = reservationService.reservationOfUser();
     }
 

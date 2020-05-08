@@ -20,7 +20,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -59,6 +62,10 @@ public class TicketServiceIntegrationTest {
                 userDetails, userDetails.getPassword(), userDetails.getAuthorities()
         );
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+    }
+
+    private Authentication createAnonymousPrincipal() {
+        return new AnonymousAuthenticationToken("key-1234", "anonymousUser", AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS"));
     }
 
    @Test
@@ -130,13 +137,13 @@ public class TicketServiceIntegrationTest {
         assertEquals(sizeBeforeDel - 1, sizeAfterDel);
     }
 
-    /*@Test
+    @Test
     public void deleteAllTicketSuccessTest(){
 
         ticketService.deleteAll();
 
         assertTrue(ticketRepository.findAll().isEmpty());
-    }*/
+    }
 
 
     @Test
@@ -161,7 +168,7 @@ public class TicketServiceIntegrationTest {
     @Test(expected = AplicationException.class)
     public void buyTicketNotLoggedIn_thenThrowException(){
 
-        SecurityContextHolder.getContext().setAuthentication(null);
+        SecurityContextHolder.getContext().setAuthentication(createAnonymousPrincipal());
 
         BuyTicketDto testTicketToBuy = TicketConst.validTicketForBuyTest();
         Ticket result = ticketService.buyTicket(testTicketToBuy);
@@ -210,7 +217,7 @@ public class TicketServiceIntegrationTest {
 
     @Test(expected = AplicationException.class)
     public void reserveTicketNotLoggedIn_thenThrowException(){
-        SecurityContextHolder.getContext().setAuthentication(null);
+        SecurityContextHolder.getContext().setAuthentication(createAnonymousPrincipal());
 
         BuyTicketDto testTicketToReserve = TicketConst.validTicketForBuyTest();
         Reservation result = ticketService.reserveTicket(testTicketToReserve);
@@ -256,7 +263,7 @@ public class TicketServiceIntegrationTest {
 
     @Test(expected = AplicationException.class)
     public void buyReservedTicketNotLoggedIn_thenThrowException(){
-        SecurityContextHolder.getContext().setAuthentication(null);
+        SecurityContextHolder.getContext().setAuthentication(createAnonymousPrincipal());
         Ticket result = ticketService.buyReservedTicket(1L);
     }
 
@@ -286,7 +293,7 @@ public class TicketServiceIntegrationTest {
 
     @Test(expected = AplicationException.class)
     public void ticketOfUserNotLoggedIn_thenThrowException(){
-        SecurityContextHolder.getContext().setAuthentication(null);
+        SecurityContextHolder.getContext().setAuthentication(createAnonymousPrincipal());
         List<BuyTicketDto> result = ticketService.ticketsOfUser();
     }
 

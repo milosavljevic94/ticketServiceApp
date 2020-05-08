@@ -36,25 +36,24 @@ public class SectorService {
 
         Sector sector = new Sector();
 
-        if(locationService.findOneLocation(sd.getLocationId()) == null){
-            throw new LocationNotFoundException("Location with id : " +sd.getLocationId() +" not found.");
+        if (locationService.findOneLocation(sd.getLocationId()) == null) {
+            throw new LocationNotFoundException("Location with id : " + sd.getLocationId() + " not found.");
         }
 
         Location l = locationService.findOneLocation(sd.getLocationId());
 
 
-            sector = mapFromDto(sd);
-            sector.setLocation(l);
+        sector = mapFromDto(sd);
+        sector.setLocation(l);
 
-            l.getSectors().add(sector);
+        l.getSectors().add(sector);
 
-            sectorRepository.save(sector);
+        sectorRepository.save(sector);
 
         return sector;
     }
 
     public void deleteSector(Long id){
-        System.out.println("Sector in delete method: "+ sectorRepository.findById(id).toString());
         sectorRepository.deleteById(id);
     }
 

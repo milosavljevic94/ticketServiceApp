@@ -42,6 +42,9 @@ public class ReservationController {
         return new ResponseEntity<>(new ReservationDto(reservationService.findOneReservation(id)), HttpStatus.OK);
     }
 
+    /*
+    May be used during project development.
+    */
     @PostMapping(value = "/addReservation", consumes = "application/json")
     public ResponseEntity<ReservationDto> addReservation(@RequestBody ReservationDto reservationDto) {
 
@@ -50,6 +53,9 @@ public class ReservationController {
         return new ResponseEntity<>(new ReservationDto(reservationService.mapFromDto(reservationDto)) , HttpStatus.CREATED);
     }
 
+    /*
+    May be used during project development.
+    */
     @PutMapping(value = "/updateReservation", consumes = "application/json")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ReservationDto> updateReservation(@RequestBody ReservationDto reservationDto){

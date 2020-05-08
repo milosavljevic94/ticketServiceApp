@@ -18,6 +18,9 @@ public class SectorController {
     @Autowired
     SectorService sectorService;
 
+    /*
+    May be used during project development.
+    */
     @GetMapping(value = "/allSectorsForLocation/{id}")
     public ResponseEntity<List<SectorDto>> getAllSectorsForLocation(@PathVariable Long id){
 
@@ -44,7 +47,7 @@ public class SectorController {
 
     @PutMapping(value = "/updateSector", consumes = "application/json")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<SectorDto> updateAddress(@RequestBody SectorDto sd){
+    public ResponseEntity<SectorDto> updateSector(@RequestBody SectorDto sd){
 
         Sector s = sectorService.updateSector(sd);
 

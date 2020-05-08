@@ -78,7 +78,6 @@ public class RoleControllerTest {
 
         ResponseEntity<RoleDto> response = restTemplate.exchange("/api/role/111", HttpMethod.GET,
                 createRequestEntity(), RoleDto.class);
-        RoleDto rolesDto = response.getBody();
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }

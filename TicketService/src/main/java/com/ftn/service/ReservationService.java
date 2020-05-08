@@ -1,13 +1,6 @@
 package com.ftn.service;
 
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.ftn.dtos.ReservationDto;
 import com.ftn.exceptions.AplicationException;
 import com.ftn.exceptions.EntityNotFoundException;
@@ -17,6 +10,12 @@ import com.ftn.model.Ticket;
 import com.ftn.model.User;
 import com.ftn.repository.ManifestationSectorRepository;
 import com.ftn.repository.ReservationRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ReservationService {
@@ -54,28 +53,30 @@ public class ReservationService {
     }
 */
 
-    public void addReservation(Reservation r){
+    public void addReservation(Reservation r) {
         reservationRepository.save(r);
     }
 
-    public void deleteReservation(Long id){
+    public void deleteReservation(Long id) {
 
-        if(userService.getloggedInUser() == null){
+        if (userService.getloggedInUser() == null) {
             throw new AplicationException("You must log in first!");
         }
 
+
         User u = userService.getloggedInUser();
+
 
         List<Reservation> reservationsOfUser = new ArrayList<>();
         reservationsOfUser.addAll(u.getReservations());
 
         Reservation r = findOneReservation(id);
 
-        if(reservationsOfUser.contains(r)) {
 
+        if (reservationsOfUser.contains(r)) {
             ticketService.deleteTicket(r.getTicket().getId());
             reservationRepository.deleteById(id);
-        }else{
+        } else {
             throw new AplicationException("Can't cancel other users reservations!");
         }
     }
@@ -92,6 +93,8 @@ public class ReservationService {
     */
 
     public List<ReservationDto> reservationOfUser(){
+
+        System.out.println("Usao u metodu na pocetku!");
 
         List<Reservation> reservations = new ArrayList<>();
         List<ReservationDto> reservationDtos = new ArrayList<>();

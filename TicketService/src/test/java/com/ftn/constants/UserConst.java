@@ -50,7 +50,18 @@ public class UserConst {
         UserDto userDto = new UserDto();
         userDto.setUserName(DB_USERNAME);
         userDto.setEmail(DB_EMAIL);
+        userDto.setFirstName("testFn");
+        userDto.setLastName("testLn");
+        userDto.setPassword("test");
+        userDto.setMatchingPassword("test");
 
+        return userDto;
+    }
+
+    public static UserDto registerNotValidDto(){
+
+        UserDto userDto = new UserDto();
+        userDto.setUserName(DB_USERNAME);
         return userDto;
     }
 
@@ -176,6 +187,17 @@ public class UserConst {
         userDto.setEmail("testNewEmail.com");
         userDto.setFirstName("testNewName");
         userDto.setLastName("testNewLastName");
+
+        return userDto;
+    }
+
+    public static UserDto returnDtoForUpdateWrongId(){
+        UserDto userDto = new UserDto();
+        userDto.setId(NOT_VALID_ID);
+        userDto.setUserName("tdsdsd");
+        userDto.setEmail("testNdsdsdail.com");
+        userDto.setFirstName("tedsdsadasdwName");
+        userDto.setLastName("tesfdfdsfame");
 
         return userDto;
     }

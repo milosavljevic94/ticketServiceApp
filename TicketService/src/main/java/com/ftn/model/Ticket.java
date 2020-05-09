@@ -134,8 +134,8 @@ public class Ticket {
                 ", purchaseTime=" + purchaseTime +
                 ", reservation=" + reservation +
                 ", manifestationSector=" + manifestationSector +
-                ", manifestationDays=" + manifestationDays +
-                ", user=" + user +
+                ", manifestationDays=" + manifestationDays.getName() +
+                ", user=" + user.getUsername() +
                 '}';
     }
 }

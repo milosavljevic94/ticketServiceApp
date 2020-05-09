@@ -113,7 +113,7 @@ public class ManifestationDays {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", startTime=" + startTime +
-                ", manifestation=" + manifestation +
+                ", manifestation=" + manifestation.getName() +
                 ", tickets=" + tickets +
                 ", manifestationSectors=" + manifestationSectors +
                 '}';

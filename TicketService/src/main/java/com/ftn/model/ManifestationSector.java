@@ -67,7 +67,7 @@ public class ManifestationSector {
     public String toString() {
         return "ManifestationSector{" +
                 "id=" + id +
-                ", manifestationDays=" + manifestationDays +
+                ", manifestationDays=" + manifestationDays.getName() +
                 ", sector=" + sector +
                 ", price=" + price +
                 '}';

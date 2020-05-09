@@ -11,5 +11,5 @@ import org.junit.runners.Suite;
         LocationRepositoryTest.class,
         UserRepositoryTest.class
 })
-public class ReporitoryTestSuit {
+public class RepositoryTestSuit {
 }

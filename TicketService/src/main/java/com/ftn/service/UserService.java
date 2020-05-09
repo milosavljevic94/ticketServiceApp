@@ -13,7 +13,6 @@ import com.ftn.repository.UserRepository;
 import com.ftn.security.SecurityConfiguration;
 import com.ftn.security.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -109,12 +108,12 @@ public class UserService {
     }
 
     public UserDtoRes register(UserDto userDto) {
-
         User user = userRepository.findByUsernameOrEmail(userDto.getUserName(), userDto.getEmail());
 
         if (user != null) {
+
             String message = user.getEmail().equals(userDto.getEmail()) ? "Odabrani email i/ili username vec postoji!" : "Odabrani username vec postoji!";
-            throw new EmailExistsException(HttpStatus.BAD_REQUEST, message);
+            throw new EmailExistsException(message);
         }
 
         if(!userDto.getPassword().equals(userDto.getMatchingPassword())){

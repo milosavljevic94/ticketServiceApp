@@ -1,5 +1,8 @@
 package com.ftn.exceptions;
 
+import com.ftn.project.TicketServiceApplication;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +21,8 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class ExceptionsHandlers extends ResponseEntityExceptionHandler {
 
+    private static final Logger LOGGER =LoggerFactory.getLogger(TicketServiceApplication.class);
+
     @ExceptionHandler(value = {
             EntityNotFoundException.class,
             LocationNotFoundException.class
@@ -25,6 +30,7 @@ public class ExceptionsHandlers extends ResponseEntityExceptionHandler {
     public ResponseEntity<ExceptionMessage> entityNotFoundExeptionHandler(Exception e){
         HttpStatus status = HttpStatus.NOT_FOUND;
         ExceptionMessage exceptionMessage = new ExceptionMessage(e.getMessage(), status);
+        LOGGER.error(exceptionMessage.getM());
         return new ResponseEntity<>(exceptionMessage, status);
     }
 
@@ -35,6 +41,7 @@ public class ExceptionsHandlers extends ResponseEntityExceptionHandler {
     public ResponseEntity<ExceptionMessage> entityAlreadyExistExceptionHandler(Exception e){
         HttpStatus status = HttpStatus.CONFLICT;
         ExceptionMessage exceptionMessage = new ExceptionMessage(e.getMessage(), status);
+        LOGGER.error(exceptionMessage.getM());
         return new ResponseEntity<>(exceptionMessage, status);
     }
 
@@ -43,6 +50,7 @@ public class ExceptionsHandlers extends ResponseEntityExceptionHandler {
 
         HttpStatus status = HttpStatus.CONFLICT;
         ExceptionMessage exceptionMessage = new ExceptionMessage(e.getMessage(), status);
+        LOGGER.error(exceptionMessage.getM());
         return new ResponseEntity<>(exceptionMessage, status);
     }
 
@@ -51,6 +59,7 @@ public class ExceptionsHandlers extends ResponseEntityExceptionHandler {
 
         HttpStatus status = HttpStatus.BAD_REQUEST;
         ExceptionMessage exceptionMessage = new ExceptionMessage(e.getMessage(), status);
+        LOGGER.error(exceptionMessage.getM());
         return new ResponseEntity<>(exceptionMessage, status);
     }
 
@@ -59,6 +68,7 @@ public class ExceptionsHandlers extends ResponseEntityExceptionHandler {
 
         HttpStatus status = HttpStatus.BAD_REQUEST;
         ExceptionMessage exceptionMessage = new ExceptionMessage(e.getMessage(), status);
+        LOGGER.error(exceptionMessage.getM());
         return new ResponseEntity<>(exceptionMessage, status);
     }
 
@@ -67,6 +77,7 @@ public class ExceptionsHandlers extends ResponseEntityExceptionHandler {
 
         HttpStatus status = HttpStatus.BAD_REQUEST;
         ExceptionMessage exceptionMessage = new ExceptionMessage(e.getMessage(), status);
+        LOGGER.error(exceptionMessage.getM());
         return new ResponseEntity<>(exceptionMessage, status);
     }
 
@@ -90,6 +101,7 @@ public class ExceptionsHandlers extends ResponseEntityExceptionHandler {
 
         body.put("errors", errors);
 
+        LOGGER.error(errors.toString());
         return new ResponseEntity<>(body, status);
     }
 }

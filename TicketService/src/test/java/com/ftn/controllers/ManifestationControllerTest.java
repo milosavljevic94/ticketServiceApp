@@ -445,7 +445,6 @@ public class ManifestationControllerTest {
 
     @Test
     public void testUpdateNotValidDay_thenReturnBadRequest(){
-        // TODO: 2.5.2020 update day, manifestation dont have that day
         ManifestationDaysDto dayDto = ManDaysConst.newDtoToUpdate();
         dayDto.setId(ManDaysConst.NOT_VALID_ID);
 

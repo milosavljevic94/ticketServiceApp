@@ -13,6 +13,7 @@ import com.ftn.model.Ticket;
 import com.ftn.project.TicketServiceApplication;
 import com.ftn.repository.ManifestationDaysRepository;
 import com.ftn.repository.TicketRepository;
+import com.ftn.repository.UserRepository;
 import com.ftn.service.TicketService;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,6 +50,9 @@ public class TicketServiceIntegrationTest {
 
     @Autowired
     ManifestationDaysRepository daysRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Qualifier("userDetailsServiceImpl")
     @Autowired
@@ -129,8 +133,10 @@ public class TicketServiceIntegrationTest {
 
     @Test
     public void deleteTicketSuccessTest(){
+
         int sizeBeforeDel = ticketRepository.findAll().size();
         ticketService.deleteTicket(TicketConst.OK_TICKET_ID);
+
         int sizeAfterDel = ticketRepository.findAll().size();
 
         assertFalse(ticketRepository.findById(TicketConst.OK_TICKET_ID).isPresent());
@@ -227,6 +233,7 @@ public class TicketServiceIntegrationTest {
     public void reserveTicketDayLimit_thenThrowException(){
 
         BuyTicketDto testTicketToReserve = TicketConst.validTicketForBuyTest();
+        testTicketToReserve.setDayId(4L);
 
         Reservation result = ticketService.reserveTicket(testTicketToReserve);
     }
@@ -242,7 +249,7 @@ public class TicketServiceIntegrationTest {
     @Test(expected = SeatIsNotFreeException.class)
     public void reserveTicketTakenSeat_thenThrowException(){
 
-        BuyTicketDto takenSeat = TicketConst.ticketForReservce_takenSeat();
+        BuyTicketDto takenSeat = TicketConst.ticketForReserve_takenSeat();
         Reservation result = ticketService.reserveTicket(takenSeat);
     }
 
@@ -268,13 +275,13 @@ public class TicketServiceIntegrationTest {
     }
 
     @Test(expected = EntityNotFoundException.class)
-    public void buyreservedTicket_reservationNotExist_thenThrowException(){
+    public void buyReservedTicket_reservationNotExist_thenThrowException(){
 
         Ticket result = ticketService.buyReservedTicket(ReservationConst.NOT_VALID_ID);
     }
 
     @Test(expected = AplicationException.class)
-    public void buyreservedTicket_notHaveReservation_thenThrowException(){
+    public void buyReservedTicket_notHaveReservation_thenThrowException(){
 
         Ticket result = ticketService.buyReservedTicket(ReservationConst.OTHER_USER_RESERVATION);
     }

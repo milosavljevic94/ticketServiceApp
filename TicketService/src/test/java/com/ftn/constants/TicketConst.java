@@ -37,7 +37,8 @@ public class TicketConst {
         return buyTicketDto;
     }
 
-    public static BuyTicketDto ticketForReservce_takenSeat(){
+
+    public static BuyTicketDto ticketForReserve_takenSeat(){
 
         SeatWithPriceDto seatWithPriceDto = new SeatWithPriceDto();
         seatWithPriceDto.setManSectorId(2L);

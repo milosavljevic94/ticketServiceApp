@@ -51,7 +51,7 @@ public class TicketService {
     }
 
     public Ticket findOneTicket(Long id) {
-        return ticketRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Ticket with id : "+ id + "not found."));
+        return ticketRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Ticket with id : " + id + "not found."));
     }
 
     public Ticket addTicket(Ticket t) {
@@ -59,6 +59,9 @@ public class TicketService {
         return t;
     }
 
+    /*
+    Functionality marked as unnecessary and redundant.
+     */
     public Ticket updateTicket(TicketDto ticketDto) {
         Ticket t = findOneTicket(ticketDto.getId());
         t.setRowNum(ticketDto.getRowNum());
@@ -73,36 +76,45 @@ public class TicketService {
     }
 
     public void deleteTicket(Long id) {
-        ticketRepository.deleteById(id);
-    }
 
+        if (userService.getloggedInUser() == null) {
+            throw new AplicationException("You must be logged in to delete ticket!");
+        }
+
+        User u = userService.getloggedInUser();
+
+        List<Ticket> usersTickets = new ArrayList<>();
+        usersTickets.addAll(u.getTickets());
+
+        Ticket ticketToDelete = findOneTicket(id);
+
+        if (usersTickets.contains(ticketToDelete)) {
+            ticketRepository.deleteById(id);
+        } else {
+            throw new AplicationException("Can not delete other user ticket!");
+        }
+    }
 
     public void deleteAll() {
         ticketRepository.deleteAll();
     }
 
-    /* Not currently used.
-    public Boolean ifExist(Long id) {
-        return ticketRepository.existsById(id);
-    }
-    */
-
 
     /*
-        Checking if seat free for position, day and sector.
-        Return value boolean.
-     */
-    public Boolean isSeatFree(int row, int seatNum, Long dayId, Long sectorId){
+    Checking if seat free for position, day and sector.
+    Return value boolean.
+    */
+    public Boolean isSeatFree(int row, int seatNum, Long dayId, Long sectorId) {
 
         Boolean free = true;
 
         List<Ticket> tickets = finfAllTickets();
 
-        for(Ticket t : tickets){
-            if(t.getManifestationDays().getId() == dayId && t.getManifestationSector().getSector().getId() == sectorId && t.getRowNum() == row && t.getSeatNum() == seatNum){
+        for (Ticket t : tickets) {
+            if (t.getManifestationDays().getId() == dayId && t.getManifestationSector().getSector().getId() == sectorId && t.getRowNum() == row && t.getSeatNum() == seatNum) {
                 free = false;
                 return free;
-            }else{
+            } else {
                 free = true;
             }
         }
@@ -111,7 +123,7 @@ public class TicketService {
 
     public Ticket buyTicket(BuyTicketDto ticketToBuy) {
 
-        if(userService.getloggedInUser() == null){
+        if (userService.getloggedInUser() == null) {
             throw new AplicationException("You must be logged in to buy ticket!");
         }
 
@@ -128,8 +140,8 @@ public class TicketService {
 
     public Reservation reserveTicket(BuyTicketDto ticketToReserve) {
 
-        if(userService.getloggedInUser() == null){
-            throw new AplicationException("You must be logged in to buy ticket!");
+        if (userService.getloggedInUser() == null) {
+            throw new AplicationException("You must be logged in to reserve ticket!");
         }
 
         User u = userService.getloggedInUser();
@@ -140,10 +152,10 @@ public class TicketService {
 
         LocalDateTime start = md.getStartTime();
         long days = ChronoUnit.DAYS.between(LocalDateTime.now(), start);
-        int intDays = (int)days;
+        int intDays = (int) days;
 
-        if(intDays < Restrictions.DAYS_BEFORE_MANIFESTATION){
-            throw new AplicationException("You can't reserve ticket because manifestation starts for "+Restrictions.DAYS_BEFORE_MANIFESTATION+" days.");
+        if (intDays < Restrictions.DAYS_BEFORE_MANIFESTATION) {
+            throw new AplicationException("You can't reserve ticket because manifestation starts for " + Restrictions.DAYS_BEFORE_MANIFESTATION + " days.");
         }
 
 
@@ -159,12 +171,12 @@ public class TicketService {
         ManifestationSector ms = mSectorService.getSectorPriceById(seatPrice.getManSectorId());
         Sector s = ms.getSector();
 
-        if(seatPrice.getRow() > s.getRows() || seatPrice.getSeatNumber() > s.getColumns()){
-            throw new AplicationException("This sector have "+s.getRows()+" rows and "+s.getColumns()+" columns. Please try again and insert correcttly seat position!");
+        if (seatPrice.getRow() > s.getRows() || seatPrice.getSeatNumber() > s.getColumns()) {
+            throw new AplicationException("This sector have " + s.getRows() + " rows and " + s.getColumns() + " columns. Please try again and insert correctly seat position!");
         }
 
-        if(!isSeatFree(seatPrice.getRow(), seatPrice.getSeatNumber(), md.getId(), s.getId())) {
-            throw new SeatIsNotFreeException("Seat in row: "+seatPrice.getRow() +" , and with number:  "+seatPrice.getSeatNumber()+"  is not free for this day in this sector." +
+        if (!isSeatFree(seatPrice.getRow(), seatPrice.getSeatNumber(), md.getId(), s.getId())) {
+            throw new SeatIsNotFreeException("Seat in row: " + seatPrice.getRow() + " , and with number:  " + seatPrice.getSeatNumber() + "  is not free for this day in this sector." +
                     "Please try to insert another position, or another day or sector.");
         }
 
@@ -192,7 +204,7 @@ public class TicketService {
             If not for buying then is for reserving.
         */
 
-        if(forBuying) {
+        if (forBuying) {
             Ticket t = new Ticket();
 
             t.setUser(u);
@@ -208,13 +220,13 @@ public class TicketService {
 
             return t;
 
-        }else{
+        } else {
             Reservation reservation = makeReservationForTicket(seatPrice, md, ms, u);
             return reservation.getTicket();
         }
     }
 
-    public Reservation makeReservationForTicket(SeatWithPriceDto seatPrice, ManifestationDays md, ManifestationSector ms, User u){
+    public Reservation makeReservationForTicket(SeatWithPriceDto seatPrice, ManifestationDays md, ManifestationSector ms, User u) {
 
         Reservation r = new Reservation();
         r.setActive(true);
@@ -223,7 +235,6 @@ public class TicketService {
         r.setTicket(null);
 
         reservationService.addReservation(r);
-
 
 
         Ticket tRes = new Ticket();
@@ -236,7 +247,7 @@ public class TicketService {
         tRes.setManifestationDays(md);
         tRes.setRowNum(seatPrice.getRow());
         tRes.setReservation(r);
-        
+
 
         ticketRepository.save(tRes);
 
@@ -249,7 +260,7 @@ public class TicketService {
 
     public Ticket buyReservedTicket(Long idReservation) {
 
-        if(userService.getloggedInUser() == null){
+        if (userService.getloggedInUser() == null) {
             throw new AplicationException("You must be logged in to buy ticket!");
         }
 
@@ -262,7 +273,7 @@ public class TicketService {
         Reservation r = reservationService.findOneReservation(idReservation);
         Ticket ticket = r.getTicket();
 
-        if(reservations.contains(r)){
+        if (reservations.contains(r)) {
 
 
             ticket.setUser(u);
@@ -272,8 +283,8 @@ public class TicketService {
             r.setActive(false);
             reservationService.addReservation(r);
 
-        }else{
-            throw new AplicationException(u.getFirstName()+" you don't have reservation with id: "+idReservation);
+        } else {
+            throw new AplicationException(u.getUsername() + " you don't have reservation with id: " + idReservation);
         }
         return ticket;
     }
@@ -336,7 +347,7 @@ public class TicketService {
         List<Ticket> tickets = new ArrayList<>();
         List<BuyTicketDto> ticketDtos = new ArrayList<>();
 
-        if(userService.getloggedInUser() == null){
+        if (userService.getloggedInUser() == null) {
             throw new AplicationException("You must be logged in to buy ticket!");
         }
 
@@ -360,23 +371,19 @@ public class TicketService {
             DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate dateTime = LocalDate.parse(date, format);
 
-            for(Ticket t : allTickets){
-                if(t.getManifestationDays().getManifestation().getLocation().getId() == idLocation &&
-                        t.getPurchaseTime().toLocalDate().equals(dateTime)){
+            for (Ticket t : allTickets) {
+                if (t.getManifestationDays().getManifestation().getLocation().getId() == idLocation &&
+                        t.getPurchaseTime().toLocalDate().equals(dateTime)) {
                     profit = profit + t.getManifestationSector().getPrice();
                     soldTickets = soldTickets + 1;
 
                 }
             }
-        }catch (DateTimeParseException e){
-            throw new AplicationException("Please import date in format : yyyy-MM-dd, "+ e);
+        } catch (DateTimeParseException e) {
+            throw new AplicationException("Please import date in format : yyyy-MM-dd, " + e);
         }
 
-        TicketReportDto report = new TicketReportDto();
-        report.setProfit(profit);
-        report.setSoldTicketNumber(soldTickets);
-
-        return report;
+        return new TicketReportDto(profit, soldTickets);
     }
 
     public TicketReportDto makeReportMonthLocation(Long idLocation, String date) {
@@ -389,22 +396,18 @@ public class TicketService {
             DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM");
             YearMonth dateTime = YearMonth.parse(date, format);
 
-            for(Ticket t : allTickets){
-                if(t.getManifestationDays().getManifestation().getLocation().getId() == idLocation &&
-                        YearMonth.from(t.getPurchaseTime()).equals(dateTime)){
+            for (Ticket t : allTickets) {
+                if (t.getManifestationDays().getManifestation().getLocation().getId() == idLocation &&
+                        YearMonth.from(t.getPurchaseTime()).equals(dateTime)) {
                     profit = profit + t.getManifestationSector().getPrice();
                     soldTickets = soldTickets + 1;
                 }
             }
-        }catch (DateTimeParseException e){
-            throw new AplicationException("Please import date in format : yyyy-MM, "+ e);
+        } catch (DateTimeParseException e) {
+            throw new AplicationException("Please import date in format : yyyy-MM, " + e);
         }
 
-        TicketReportDto report = new TicketReportDto();
-        report.setProfit(profit);
-        report.setSoldTicketNumber(soldTickets);
-
-        return report;
+        return new TicketReportDto(profit, soldTickets);
     }
 
     public TicketReportDto makeReportYearLocation(Long idLocation, String date) {
@@ -417,22 +420,18 @@ public class TicketService {
             DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy");
             Year dateTime = Year.parse(date, format);
 
-            for(Ticket t : allTickets){
-                if(t.getManifestationDays().getManifestation().getLocation().getId() == idLocation &&
-                        Year.from(t.getPurchaseTime()).equals(dateTime)){
+            for (Ticket t : allTickets) {
+                if (t.getManifestationDays().getManifestation().getLocation().getId() == idLocation &&
+                        Year.from(t.getPurchaseTime()).equals(dateTime)) {
                     profit = profit + t.getManifestationSector().getPrice();
                     soldTickets = soldTickets + 1;
                 }
             }
-        }catch (DateTimeParseException e){
+        } catch (DateTimeParseException e) {
             throw new AplicationException("Please import date in format : yyyy, " + e);
         }
 
-        TicketReportDto report = new TicketReportDto();
-        report.setProfit(profit);
-        report.setSoldTicketNumber(soldTickets);
-
-        return report;
+        return new TicketReportDto(profit, soldTickets);
     }
 
     public TicketReportDto makeReportDayManifestation(Long idDayManifestation) {
@@ -442,26 +441,26 @@ public class TicketService {
         int soldTickets = 0;
 
         for (Ticket t : md.getTickets()) {
-        	profit = profit + t.getManifestationSector().getPrice();
+            profit = profit + t.getManifestationSector().getPrice();
             soldTickets = soldTickets + 1;
         }
-        
-        return new TicketReportDto(profit,soldTickets);
+
+        return new TicketReportDto(profit, soldTickets);
     }
 
     public TicketReportDto makeReportWholeManifestation(Long idMan) {
-    	Set<ManifestationDays> manDays = manifestationService.findOneManifestation(idMan).getManifestationDays();
+        Set<ManifestationDays> manDays = manifestationService.findOneManifestation(idMan).getManifestationDays();
         double profit = 0.0;
         int soldTickets = 0;
-        
+
         for (ManifestationDays md : manDays) {
-        	System.out.println("bbb");
-                for (Ticket t : md.getTickets()) {
-                    profit = profit + t.getManifestationSector().getPrice();
-                    soldTickets = soldTickets + 1;
-                }
+            System.out.println("bbb");
+            for (Ticket t : md.getTickets()) {
+                profit = profit + t.getManifestationSector().getPrice();
+                soldTickets = soldTickets + 1;
+            }
 
         }
-        return new TicketReportDto(profit,soldTickets);
+        return new TicketReportDto(profit, soldTickets);
     }
 }

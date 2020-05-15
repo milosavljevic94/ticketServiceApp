@@ -24,7 +24,7 @@ public class Reservation {
 
     //Information which ticket is reserved.
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "ticket_id", referencedColumnName = "id")
     private Ticket ticket;
 

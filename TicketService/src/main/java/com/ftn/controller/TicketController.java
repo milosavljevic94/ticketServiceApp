@@ -25,7 +25,7 @@ public class TicketController {
 
     @GetMapping(value = "/allTicket")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<List<BuyTicketDto>> getAllTicket(){
+    public ResponseEntity<List<BuyTicketDto>> getAllTicket() {
 
         List<BuyTicketDto> ticketDtos = ticketService.allToDto();
 
@@ -33,7 +33,7 @@ public class TicketController {
     }
 
     @GetMapping(value = "/allUserTicket")
-    public ResponseEntity<List<BuyTicketDto>> getAllTicketOfUser(){
+    public ResponseEntity<List<BuyTicketDto>> getAllTicketOfUser() {
 
         List<BuyTicketDto> ticketDtos = ticketService.ticketsOfUser();
 
@@ -57,7 +57,6 @@ public class TicketController {
 
     @PutMapping(value = "/reserveTicket")
     public ResponseEntity<ReservationDto> reserveTicketMakeNewTicket(@RequestBody BuyTicketDto ticketToReserve) {
-
         Reservation r = ticketService.reserveTicket(ticketToReserve);
 
         return new ResponseEntity<>(new ReservationDto(r), HttpStatus.OK);
@@ -72,26 +71,36 @@ public class TicketController {
         return new ResponseEntity<>(new TicketDto(t), HttpStatus.OK);
     }
 
-
+    /*
+    Functionality marked as unnecessary and redundant.
+     */
     @PutMapping(value = "/updateTicket", consumes = "application/json")
-    public ResponseEntity<TicketDto> updateTicket(@RequestBody TicketDto ticketDto){
+    public ResponseEntity<TicketDto> updateTicket(@RequestBody TicketDto ticketDto) {
 
         ticketService.updateTicket(ticketDto);
 
         return new ResponseEntity<>(new TicketDto(ticketService.mapFromDto(ticketDto)), HttpStatus.OK);
     }
 
+    /*
+    Not currently used.
+    May be used in project development.
+     */
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<?> deleteTicket(@PathVariable Long id){
-
+    public ResponseEntity<?> deleteTicket(@PathVariable Long id) {
         ticketService.deleteTicket(id);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /*
+    Not currently in use.
+    May be used in project development.
+     */
+
     @DeleteMapping(value = "/deleteAllTickets")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> deleteAllTicket(){
+    public ResponseEntity<?> deleteAllTicket() {
 
         ticketService.deleteAll();
 
@@ -104,7 +113,7 @@ public class TicketController {
 
         TicketReportDto report = ticketService.makeReportDayLocation(idLocation, date);
 
-        return new ResponseEntity<TicketReportDto>(report, HttpStatus.OK);
+        return new ResponseEntity<>(report, HttpStatus.OK);
     }
 
     @PostMapping(value = "/reportMonthLocation/{idLocation}")
@@ -113,7 +122,7 @@ public class TicketController {
 
         TicketReportDto report = ticketService.makeReportMonthLocation(idLocation, date);
 
-        return new ResponseEntity<TicketReportDto>(report, HttpStatus.OK);
+        return new ResponseEntity<>(report, HttpStatus.OK);
     }
 
     @PostMapping(value = "/reportYearLocation/{idLocation}")
@@ -122,27 +131,25 @@ public class TicketController {
 
         TicketReportDto report = ticketService.makeReportYearLocation(idLocation, date);
 
-        return new ResponseEntity<TicketReportDto>(report, HttpStatus.OK);
+        return new ResponseEntity<>(report, HttpStatus.OK);
     }
 
 
-    //menjan url i path variable
     @GetMapping(value = "/reportDayManifestation/{idDayManifestation}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<TicketReportDto> reportForDayOfManifestation(@PathVariable Long idDayManifestation) {
 
         TicketReportDto report = ticketService.makeReportDayManifestation(idDayManifestation);
 
-        return new ResponseEntity<TicketReportDto>(report, HttpStatus.OK);
+        return new ResponseEntity<>(report, HttpStatus.OK);
     }
 
-    //dodat get umesto posta
     @GetMapping(value = "/reportManifestation/{idMan}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<TicketReportDto> reportForWholeManifestation(@PathVariable Long idMan) {
         TicketReportDto report = ticketService.makeReportWholeManifestation(idMan);
 
-        return new ResponseEntity<TicketReportDto>(report, HttpStatus.OK);
+        return new ResponseEntity<>(report, HttpStatus.OK);
     }
 
 }

@@ -30,14 +30,14 @@ insert into sector(columns, rows, seats_number, sector_name, location_id) values
 insert into sector(columns, rows, seats_number, sector_name, location_id) values (20, 40, 800, 'sectorSpens3', 2);
 
 -- Test data for manifestation
-insert into manifestation(description, manifestation_category, name, start_time, location_id, end_time) values ('Neki opis manifestacije sa id 1, koja traje 3 dana.', 0, 'Koncert 1234', '2020-02-19 20:00:00', 1, '2020-02-21 20:00:00');
+insert into manifestation(description, manifestation_category, name, start_time, location_id, end_time) values ('Neki opis manifestacije sa id 1, koja traje 3 dana.', 0, 'Koncert 1234', '2020-10-19 20:00:00', 1, '2020-10-21 20:00:00');
 
 insert into manifestation(description, manifestation_category, name, start_time, location_id, end_time) values ('Neki opis manifestacije na spensu sa 3 sektora.', 2, 'KoncertNaSpensu', '2020-02-25 20:00:00', 2, '2020-02-26 20:00:00');
 
 -- Test data for manifestation-days
-insert into manifestation_days(description, name, start_time, manifestation_id) values ('Opis dana prvog za manifestaciju 1.', 'Dan1 man1', '2020-02-19 20:00:00', 1);
-insert into manifestation_days(description, name, start_time, manifestation_id) values ('Opis dana drugog za manifestaciju 1.', 'Dan2 man1', '2020-06-20 20:00:00', 1);
-insert into manifestation_days(description, name, start_time, manifestation_id) values ('Opis dana terceg za manifestaciju 1.', 'Dan3 man1', '2020-02-21 20:00:00', 1);
+insert into manifestation_days(description, name, start_time, manifestation_id) values ('Opis dana prvog za manifestaciju 1.', 'Dan1 man1', '2020-10-19 20:00:00', 1);
+insert into manifestation_days(description, name, start_time, manifestation_id) values ('Opis dana drugog za manifestaciju 1.', 'Dan2 man1', '2020-10-20 20:00:00', 1);
+insert into manifestation_days(description, name, start_time, manifestation_id) values ('Opis dana terceg za manifestaciju 1.', 'Dan3 man1', '2020-10-21 20:00:00', 1);
 
 insert into manifestation_days(description, name, start_time, manifestation_id) values ('Opis dana 1 za manifestaciju 2.', 'Dan1 man2', '2020-02-25 20:00:00', 2);
 -- Day with valid date

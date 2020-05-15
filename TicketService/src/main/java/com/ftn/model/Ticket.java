@@ -19,7 +19,7 @@ public class Ticket {
 
     private LocalDateTime purchaseTime;
 
-    @OneToOne(mappedBy = "ticket")
+    @OneToOne(mappedBy = "ticket", orphanRemoval = true)
     private Reservation reservation;
 
     //Relation to Manifestation Sector and Manifestation Days.

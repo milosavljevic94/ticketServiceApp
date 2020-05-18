@@ -83,7 +83,6 @@ public class ManifestationServiceUnitTest {
 
         when(manifestationRepository.findById(ManifestationConst.OK_MAN_ID)).thenReturn(Optional.of(manifestationTest));
         when(manifestationRepository.findAll()).thenReturn(manifestations);
-
         when(locationRepository.findById(ManifestationConst.LOCATION_ID)).thenReturn(Optional.of(location1));
     }
 
@@ -123,14 +122,6 @@ public class ManifestationServiceUnitTest {
         Manifestation result = manifestationService.addManifestation(dtoWrongLocation);
     }
 
-    @Test(expected = AplicationException.class)
-    public void addManifestationWrongDayNumber_thenThrowException(){
-
-        ManifestationDto dtoWrongDayNumber = ManifestationConst.newDtoWrongDaysNumber();
-        Manifestation result = manifestationService.addManifestation(dtoWrongDayNumber);
-
-    }
-
     @Test
     public void addManifestationSuccessTest(){
 
@@ -143,7 +134,6 @@ public class ManifestationServiceUnitTest {
             ((Manifestation)args[0]).setId(ManifestationConst.OK_MAN_ID);
             return null;
         }).when(manifestationRepository).save(any(Manifestation.class));
-        when(manifestationDayService.mapFromDto(dtoCorrect.getManDaysDto().iterator().next())).thenReturn(new ManifestationDays(dtoCorrect.getManDaysDto().iterator().next()));
         Manifestation result = manifestationService.addManifestation(dtoCorrect);
 
         assertNotNull(result);
@@ -231,6 +221,7 @@ public class ManifestationServiceUnitTest {
         Manifestation result = manifestationService
                 .setPriceForSectorAndDay(ManifestationConst.OK_MAN_ID, price);
     }
+
     @Test
     public void setPricesForSectorAndDaySuccessTest(){
 
@@ -238,9 +229,12 @@ public class ManifestationServiceUnitTest {
         Manifestation result = manifestationService
                 .setPriceForSectorAndDay(ManifestationConst.OK_MAN_ID, ManifestationConst.newSectorPrice());
 
+        System.out.println("Result u testu : "+ result.toString());
+
         assertNotNull(result);
-        assertEquals("sectorTest", result.getLocation().getSectors().iterator().next().getSectorName());
-        assertEquals("dayTest", result.getManifestationDays().iterator().next().getName());
-        assertEquals(Optional.of(200.00).get(), result.getManifestationDays().iterator().next().getManifestationSectors().iterator().next().getPrice());
+        assertTrue( result.getLocation().getSectors().iterator().next().getSectorName().contains("sectorTest"));
+        assertTrue( result.getManifestationDays().iterator().next().getName().contains("dayTest"));
+        assertTrue(result.getManifestationDays().iterator().next().getManifestationSectors().stream().anyMatch(p -> p.getPrice().equals(200.0)));
+        verify(manifestationSectorRepository, times(1)).save(any(ManifestationSector.class));
     }
 }

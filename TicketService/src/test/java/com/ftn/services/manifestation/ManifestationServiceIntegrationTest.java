@@ -70,12 +70,6 @@ public class ManifestationServiceIntegrationTest {
         Manifestation result = manifestationService.addManifestation(dtoWrongLocation);
     }
 
-    @Test(expected = AplicationException.class)
-    public void addManifestationWrongDayNumber_thenThrowException() {
-
-        ManifestationDto dtoWrongDayNumber = ManifestationConst.newDtoWrongDaysNumber();
-        Manifestation result = manifestationService.addManifestation(dtoWrongDayNumber);
-    }
 
     @Test
     public void addManifestationSuccessTest() {

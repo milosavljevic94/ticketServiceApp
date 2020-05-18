@@ -142,7 +142,6 @@ public class ReservationServiceUnitTest {
         reservationService.deleteReservation(11L);
 
         verify(reservationRepository, times(1)).deleteById(11L);
-        verify(ticketService, times(1)).deleteTicket(11L);
     }
 
 

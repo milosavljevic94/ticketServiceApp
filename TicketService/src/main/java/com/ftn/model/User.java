@@ -46,7 +46,7 @@ public class User {
     private Set<Reservation> reservations;
 
     //If user want to directly buy ticket.
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Ticket> tickets = new HashSet<>();
 
     public User() {

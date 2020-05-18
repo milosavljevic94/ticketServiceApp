@@ -14,7 +14,7 @@ public class ManDaysConst {
 
     public static String VALID_NAME = "Dan1 man1";
     public static String VALID_DESC = "Opis dana prvog za manifestaciju 1.";
-    public static LocalDateTime VALID_TIME = LocalDateTime.of(2020,02,19, 20,00,00);
+    public static LocalDateTime VALID_TIME = LocalDateTime.of(2020,10,19, 20,00,00);
 
     public static ManifestationDaysDto newDtoToUpdate(){
 

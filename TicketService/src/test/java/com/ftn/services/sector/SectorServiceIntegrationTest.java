@@ -7,6 +7,7 @@ import com.ftn.exceptions.EntityNotFoundException;
 import com.ftn.exceptions.LocationNotFoundException;
 import com.ftn.model.Sector;
 import com.ftn.project.TicketServiceApplication;
+import com.ftn.repository.LocationRepository;
 import com.ftn.repository.SectorRepository;
 import com.ftn.service.SectorService;
 import org.junit.Test;
@@ -32,6 +33,9 @@ public class SectorServiceIntegrationTest {
 
     @Autowired
     SectorRepository sectorRepository;
+
+    @Autowired
+    LocationRepository locationRepository;
 
     @Test
     public void findAllSectorTest_thenReturnSectorList(){
@@ -86,7 +90,7 @@ public class SectorServiceIntegrationTest {
     @Test
     public void deleteSectorTest(){
 
-        Sector sector = sectorService.addSector(SectorConst.newDtoToAdd());
+        sectorRepository.save(new Sector());
 
         int sizeBeforeDel = sectorRepository.findAll().size();
 

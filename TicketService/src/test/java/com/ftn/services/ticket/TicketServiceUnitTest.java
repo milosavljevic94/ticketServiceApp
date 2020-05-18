@@ -19,9 +19,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -125,9 +123,27 @@ public class TicketServiceUnitTest {
     @Test
     public void deleteTicketSuccessTest(){
 
-        ticketService.deleteTicket(TicketConst.OK_TICKET_ID);
+        Ticket ticket = new Ticket();
+        ticket.setId(11L);
 
-        verify(ticketRepositoryMocked, times(1)).deleteById(TicketConst.OK_TICKET_ID);
+        Set<Ticket> tickets = new HashSet<>();
+        tickets.add(ticket);
+
+        User user = new User();
+        user.setTickets(tickets);
+
+        ticket.setUser(user);
+
+        int sizeBeforeDelete = user.getTickets().size();
+
+        when(userService.getloggedInUser()).thenReturn(user);
+        when(ticketRepositoryMocked.findById(11L)).thenReturn(Optional.ofNullable(ticket));
+        ticketService.deleteTicket(11L);
+
+        int sizeAfterDelete = user.getTickets().size();
+
+        assertEquals(sizeBeforeDelete - 1, sizeAfterDelete);
+        verify(userService, times(1)).saveUser(any(User.class));
     }
 
     @Test
@@ -451,21 +467,17 @@ public class TicketServiceUnitTest {
     @Test()
     public void makeReportDayManifestationSuccessTest(){
 
-        Manifestation validManifestation = TicketConst.manifestationWithValidDays();
+        ManifestationDays validManDay = TicketConst.validManDayWithTickets();
 
-        when(manifestationService.findOneManifestation(1L)).thenReturn(validManifestation);
+        when(manifestationDayService.findOneManifestationDays(1L)).thenReturn(validManDay);
 
         TicketReportDto resultFirstDay = ticketService.makeReportDayManifestation(1L);
-        TicketReportDto resultSecondDay = ticketService.makeReportDayManifestation(2L);
 
         assertNotNull(resultFirstDay);
-        assertNotNull(resultSecondDay);
 
         assertEquals(350.00, resultFirstDay.getProfit(), 0);
         assertEquals(2, resultFirstDay.getSoldTicketNumber());
 
-        assertEquals(450.00, resultSecondDay.getProfit(), 0);
-        assertEquals(1, resultSecondDay.getSoldTicketNumber());
     }
 
     @Test()

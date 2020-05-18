@@ -4,7 +4,9 @@ import com.ftn.dtos.SectorDto;
 import com.ftn.exceptions.EntityNotFoundException;
 import com.ftn.exceptions.LocationNotFoundException;
 import com.ftn.model.Location;
+import com.ftn.model.ManifestationSector;
 import com.ftn.model.Sector;
+import com.ftn.repository.ManifestationSectorRepository;
 import com.ftn.repository.SectorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,9 @@ public class SectorService {
     @Autowired
     LocationService locationService;
 
+    @Autowired
+    ManifestationSectorRepository manSectorRepo;
+
 
     public List<Sector> finfAllSector(){
         return sectorRepository.findAll();
@@ -34,7 +39,7 @@ public class SectorService {
 
     public Sector addSector(SectorDto sd) {
 
-        Sector sector = new Sector();
+        Sector sector;
 
         if (locationService.findOneLocation(sd.getLocationId()) == null) {
             throw new LocationNotFoundException("Location with id : " + sd.getLocationId() + " not found.");
@@ -44,16 +49,23 @@ public class SectorService {
 
 
         sector = mapFromDto(sd);
-        sector.setLocation(l);
 
         l.getSectors().add(sector);
 
+        sector.setLocation(l);
+
         sectorRepository.save(sector);
+
+        System.out.println("Prosao kroz addSector i sektor koji se dodaje je : "+ sector.getSectorName()+"\n");
 
         return sector;
     }
 
     public void deleteSector(Long id){
+        //If sector deleted, then delete prices for thad sector.
+        for (ManifestationSector ms : manSectorRepo.findAll())
+            if (ms.getSector().getId() == id)
+                manSectorRepo.delete(ms);
         sectorRepository.deleteById(id);
     }
 

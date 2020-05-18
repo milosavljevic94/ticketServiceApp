@@ -74,7 +74,6 @@ public class ReservationService {
 
 
         if (reservationsOfUser.contains(r)) {
-            ticketService.deleteTicket(r.getTicket().getId());
             reservationRepository.deleteById(id);
         } else {
             throw new AplicationException("Can't cancel other users reservations!");
@@ -93,8 +92,6 @@ public class ReservationService {
     */
 
     public List<ReservationDto> reservationOfUser(){
-
-        System.out.println("Usao u metodu na pocetku!");
 
         List<Reservation> reservations = new ArrayList<>();
         List<ReservationDto> reservationDtos = new ArrayList<>();

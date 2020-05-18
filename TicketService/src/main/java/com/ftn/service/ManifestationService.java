@@ -193,7 +193,7 @@ public class ManifestationService {
             }
         }
         if (md == null) {
-            throw new AplicationException("Manifestation : " + m.getName() + " dont have this day. Please try again.");
+            throw new AplicationException("Manifestation : " + m.getName() + " don`t have this day. Please try again.");
         }
 
         Sector s = null;
@@ -204,7 +204,7 @@ public class ManifestationService {
             }
         }
         if (s == null) {
-            throw new AplicationException("Manifestation : " + m.getName() + " dont have this sector. Please try again.");
+            throw new AplicationException("Manifestation : " + m.getName() + " don`t have this sector. Please try again.");
         }
 
         ManifestationSector manSector = new ManifestationSector();

@@ -177,10 +177,22 @@ public class TicketConst {
 
     public static ManifestationDays validManDay(){
 
-        ManifestationDays md = new ManifestationDays("validtestDay","valid test description", LocalDateTime.of(2020,05,02,20,20,00), new Manifestation(), new HashSet<>(), new HashSet<>());
+        ManifestationDays md = new ManifestationDays("validtestDay","valid test description", LocalDateTime.of(2020,10,02,20,20,00), new Manifestation(), new HashSet<>(), new HashSet<>());
         md.setId(1L);
 
         return md;
+    }
+
+    public static ManifestationDays validManDayWithTickets(){
+
+        //first day with two tickets
+        ManifestationDays md1 = new ManifestationDays();
+        md1.setId(1L);
+        Set<Ticket> tickets = new HashSet<>();
+        tickets.addAll(returnValidTickets());
+        md1.setTickets(tickets);
+
+        return md1;
     }
 
     public static ManifestationSector validManSector(){
@@ -214,6 +226,12 @@ public class TicketConst {
         Sector s = new Sector();
         s.setLocation(l);
 
+        Manifestation m1 = new Manifestation();
+        m1.setLocation(l);
+
+        ManifestationDays md1 = new ManifestationDays();
+        md1.setManifestation(m1);
+
         ManifestationSector ms = new ManifestationSector();
         ms.setPrice(200.00);
         ms.setSector(s);
@@ -223,11 +241,11 @@ public class TicketConst {
         ms2.setSector(s);
 
         Ticket ticket1 = new Ticket(5, 7, true, LocalDateTime.of(2020,03,01,12,12,00),
-                new Reservation(), ms, new ManifestationDays(), new User());
+                new Reservation(), ms, md1, new User());
         ticket1.setId(11L);
 
         Ticket ticket2 = new Ticket(3, 5, true, LocalDateTime.of(2020,03,01,12,12,00),
-                new Reservation(), ms2, new ManifestationDays(), new User());
+                new Reservation(), ms2, md1, new User());
         ticket2.setId(22L);
         ArrayList<Ticket> tickets = new ArrayList<>();
 

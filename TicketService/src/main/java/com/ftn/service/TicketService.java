@@ -83,13 +83,15 @@ public class TicketService {
 
         User u = userService.getloggedInUser();
 
+
         List<Ticket> usersTickets = new ArrayList<>();
         usersTickets.addAll(u.getTickets());
 
         Ticket ticketToDelete = findOneTicket(id);
 
         if (usersTickets.contains(ticketToDelete)) {
-            ticketRepository.deleteById(id);
+            u.getTickets().remove(ticketToDelete);
+            userService.saveUser(u);
         } else {
             throw new AplicationException("Can not delete other user ticket!");
         }
@@ -280,8 +282,7 @@ public class TicketService {
             ticket.setPurchaseConfirmed(true);
             ticketRepository.save(ticket);
 
-            r.setActive(false);
-            reservationService.addReservation(r);
+            reservationService.deleteReservation(r.getId());
 
         } else {
             throw new AplicationException(u.getUsername() + " you don't have reservation with id: " + idReservation);
@@ -454,7 +455,6 @@ public class TicketService {
         int soldTickets = 0;
 
         for (ManifestationDays md : manDays) {
-            System.out.println("bbb");
             for (Ticket t : md.getTickets()) {
                 profit = profit + t.getManifestationSector().getPrice();
                 soldTickets = soldTickets + 1;

@@ -111,7 +111,6 @@ public class LocationServiceIntegrationTest {
         assertEquals(sectorToAdd.getColumns(), addedSector.getColumns());
         assertEquals(sectorToAdd.getRows(), addedSector.getRows());
         assertEquals(sectorToAdd.getSeatsNumber(), addedSector.getSeatsNumber());
-
     }
 
     @Test

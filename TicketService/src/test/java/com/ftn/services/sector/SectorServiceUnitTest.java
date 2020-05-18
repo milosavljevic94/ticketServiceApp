@@ -5,9 +5,8 @@ import com.ftn.constants.SectorConst;
 import com.ftn.dtos.SectorDto;
 import com.ftn.exceptions.EntityNotFoundException;
 import com.ftn.exceptions.LocationNotFoundException;
-import com.ftn.model.Address;
-import com.ftn.model.Location;
-import com.ftn.model.Sector;
+import com.ftn.model.*;
+import com.ftn.repository.ManifestationSectorRepository;
 import com.ftn.repository.SectorRepository;
 import com.ftn.service.LocationService;
 import com.ftn.service.SectorService;
@@ -18,17 +17,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SectorServiceUnitTest {
@@ -41,6 +33,9 @@ public class SectorServiceUnitTest {
 
     @Mock
     LocationService locationService;
+
+    @Mock
+    ManifestationSectorRepository manSectorRepo;
 
     @Before
     public void setUp(){
@@ -58,9 +53,16 @@ public class SectorServiceUnitTest {
 
         location1.getSectors().addAll(sectorList);
 
+        ManifestationSector ms1 = new ManifestationSector(1L, new ManifestationDays(), sector, 120.0);
+        ManifestationSector ms2 = new ManifestationSector(2L, new ManifestationDays(), sector, 150.0);
+        List<ManifestationSector> manSectorList = new ArrayList<>();
+        manSectorList.add(ms1);
+        manSectorList.add(ms2);
+
         when(sectorRepository.findById(SectorConst.OK_ID_SECTOR)).thenReturn(Optional.of(sector));
         when(sectorRepository.findAll()).thenReturn(sectorList);
         when(locationService.findOneLocation(11L)).thenReturn(location1);
+        when(manSectorRepo.findAll()).thenReturn(manSectorList);
     }
 
 

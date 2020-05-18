@@ -10,6 +10,7 @@ import com.ftn.exceptions.EntityNotFoundException;
 import com.ftn.exceptions.SeatIsNotFreeException;
 import com.ftn.model.Reservation;
 import com.ftn.model.Ticket;
+import com.ftn.model.User;
 import com.ftn.project.TicketServiceApplication;
 import com.ftn.repository.ManifestationDaysRepository;
 import com.ftn.repository.TicketRepository;
@@ -29,6 +30,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
@@ -132,14 +134,21 @@ public class TicketServiceIntegrationTest {
     }
 
     @Test
+    @Sql(statements = "ALTER TABLE ticket AUTO_INCREMENT = 5")
     public void deleteTicketSuccessTest(){
 
+        Ticket ticketDelete = new Ticket();
+        User user = userRepository.getOne(1L);
+        ticketDelete.setUser(user);
+        user.getTickets().add(ticketDelete);
+
         int sizeBeforeDel = ticketRepository.findAll().size();
-        ticketService.deleteTicket(TicketConst.OK_TICKET_ID);
+
+        ticketService.deleteTicket(Long.valueOf(sizeBeforeDel));
 
         int sizeAfterDel = ticketRepository.findAll().size();
 
-        assertFalse(ticketRepository.findById(TicketConst.OK_TICKET_ID).isPresent());
+        assertFalse(ticketRepository.findById(Long.valueOf(sizeBeforeDel)).isPresent());
         assertEquals(sizeBeforeDel - 1, sizeAfterDel);
     }
 

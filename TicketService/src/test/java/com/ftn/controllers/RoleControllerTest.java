@@ -114,6 +114,7 @@ public class RoleControllerTest {
 
 
     @Test
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     public void testUpdateRole_thenReturnUpdated(){
 
         RoleDto dtoUpdate = new RoleDto();

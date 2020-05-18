@@ -103,6 +103,24 @@ public class UserConst {
         return userDto;
     }
 
+    public static UserDto newUserToRegister(){
+
+        RoleDto roleDto = new RoleDto();
+        roleDto.setId(1L);
+        roleDto.setRoleName("USER");
+
+        UserDto userDto = new UserDto();
+        userDto.setUserName("newUsername");
+        userDto.setEmail("newTestEmail.com");
+        userDto.setPassword("registerPassword");
+        userDto.setMatchingPassword("registerPassword");
+        userDto.setFirstName("newTestName");
+        userDto.setLastName("newTestLastName");
+        userDto.setRole(roleDto);
+
+        return userDto;
+    }
+
     //for unit testing
 
     public static Long MOCK_USER_ID = 1L;
@@ -176,6 +194,8 @@ public class UserConst {
 
 
         reservation.setUser(user);
+        ticket.setUser(user);
+        ticket2.setUser(user);
 
         return user;
     }

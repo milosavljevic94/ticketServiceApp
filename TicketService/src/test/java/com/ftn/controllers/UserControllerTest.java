@@ -67,7 +67,7 @@ public class UserControllerTest {
     public void testRegister_thenReturnRegisterUser(){
         int sizeBeforeReg = userRepository.findAll().size();
 
-        UserDto userDto = UserConst.validDtoUser();
+        UserDto userDto = UserConst.newUserToRegister();
 
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<UserDto> requestEntity = new HttpEntity<>(userDto, headers);
@@ -199,6 +199,7 @@ public class UserControllerTest {
     }
 
     @Test
+    @Sql(statements = "ALTER TABLE user AUTO_INCREMENT = 2")
     public void testDeleteUser_thenReturnOk(){
 
         /*

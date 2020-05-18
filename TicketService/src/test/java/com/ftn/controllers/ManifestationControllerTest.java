@@ -227,6 +227,7 @@ public class ManifestationControllerTest {
     }
 
     @Test
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     public void testUpdateManifestation_thenReturnUpdated() {
         ManifestationDto dtoToUpdate = ManifestationConst.newDtoForUpdate();
 
@@ -372,13 +373,16 @@ public class ManifestationControllerTest {
     }
 
     @Test
+    @Sql(statements = "ALTER TABLE manifestation_days AUTO_INCREMENT = 5")
     public void testDeleteManifestationDay_thenDeleteDay() {
         //save test item to delete.
         daysRepository.save(new ManifestationDays());
 
         int daysBeforeDel = daysRepository.findAll().size();
 
-        ResponseEntity<String> response = restTemplate.exchange("/api/manifestation/deleteDay/" + ManDaysConst.DELETE_ID, HttpMethod.DELETE,
+        Long indexOfLast = Long.valueOf(daysBeforeDel);
+
+        ResponseEntity<String> response = restTemplate.exchange("/api/manifestation/deleteDay/" + indexOfLast, HttpMethod.DELETE,
                 createRequestEntity(), String.class);
 
         int daysAfterDel = daysRepository.findAll().size();
@@ -396,6 +400,7 @@ public class ManifestationControllerTest {
     }
 
     @Test
+    @Sql(statements = "ALTER TABLE manifestation AUTO_INCREMENT = 2")
     public void testDeleteManifestation_thenDeleteManifestation(){
         //save test item to delete.
         repository.save(new Manifestation());

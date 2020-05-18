@@ -15,7 +15,7 @@ public class ManifestationSector {
     private ManifestationDays manifestationDays;
 
     @OneToOne
-    @JoinColumn(name = "sector_id", referencedColumnName = "id")
+    @JoinColumn(name = "sector_id", referencedColumnName = "id", nullable = true)
     private Sector sector;
 
     private Double price;

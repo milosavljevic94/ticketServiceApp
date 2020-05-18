@@ -99,6 +99,7 @@ public class SectorControllerTest {
     }
 
     @Test
+    @Sql(statements = "ALTER TABLE sector AUTO_INCREMENT = 7")
     public void testAddSector_thenReturnCreated() {
 
         int sizeBeforeAdd = sectorRepository.findAll().size();

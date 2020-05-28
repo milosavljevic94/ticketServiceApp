@@ -40,7 +40,7 @@ public class LoginTest {
         chromeBrowser.quit();
     }
 
-    private void openLoginPage() {
+    public void openLoginPage() {
         homePage.ensureLoginIsClickable();
         homePage.getLoginButton().click();
 

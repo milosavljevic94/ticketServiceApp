@@ -1,16 +1,11 @@
 package com.ftn.service;
 
-import com.ftn.dtos.ManifestationDayDto;
-import com.ftn.dtos.ManifestationDaysDto;
-import com.ftn.dtos.ManifestationDto;
-import com.ftn.dtos.ManifestationSectorPriceDto;
+import com.ftn.dtos.*;
 import com.ftn.exceptions.AplicationException;
 import com.ftn.exceptions.DateException;
 import com.ftn.exceptions.EntityNotFoundException;
 import com.ftn.model.*;
-import com.ftn.repository.LocationRepository;
-import com.ftn.repository.ManifestationRepository;
-import com.ftn.repository.ManifestationSectorRepository;
+import com.ftn.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +30,12 @@ public class ManifestationService {
 
     @Autowired
     ManifestationSectorRepository manifestationSectorRepository;
+
+    @Autowired
+    SectorRepository sectorRepository;
+
+    @Autowired
+    TicketRepository ticketRepository;
 
     public List<Manifestation> finfAllManifestation() {
         return manifestationRepository.findAll();
@@ -309,5 +310,54 @@ public class ManifestationService {
         }
 
         return m;
+    }
+
+    public VerifyedSeats getVerifyedSeats(Long idManDay, Long idSector) {
+
+        VerifyedSeats vs = new VerifyedSeats();
+
+
+        ManifestationDays md = manifestationDayService.findOneManifestationDays(idManDay);
+        Sector s = sectorRepository.getOne(idSector);
+
+        List<Ticket> tickets = ticketRepository.findAll();
+        vs.setColumnNum(s.getColumns());
+        vs.setRowNum(s.getRows());
+
+
+        for(int i= 0; i<s.getRows(); i++){
+            for(int j= 0; j<s.getColumns(); j++){
+
+                SeatInfoDto seatP = new SeatInfoDto();
+                seatP.setSeatNumber(j);
+                seatP.setRow(i);
+                seatP.setManSectorId(idSector);
+
+               if(isSeatFree(i, j, idManDay, idSector)){
+                seatP.setTaken(false);
+               }else {
+                   seatP.setTaken(true);
+               }
+               vs.getTakenSeats().add(seatP);
+            }
+        }
+        return vs;
+    }
+
+    public Boolean isSeatFree(int row, int seatNum, Long dayId, Long sectorId) {
+
+        Boolean free = true;
+
+        List<Ticket> tickets = ticketRepository.findAll();
+
+        for (Ticket t : tickets) {
+            if (t.getManifestationDays().getId() == dayId && t.getManifestationSector().getSector().getId() == sectorId && t.getRowNum() == row && t.getSeatNum() == seatNum) {
+                free = false;
+                return free;
+            } else {
+                free = true;
+            }
+        }
+        return free;
     }
 }

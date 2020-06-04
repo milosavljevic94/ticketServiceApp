@@ -30,6 +30,9 @@ insert into location(location_name, address_id) values ('Spens', 2);
 
 insert into location(location_name, address_id) values ('Hala Jezero', 3);
 
+insert into location(location_name, address_id) values ('Sajmiste', 3);
+
+
 -- Test data for sectors
 insert into sector(columns, rows, seats_number, sector_name, location_id) values (12, 22, 260, 'sectorSever', 1);
 insert into sector(columns, rows, seats_number, sector_name, location_id) values (10, 30, 300, 'sectorJug', 1);
@@ -42,19 +45,27 @@ insert into sector(columns, rows, seats_number, sector_name, location_id) values
 
 insert into sector(columns, rows, seats_number, sector_name, location_id) values (40, 40, 1600, 'sectorParter', 3);
 
+insert into sector(columns, rows, seats_number, sector_name, location_id) values (20, 20, 400, 'parterSajmiste', 4);
+insert into sector(columns, rows, seats_number, sector_name, location_id) values (40, 40, 1600, 'tribineSajmiste', 4);
+
+
 -- Test data for manifestation
-insert into manifestation(description, manifestation_category, name, start_time, location_id, end_time) values ('Neki opis manifestacije sa id 1, koja traje 3 dana.', 0, 'Koncert 1234', '2020-02-19 20:00:00', 1, '2020-02-21 20:00:00');
+insert into manifestation(description, manifestation_category, name, start_time, location_id, end_time) values ('Neki opis manifestacije sa id 1, koja traje 3 dana.', 0, 'Koncert 1234', '2020-10-19 20:00:00', 1, '2020-10-21 20:00:00');
 insert into manifestation(description, manifestation_category, name, start_time, location_id, end_time) values ('Neki opis manifestacije na spensu sa 3 sektora.', 2, 'KoncertNaSpensu', '2020-02-25 20:00:00', 2, '2020-02-26 20:00:00');
 insert into manifestation(description, manifestation_category, name, start_time, location_id, end_time) values ('Neki opis manifestacije u Hali jezero.', 2, 'KoncertKg', '2020-03-01 20:00:00', 3, '2020-03-02 20:00:00');
+insert into manifestation(description, manifestation_category, name, start_time, location_id, end_time) values ('Neki opis manifestacije u na sajmistu.', 0, 'ManSajmisteKg', '2020-08-20 20:00:00', 4, '2020-08-21 20:00:00');
 
 -- Test data for manifestation-days
-insert into manifestation_days(description, name, start_time, manifestation_id) values ('Opis dana prvog za manifestaciju 1.', 'Dan1 man1', '2020-02-19 20:00:00', 1);
-insert into manifestation_days(description, name, start_time, manifestation_id) values ('Opis dana drugog za manifestaciju 1.', 'Dan2 man1', '2020-02-20 20:00:00', 1);
-insert into manifestation_days(description, name, start_time, manifestation_id) values ('Opis dana terceg za manifestaciju 1.', 'Dan3 man1', '2020-02-21 20:00:00', 1);
+insert into manifestation_days(description, name, start_time, manifestation_id) values ('Opis dana prvog za manifestaciju 1.', 'Dan1 man1', '2020-10-19 20:00:00', 1);
+insert into manifestation_days(description, name, start_time, manifestation_id) values ('Opis dana drugog za manifestaciju 1.', 'Dan2 man1', '2020-10-20 20:00:00', 1);
+insert into manifestation_days(description, name, start_time, manifestation_id) values ('Opis dana terceg za manifestaciju 1.', 'Dan3 man1', '2020-10-21 20:00:00', 1);
 
 insert into manifestation_days(description, name, start_time, manifestation_id) values ('Opis dana prvig za manifestaciju 2.', 'Dan1 man2', '2020-02-25 20:00:00', 2);
 
 insert into manifestation_days(description, name, start_time, manifestation_id) values ('Opis dana prvog za manifestaciju u Kg.', 'Dan1 man3', '2020-03-01 20:00:00', 3);
+
+insert into manifestation_days(description, name, start_time, manifestation_id) values ('Opis dana prvog za manifestaciju u Sajmistu.', 'Dan1 man4', '2020-08-20 20:00:00', 4);
+
 
 -- Test data for manifestation-sector
 insert into manifestation_sector(price, manifestation_days_id, sector_id) values (250.00, 1, 1);
@@ -78,12 +89,18 @@ insert into manifestation_sector(price, manifestation_days_id, sector_id) values
 
 insert into manifestation_sector(price, manifestation_days_id, sector_id) values (800.00, 5, 8);
 
+insert into manifestation_sector(price, manifestation_days_id, sector_id) values (350.00, 6, 9);
+insert into manifestation_sector(price, manifestation_days_id, sector_id) values (400.00, 6, 10);
+
+
+
 
 -- Test data for ticket, will be added when user buy a ticket.
 insert into ticket(purchase_confirmed, purchase_time, row_num, seat_num, manifestation_days_id, manifestation_sector_id, user_id) values (true , '2020-02-10 10:00:00', 1, 1, 1, 1, 1);
 insert into ticket(purchase_confirmed, purchase_time, row_num, seat_num, manifestation_days_id, manifestation_sector_id, user_id) values (true , '2020-02-03 10:00:00', 6, 6, 2, 2, 2);
 insert into ticket(purchase_confirmed, purchase_time, row_num, seat_num, manifestation_days_id, manifestation_sector_id, user_id) values (true , '2020-02-07 09:00:00', 4, 2, 1, 1, 1);
 insert into ticket(purchase_confirmed, purchase_time, row_num, seat_num, manifestation_days_id, manifestation_sector_id, user_id) values (true , '2020-02-01 11:00:00', 5, 2, 2, 2, 2);
+insert into ticket(purchase_confirmed, purchase_time, row_num, seat_num, manifestation_days_id, manifestation_sector_id, user_id) values (true , '2020-02-01 11:00:00', 1, 1, 5, 16, 2);
 
 -- Tickets for reservations.
 insert into ticket(purchase_confirmed, purchase_time, row_num, seat_num, manifestation_days_id, manifestation_sector_id, user_id) values (false , '2020-02-11 10:00:00', 2, 2, 1, 1, 1);

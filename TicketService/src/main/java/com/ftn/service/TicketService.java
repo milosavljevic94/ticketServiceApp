@@ -1,10 +1,7 @@
 package com.ftn.service;
 
 import com.ftn.constants.Restrictions;
-import com.ftn.dtos.BuyTicketDto;
-import com.ftn.dtos.SeatWithPriceDto;
-import com.ftn.dtos.TicketDto;
-import com.ftn.dtos.TicketReportDto;
+import com.ftn.dtos.*;
 import com.ftn.exceptions.AplicationException;
 import com.ftn.exceptions.EntityNotFoundException;
 import com.ftn.exceptions.SeatIsNotFreeException;
@@ -462,5 +459,11 @@ public class TicketService {
 
         }
         return new TicketReportDto(profit, soldTickets);
+    }
+
+    public ManForTicketDto getManNameForTicket(Long idTicket) {
+        Ticket t = ticketRepository.getOne(idTicket);
+
+        return new ManForTicketDto(t.getManifestationDays().getManifestation().getName());
     }
 }

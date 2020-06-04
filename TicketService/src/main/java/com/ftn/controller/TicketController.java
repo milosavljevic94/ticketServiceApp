@@ -1,10 +1,7 @@
 package com.ftn.controller;
 
 
-import com.ftn.dtos.BuyTicketDto;
-import com.ftn.dtos.ReservationDto;
-import com.ftn.dtos.TicketDto;
-import com.ftn.dtos.TicketReportDto;
+import com.ftn.dtos.*;
 import com.ftn.model.Reservation;
 import com.ftn.model.Ticket;
 import com.ftn.service.TicketService;
@@ -150,6 +147,14 @@ public class TicketController {
         TicketReportDto report = ticketService.makeReportWholeManifestation(idMan);
 
         return new ResponseEntity<>(report, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/getManName/{idTicket}")
+    public ResponseEntity<ManForTicketDto> getManNameForTicket(@PathVariable Long idTicket) {
+
+        ManForTicketDto m = ticketService.getManNameForTicket(idTicket);
+
+        return new ResponseEntity<ManForTicketDto>(m, HttpStatus.OK);
     }
 
 }

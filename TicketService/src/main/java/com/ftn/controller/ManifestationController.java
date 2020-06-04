@@ -118,4 +118,12 @@ public class ManifestationController {
         return new ResponseEntity<>(manifestationService.mapToDTO(m), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/verifySeat/{idManDay}/{idSector}")
+    public ResponseEntity<VerifyedSeats> verifySeat(@PathVariable("idManDay") Long idManDay, @PathVariable("idSector") Long idSector) {
+
+        VerifyedSeats seats = manifestationService.getVerifyedSeats(idManDay, idSector);
+
+        return new ResponseEntity<VerifyedSeats>(seats, HttpStatus.OK);
+    }
+
 }

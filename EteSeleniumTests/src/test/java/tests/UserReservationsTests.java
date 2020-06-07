@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class UserReservationsTest {
+public class UserReservationsTests {
 
     private WebDriver chromeBrowser;
 
@@ -26,6 +26,8 @@ public class UserReservationsTest {
     ManifestationListUserPage manifestationListUserPage;
 
     ReservationsListUserPage reservationsListUserPage;
+
+    AlertWindow alertWindow;
 
     @BeforeMethod
     public void setup() {
@@ -42,6 +44,7 @@ public class UserReservationsTest {
         loginPage = PageFactory.initElements(chromeBrowser, LoginPage.class);
         manifestationListUserPage = PageFactory.initElements(chromeBrowser, ManifestationListUserPage.class);
         reservationsListUserPage = PageFactory.initElements(chromeBrowser, ReservationsListUserPage.class);
+        alertWindow = PageFactory.initElements(chromeBrowser, AlertWindow.class);
     }
 
     @AfterMethod
@@ -58,15 +61,17 @@ public class UserReservationsTest {
         loginPage.getPasswordField().click();
         loginPage.setPassValue(Constants.VALID_PASS);
         loginPage.getLoginButton().click();
-        assertTrue(loginPage.isAlertPresent());
-        loginPage.acceptAlertLogin();
+        assertTrue(alertWindow.isAlertPresent());
+        alertWindow.acceptAlert();
         manifestationListUserPage.ensureReservationsButtonIsClickable();
         manifestationListUserPage.getReservationsButton().click();
     }
 
     @Test(priority = 1)
-    public void testClickOnResAndBuy_thenDisplayAndBuy(){
+    public void testClickOnResAndBuy_thenDisplayAndBuy() throws InterruptedException {
         openUserReservationsPage();
+
+        Thread.sleep(500);
 
         assertEquals(Constants.APP_HOME_URL + "reservations", chromeBrowser.getCurrentUrl());
 
@@ -75,9 +80,10 @@ public class UserReservationsTest {
 
         //click on some random reservation and display details.
         WebElement randomRes = reservationsListUserPage.getRandomReservation();
-
         assertTrue(randomRes.isEnabled());
         randomRes.click();
+
+        Thread.sleep(500);
 
         reservationsListUserPage.ensureResDetailsIsDisplayed();
         assertTrue(reservationsListUserPage.isDetailsTableDisplayed());
@@ -91,7 +97,7 @@ public class UserReservationsTest {
         assertEquals("Ticket bought successfully!", reservationsListUserPage.getAlertMessage() );
         reservationsListUserPage.acceptAlert();
 
-        chromeBrowser.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        Thread.sleep(1000);
 
         int sizeAfter = reservationsListUserPage.getNumberOfReservations();
 
@@ -99,8 +105,10 @@ public class UserReservationsTest {
     }
 
     @Test(priority = 2)
-    public void testClickOnResAndCancel_thenDisplayAndDeleteReservation(){
+    public void testClickOnResAndCancel_thenDisplayAndDeleteReservation() throws InterruptedException {
         openUserReservationsPage();
+
+        Thread.sleep(500);
 
         assertEquals(Constants.APP_HOME_URL + "reservations", chromeBrowser.getCurrentUrl());
 
@@ -109,9 +117,10 @@ public class UserReservationsTest {
 
         //click on some random reservation and display details.
         WebElement randomRes = reservationsListUserPage.getRandomReservation();
-
         assertTrue(randomRes.isEnabled());
         randomRes.click();
+
+        Thread.sleep(500);
 
         reservationsListUserPage.ensureResDetailsIsDisplayed();
         assertTrue(reservationsListUserPage.isDetailsTableDisplayed());
@@ -125,7 +134,7 @@ public class UserReservationsTest {
         assertEquals("Reservation cancelled!", reservationsListUserPage.getAlertMessage() );
         reservationsListUserPage.acceptAlert();
 
-        chromeBrowser.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        Thread.sleep(1000);
 
         int sizeAfter = reservationsListUserPage.getNumberOfReservations();
 

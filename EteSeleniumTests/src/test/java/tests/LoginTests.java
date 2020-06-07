@@ -6,19 +6,22 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pageClasses.AlertWindow;
 import pageClasses.HomePage;
 import pageClasses.LoginPage;
 import tests.constants.Constants;
 
 import static org.testng.Assert.*;
 
-public class LoginTest {
+public class LoginTests {
 
     private WebDriver chromeBrowser;
 
     HomePage homePage;
 
     LoginPage loginPage;
+
+    AlertWindow alertWindow;
 
     @BeforeMethod
     public void setup() {
@@ -33,6 +36,7 @@ public class LoginTest {
 
         homePage = PageFactory.initElements(chromeBrowser, HomePage.class);
         loginPage = PageFactory.initElements(chromeBrowser, LoginPage.class);
+        alertWindow = PageFactory.initElements(chromeBrowser, AlertWindow.class);
     }
 
     @AfterMethod
@@ -92,8 +96,8 @@ public class LoginTest {
         assertTrue(loginPage.getLoginButton().isEnabled());
         loginPage.getLoginButton().click();
 
-        assertTrue(loginPage.isAlertPresent());
-        assertEquals("Login failed. Try again!", loginPage.getAlertMessage());
+        assertTrue(alertWindow.isAlertPresent());
+        assertEquals("Login failed. Try again!", alertWindow.getAlertMessage());
     }
 
     @Test
@@ -109,10 +113,10 @@ public class LoginTest {
         assertTrue(loginPage.getLoginButton().isEnabled());
         loginPage.getLoginButton().click();
 
-        assertTrue(loginPage.isAlertPresent());
-        assertEquals("Login successful!", loginPage.getAlertMessage());
+        assertTrue(alertWindow.isAlertPresent());
+        assertEquals("Login successful!", alertWindow.getAlertMessage());
 
-        loginPage.acceptAlertLogin();
+        alertWindow.acceptAlert();
 
         assertEquals(Constants.APP_HOME_URL + "manifestations", chromeBrowser.getCurrentUrl());
     }

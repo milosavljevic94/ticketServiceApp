@@ -34,19 +34,19 @@ insert into location(location_name, address_id) values ('Sajmiste', 3);
 
 
 -- Test data for sectors
-insert into sector(columns, rows, seats_number, sector_name, location_id) values (12, 22, 260, 'sectorSever', 1);
-insert into sector(columns, rows, seats_number, sector_name, location_id) values (10, 30, 300, 'sectorJug', 1);
-insert into sector(columns, rows, seats_number, sector_name, location_id) values (40, 30, 1200, 'sectorIstok', 1);
-insert into sector(columns, rows, seats_number, sector_name, location_id) values (50, 40, 2000, 'sectorZapad', 1);
+insert into sector(columns, rows, seats_number, sector_name, location_id) values (7, 10, 70, 'sectorSever', 1);
+insert into sector(columns, rows, seats_number, sector_name, location_id) values (8, 8, 64, 'sectorJug', 1);
+insert into sector(columns, rows, seats_number, sector_name, location_id) values (15, 12, 180, 'sectorIstok', 1);
+insert into sector(columns, rows, seats_number, sector_name, location_id) values (24, 15, 360, 'sectorZapad', 1);
 
-insert into sector(columns, rows, seats_number, sector_name, location_id) values (10, 40, 400, 'sectorSpens1', 2);
-insert into sector(columns, rows, seats_number, sector_name, location_id) values (10, 30, 300, 'sectorSpens2', 2);
-insert into sector(columns, rows, seats_number, sector_name, location_id) values (20, 40, 800, 'sectorSpens3', 2);
+insert into sector(columns, rows, seats_number, sector_name, location_id) values (10, 10, 100, 'sectorSpens1', 2);
+insert into sector(columns, rows, seats_number, sector_name, location_id) values (14, 20, 280, 'sectorSpens2', 2);
+insert into sector(columns, rows, seats_number, sector_name, location_id) values (20, 25, 500, 'sectorSpens3', 2);
 
-insert into sector(columns, rows, seats_number, sector_name, location_id) values (40, 40, 1600, 'sectorParter', 3);
+insert into sector(columns, rows, seats_number, sector_name, location_id) values (14, 30, 420, 'sectorParter', 3);
 
-insert into sector(columns, rows, seats_number, sector_name, location_id) values (20, 20, 400, 'parterSajmiste', 4);
-insert into sector(columns, rows, seats_number, sector_name, location_id) values (40, 40, 1600, 'tribineSajmiste', 4);
+insert into sector(columns, rows, seats_number, sector_name, location_id) values (13, 20, 260, 'parterSajmiste', 4);
+insert into sector(columns, rows, seats_number, sector_name, location_id) values (28, 20, 560, 'tribineSajmiste', 4);
 
 
 -- Test data for manifestation
@@ -54,6 +54,7 @@ insert into manifestation(description, manifestation_category, name, start_time,
 insert into manifestation(description, manifestation_category, name, start_time, location_id, end_time) values ('Neki opis manifestacije na spensu sa 3 sektora.', 2, 'KoncertNaSpensu', '2020-02-25 20:00:00', 2, '2020-02-26 20:00:00');
 insert into manifestation(description, manifestation_category, name, start_time, location_id, end_time) values ('Neki opis manifestacije u Hali jezero.', 2, 'KoncertKg', '2020-03-01 20:00:00', 3, '2020-03-02 20:00:00');
 insert into manifestation(description, manifestation_category, name, start_time, location_id, end_time) values ('Neki opis manifestacije u na sajmistu.', 0, 'ManSajmisteKg', '2020-08-20 20:00:00', 4, '2020-08-21 20:00:00');
+insert into manifestation(description, manifestation_category, name, start_time, location_id, end_time) values ('Neki opis koncerta u na sajmistu koja pocinje uskoro.', 0, 'KoncertSajmisteKg', '2020-06-20 20:00:00', 4, '2020-06-21 20:00:00');
 
 -- Test data for manifestation-days
 insert into manifestation_days(description, name, start_time, manifestation_id) values ('Opis dana prvog za manifestaciju 1.', 'Dan1 man1', '2020-10-19 20:00:00', 1);
@@ -65,6 +66,8 @@ insert into manifestation_days(description, name, start_time, manifestation_id) 
 insert into manifestation_days(description, name, start_time, manifestation_id) values ('Opis dana prvog za manifestaciju u Kg.', 'Dan1 man3', '2020-03-01 20:00:00', 3);
 
 insert into manifestation_days(description, name, start_time, manifestation_id) values ('Opis dana prvog za manifestaciju u Sajmistu.', 'Dan1 man4', '2020-08-20 20:00:00', 4);
+
+insert into manifestation_days(description, name, start_time, manifestation_id) values ('Opis dana prvog za koncert u Sajmistu, pocinje uskoro.', 'Koncert dan 1.', '2020-06-20 20:00:00', 5);
 
 
 -- Test data for manifestation-sector
@@ -92,6 +95,9 @@ insert into manifestation_sector(price, manifestation_days_id, sector_id) values
 insert into manifestation_sector(price, manifestation_days_id, sector_id) values (350.00, 6, 9);
 insert into manifestation_sector(price, manifestation_days_id, sector_id) values (400.00, 6, 10);
 
+insert into manifestation_sector(price, manifestation_days_id, sector_id) values (800.00, 7, 9);
+insert into manifestation_sector(price, manifestation_days_id, sector_id) values (1000.00, 7, 10);
+
 
 
 
@@ -107,12 +113,12 @@ insert into ticket(purchase_confirmed, purchase_time, row_num, seat_num, manifes
 insert into ticket(purchase_confirmed, purchase_time, row_num, seat_num, manifestation_days_id, manifestation_sector_id, user_id) values (false , '2020-02-10 10:00:00', 3, 3, 1, 1, 1);
 insert into ticket(purchase_confirmed, purchase_time, row_num, seat_num, manifestation_days_id, manifestation_sector_id, user_id) values (false , '2020-02-11 13:00:00', 1, 3, 2, 2, 2);
 insert into ticket(purchase_confirmed, purchase_time, row_num, seat_num, manifestation_days_id, manifestation_sector_id, user_id) values (false , '2020-02-10 14:00:00', 3, 4, 2, 2, 2);
-insert into ticket(purchase_confirmed, purchase_time, row_num, seat_num, manifestation_days_id, manifestation_sector_id, user_id) values (false , '2020-02-20 14:00:00', 15, 13, 2, 2, 2);
+insert into ticket(purchase_confirmed, purchase_time, row_num, seat_num, manifestation_days_id, manifestation_sector_id, user_id) values (false , '2020-02-20 14:00:00', 10, 2, 2, 2, 2);
 
 -- Test data for reservations, will be added when user reserve a ticket.
-insert into reservation(active, exp_days, ticket_id, user_id) values (true, 10, 5, 1);
 insert into reservation(active, exp_days, ticket_id, user_id) values (true, 10, 6, 1);
+insert into reservation(active, exp_days, ticket_id, user_id) values (true, 10, 7, 1);
 
-insert into reservation(active, exp_days, ticket_id, user_id) values (true, 10, 7, 2);
 insert into reservation(active, exp_days, ticket_id, user_id) values (true, 10, 8, 2);
 insert into reservation(active, exp_days, ticket_id, user_id) values (true, 10, 9, 2);
+insert into reservation(active, exp_days, ticket_id, user_id) values (true, 10, 10, 2);

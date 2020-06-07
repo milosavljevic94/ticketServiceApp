@@ -215,8 +215,7 @@ public class ManifestationService {
         manSector.setPrice(sectorPriceDto.getPrice());
 
         md.getManifestationSectors().add(manSector);
-
-        //manifestationDayService.addManifestationDays(md);
+        
         manifestationSectorRepository.save(manSector);
 
         return m;
@@ -312,10 +311,9 @@ public class ManifestationService {
         return m;
     }
 
-    public VerifyedSeats getVerifyedSeats(Long idManDay, Long idSector) {
+    public VerifyedSeats getVerifiedSeats(Long idManDay, Long idSector) {
 
         VerifyedSeats vs = new VerifyedSeats();
-
 
         ManifestationDays md = manifestationDayService.findOneManifestationDays(idManDay);
         Sector s = sectorRepository.getOne(idSector);
@@ -324,21 +322,20 @@ public class ManifestationService {
         vs.setColumnNum(s.getColumns());
         vs.setRowNum(s.getRows());
 
-
-        for(int i= 0; i<s.getRows(); i++){
-            for(int j= 0; j<s.getColumns(); j++){
+        for (int i = 0; i < s.getRows(); i++) {
+            for (int j = 0; j < s.getColumns(); j++) {
 
                 SeatInfoDto seatP = new SeatInfoDto();
                 seatP.setSeatNumber(j);
                 seatP.setRow(i);
                 seatP.setManSectorId(idSector);
 
-               if(isSeatFree(i, j, idManDay, idSector)){
-                seatP.setTaken(false);
-               }else {
-                   seatP.setTaken(true);
-               }
-               vs.getTakenSeats().add(seatP);
+                if (isSeatFree(i, j, idManDay, idSector)) {
+                    seatP.setTaken(false);
+                } else {
+                    seatP.setTaken(true);
+                }
+                vs.getTakenSeats().add(seatP);
             }
         }
         return vs;
@@ -351,6 +348,7 @@ public class ManifestationService {
         List<Ticket> tickets = ticketRepository.findAll();
 
         for (Ticket t : tickets) {
+
             if (t.getManifestationDays().getId() == dayId && t.getManifestationSector().getSector().getId() == sectorId && t.getRowNum() == row && t.getSeatNum() == seatNum) {
                 free = false;
                 return free;

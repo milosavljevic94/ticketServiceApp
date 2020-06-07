@@ -112,7 +112,7 @@ public class UserService {
 
         if (user != null) {
 
-            String message = user.getEmail().equals(userDto.getEmail()) ? "Odabrani email i/ili username vec postoji!" : "Odabrani username vec postoji!";
+            String message = user.getEmail().equals(userDto.getEmail()) ? "Email and/or username already exist!" : "Username already exist!";
             throw new EmailExistsException(message);
         }
 

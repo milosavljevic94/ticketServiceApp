@@ -25,6 +25,11 @@ public class HomePage {
         wait.until(ExpectedConditions.elementToBeClickable(loginButton));
     }
 
+    public void ensureRegisterIsClickable(){
+        WebDriverWait wait = new WebDriverWait(webDriver, 10);
+        wait.until(ExpectedConditions.elementToBeClickable(registerButton));
+    }
+
     public WebDriver getWebDriver() {
         return webDriver;
     }

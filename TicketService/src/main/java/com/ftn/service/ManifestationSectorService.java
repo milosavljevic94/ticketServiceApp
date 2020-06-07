@@ -25,4 +25,15 @@ public class ManifestationSectorService {
     public List<ManifestationSector> getAllSectorPrices(){
         return manSecRepo.findAll();
     }
+
+    public ManifestationSector getSectorPriceByDayAndSector(Long idDay, Long idSector){
+
+        for(ManifestationSector ms : getAllSectorPrices()){
+            if(ms.getSector().getId() == idSector && ms.getManifestationDays().getId() == idDay){
+                return ms;
+            }
+        }
+
+        return null;
+    }
 }

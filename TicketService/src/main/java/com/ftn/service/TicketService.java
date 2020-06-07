@@ -167,7 +167,7 @@ public class TicketService {
 
     private Ticket createNewTicket(SeatWithPriceDto seatPrice, ManifestationDays md, Boolean forBuying) {
 
-        ManifestationSector ms = mSectorService.getSectorPriceById(seatPrice.getManSectorId());
+        ManifestationSector ms = mSectorService.getSectorPriceByDayAndSector(md.getId(), seatPrice.getManSectorId());
         Sector s = ms.getSector();
 
         if (seatPrice.getRow() > s.getRows() || seatPrice.getSeatNumber() > s.getColumns()) {

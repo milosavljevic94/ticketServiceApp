@@ -121,7 +121,7 @@ public class ManifestationController {
     @GetMapping(value = "/verifySeat/{idManDay}/{idSector}")
     public ResponseEntity<VerifyedSeats> verifySeat(@PathVariable("idManDay") Long idManDay, @PathVariable("idSector") Long idSector) {
 
-        VerifyedSeats seats = manifestationService.getVerifyedSeats(idManDay, idSector);
+        VerifyedSeats seats = manifestationService.getVerifiedSeats(idManDay, idSector);
 
         return new ResponseEntity<VerifyedSeats>(seats, HttpStatus.OK);
     }

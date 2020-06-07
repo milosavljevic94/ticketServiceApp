@@ -2,24 +2,37 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aabb6fc4-883f-412a-bdef-bed25ccd55cf" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../TicketService/src/main/java/com/ftn/dtos/ManForTicketDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pageClasses/AlertWindow.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pageClasses/ManifestationPage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/pageClasses/RegisterPage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/tests/ManifestationTimeLimitTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/tests/RegistrationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/testing.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pageClasses/HomePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pageClasses/HomePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pageClasses/LoginPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pageClasses/LoginPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pageClasses/ManifestationListUserPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pageClasses/ManifestationListUserPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/tests/UserManifestationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/tests/UserManifestationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pageClasses/ReservationsListUserPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pageClasses/ReservationsListUserPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/tests/LoginTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/tests/LoginTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/tests/UserManifestationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/tests/UserManifestationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/tests/UserReservationsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/tests/UserReservationsTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/tests/UserTicketsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/tests/UserTicketsTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/tests/constants/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/tests/constants/Constants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/pageClasses/HomePage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pageClasses/HomePage.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/pageClasses/LoginPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pageClasses/LoginPage.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/pageClasses/ManifestationListUserPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pageClasses/ManifestationListUserPage.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/pageClasses/ReservationsListUserPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pageClasses/ReservationsListUserPage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/pageClasses/TicketsListUserPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pageClasses/TicketsListUserPage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/tests/LoginTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/tests/LoginTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/tests/UserManifestationTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/tests/UserManifestationTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/tests/UserReservationsTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/tests/UserReservationsTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/tests/UserTicketsTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/tests/UserTicketsTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/tests/LoginTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/tests/UserManifestationTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/tests/UserReservationsTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/tests/UserTicketsTest.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/tests/constants/Constants.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/tests/constants/Constants.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TicketService/src/main/java/com/ftn/controller/TicketController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TicketService/src/main/java/com/ftn/controller/TicketController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TicketService/src/main/java/com/ftn/controller/ManifestationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TicketService/src/main/java/com/ftn/controller/ManifestationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TicketService/src/main/java/com/ftn/service/ManifestationSectorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TicketService/src/main/java/com/ftn/service/ManifestationSectorService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TicketService/src/main/java/com/ftn/service/ManifestationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TicketService/src/main/java/com/ftn/service/ManifestationService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TicketService/src/main/java/com/ftn/service/TicketService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TicketService/src/main/java/com/ftn/service/TicketService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TicketService/src/main/java/com/ftn/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../TicketService/src/main/java/com/ftn/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TicketService/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../TicketService/src/main/resources/data.sql" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -48,59 +61,66 @@
     <session id="-1698359625">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="14" />
+          <entry key="project.closed" value="21" />
+          <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.14" value="1" />
+          <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.4" value="1" />
           <entry key="project.open.time.40" value="1" />
-          <entry key="project.open.time.5" value="1" />
+          <entry key="project.open.time.5" value="2" />
           <entry key="project.open.time.58" value="1" />
           <entry key="project.open.time.59" value="1" />
+          <entry key="project.open.time.6" value="1" />
           <entry key="project.open.time.60" value="1" />
+          <entry key="project.open.time.61" value="1" />
           <entry key="project.open.time.63" value="1" />
           <entry key="project.open.time.64" value="1" />
-          <entry key="project.open.time.66" value="1" />
+          <entry key="project.open.time.66" value="2" />
           <entry key="project.open.time.68" value="1" />
           <entry key="project.open.time.75" value="1" />
           <entry key="project.open.time.81" value="1" />
+          <entry key="project.open.time.87" value="1" />
           <entry key="project.open.time.92" value="1" />
-          <entry key="project.opened" value="14" />
+          <entry key="project.opened" value="21" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="7164" />
-          <entry key="xml" value="12" />
+          <entry key="dummy" value="22" />
+          <entry key="java" value="10714" />
+          <entry key="xml" value="55" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="7164" />
-          <entry key="XML" value="12" />
+          <entry key="JAVA" value="10714" />
+          <entry key="PLAIN_TEXT" value="22" />
+          <entry key="XML" value="55" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="class" value="7" />
-          <entry key="java" value="44" />
-          <entry key="xml" value="3" />
+          <entry key="java" value="96" />
+          <entry key="xml" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CLASS" value="7" />
-          <entry key="JAVA" value="44" />
-          <entry key="XML" value="3" />
+          <entry key="JAVA" value="96" />
+          <entry key="XML" value="4" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/java/tests/UserManifestationTest.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/tests/UserManifestationTests.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="501">
-              <caret line="138" column="28" selection-start-line="138" selection-start-column="28" selection-end-line="138" selection-end-column="28" />
+            <state relative-caret-position="241">
+              <caret line="80" column="22" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -109,13 +129,68 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/pageClasses/ManifestationListUserPage.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/pageClasses/RegisterPage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1683">
-              <caret line="132" column="48" selection-start-line="132" selection-start-column="48" selection-end-line="132" selection-end-column="48" />
+            <state relative-caret-position="486">
+              <caret line="77" column="107" selection-start-line="77" selection-start-column="107" selection-end-line="77" selection-end-column="107" />
               <folding>
-                <element signature="e#3928#3929#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#472#473#0" expanded="true" />
+                <element signature="e#508#509#0" expanded="true" />
+                <element signature="e#821#822#0" expanded="true" />
+                <element signature="e#858#859#0" expanded="true" />
+                <element signature="e#902#903#0" expanded="true" />
+                <element signature="e#938#939#0" expanded="true" />
+                <element signature="e#979#980#0" expanded="true" />
+                <element signature="e#1012#1013#0" expanded="true" />
+                <element signature="e#1056#1057#0" expanded="true" />
+                <element signature="e#1092#1093#0" expanded="true" />
+                <element signature="e#1132#1133#0" expanded="true" />
+                <element signature="e#1164#1165#0" expanded="true" />
+                <element signature="e#1209#1210#0" expanded="true" />
+                <element signature="e#1246#1247#0" expanded="true" />
+                <element signature="e#1286#1287#0" expanded="true" />
+                <element signature="e#1318#1319#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/java/tests/RegistrationTests.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="190">
+              <caret line="81" selection-start-line="81" selection-end-line="81" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/tests/UserTicketsTests.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="190">
+              <caret line="76" selection-start-line="76" selection-end-line="76" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/pageClasses/TicketsListUserPage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="31" column="15" selection-start-line="31" selection-start-column="15" selection-end-line="31" selection-end-column="15" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/testing.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" column="53" selection-start-line="9" selection-start-column="53" selection-end-line="9" selection-end-column="53" />
             </state>
           </provider>
         </entry>
@@ -138,17 +213,28 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/Main.java" />
         <option value="$PROJECT_DIR$/src/test/java/tests/Constants.java" />
+        <option value="$PROJECT_DIR$/src/test/java/tests/constants/UserTicketsTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/pageClasses/TicketsListUserPage.java" />
+        <option value="$PROJECT_DIR$/src/main/java/pageClasses/AlertWindow.java" />
+        <option value="$PROJECT_DIR$/src/test/java/tests/LoginTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/tests/UserTicketsTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/tests/UserReservationsTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/pageClasses/ReservationsListUserPage.java" />
+        <option value="$PROJECT_DIR$/src/test/java/tests/UserManifestationTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/tests/NotValidBuyAndReserveTests.java" />
+        <option value="$PROJECT_DIR$/src/main/java/pageClasses/ManifestationListUserPage.java" />
+        <option value="$PROJECT_DIR$/src/main/java/pageClasses/ManifestationPage.java" />
+        <option value="$PROJECT_DIR$/src/test/java/tests/ManifestationTimeLimitTests.java" />
+        <option value="$PROJECT_DIR$/src/test/java/tests/UserReservationsTests.java" />
+        <option value="$PROJECT_DIR$/src/main/java/pageClasses/LoginPage.java" />
         <option value="$PROJECT_DIR$/src/main/java/pageClasses/HomePage.java" />
         <option value="$PROJECT_DIR$/src/test/java/tests/constants/Constants.java" />
-        <option value="$PROJECT_DIR$/src/main/java/pageClasses/LoginPage.java" />
-        <option value="$PROJECT_DIR$/src/test/java/tests/LoginTest.java" />
-        <option value="$PROJECT_DIR$/src/test/java/tests/constants/UserTicketsTest.java" />
-        <option value="$PROJECT_DIR$/src/test/java/tests/UserTicketsTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/pageClasses/TicketsListUserPage.java" />
-        <option value="$PROJECT_DIR$/src/main/java/pageClasses/ReservationsListUserPage.java" />
-        <option value="$PROJECT_DIR$/src/test/java/tests/UserReservationsTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/pageClasses/ManifestationListUserPage.java" />
-        <option value="$PROJECT_DIR$/src/test/java/tests/UserManifestationTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/pageClasses/RegisterPage.java" />
+        <option value="$PROJECT_DIR$/src/test/java/tests/RegistrationTests.java" />
+        <option value="$PROJECT_DIR$/src/test/java/suite/SuiteAllSeleniumTests.java" />
+        <option value="$PROJECT_DIR$/testing.xml" />
+        <option value="$PROJECT_DIR$/src/test/java/tests/UserTicketsTests.java" />
+        <option value="$PROJECT_DIR$/src/test/java/tests/UserManifestationTests.java" />
       </list>
     </option>
   </component>
@@ -184,7 +270,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -243,16 +328,18 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="AndroidView" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1591206581625" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1591542992842" />
+    <property name="extract.method.default.visibility" value="private" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/test/java/tests/const" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../TicketService" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Project" />
@@ -272,18 +359,44 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="TestNG.UserManifestationTest.testBuyTicketForManifestation_thenBuyTicket">
-    <configuration name="UserManifestationTest.testBuyTicketForManifestation_thenBuyTicket" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="TestNG.C:/Users/Nemanja/Desktop/KTS_Projekat_2020/TicketServiceBE/EteSeleniumTests/testing.xml">
+    <configuration name="C:/Users/Nemanja/Desktop/KTS_Projekat_2020/TicketServiceBE/EteSeleniumTests/testing.xml" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="EteSeleniumTests" />
+      <option name="SUITE_NAME" value="$PROJECT_DIR$/testing.xml" />
+      <option name="TEST_OBJECT" value="SUITE" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RegistrationTests" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
       <module name="EteSeleniumTests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="tests.*" />
+          <option name="PATTERN" value="suite.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.UserManifestationTest" />
-      <option name="METHOD_NAME" value="testBuyTicketForManifestation_thenBuyTicket" />
+      <option name="MAIN_CLASS_NAME" value="tests.RegistrationTests" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RegistrationTests.testPasswordsAreNotMatching_thenShowAlert" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="EteSeleniumTests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="suite.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="tests" />
+      <option name="MAIN_CLASS_NAME" value="tests.RegistrationTests" />
+      <option name="METHOD_NAME" value="testPasswordsAreNotMatching_thenShowAlert" />
       <option name="TEST_OBJECT" value="METHOD" />
       <properties />
       <listeners />
@@ -291,87 +404,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserManifestationTest.testFilterButton" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
+    <configuration name="RegistrationTests.testRegisterSuccess_thenRegisterAndGoToLogin" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
       <module name="EteSeleniumTests" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="tests.*" />
+          <option name="PATTERN" value="suite.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.UserManifestationTest" />
-      <option name="METHOD_NAME" value="testFilterButton" />
-      <option name="TEST_OBJECT" value="METHOD" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UserReservationsTest" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="EteSeleniumTests" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.UserReservationsTest" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UserReservationsTest.testClickOnResAndBuy_thenDisplayAndBuy" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="EteSeleniumTests" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.UserReservationsTest" />
-      <option name="METHOD_NAME" value="testClickOnResAndBuy_thenDisplayAndBuy" />
-      <option name="TEST_OBJECT" value="METHOD" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UserReservationsTest.testNavigateToValidPage_thenDisplayReservationsList" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="EteSeleniumTests" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.UserReservationsTest" />
-      <option name="METHOD_NAME" value="testNavigateToValidPage_thenDisplayReservationsList" />
-      <option name="TEST_OBJECT" value="METHOD" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UserTicketsTest.testIsTicketDetailsDisplayed_thenDisplayDetailTable" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="EteSeleniumTests" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="tests.constants" />
-      <option name="MAIN_CLASS_NAME" value="tests.UserTicketsTest" />
-      <option name="METHOD_NAME" value="testIsTicketDetailsDisplayed_thenDisplayDetailTable" />
+      <option name="MAIN_CLASS_NAME" value="tests.RegistrationTests" />
+      <option name="METHOD_NAME" value="testRegisterSuccess_thenRegisterAndGoToLogin" />
       <option name="TEST_OBJECT" value="METHOD" />
       <option name="PARAMETERS" value="0" />
       <properties />
@@ -380,21 +423,38 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="RegistrationTests.testRegisterWhenPasswordIsShort_thenShowError" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="EteSeleniumTests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="suite.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="tests" />
+      <option name="MAIN_CLASS_NAME" value="tests.RegistrationTests" />
+      <option name="METHOD_NAME" value="testRegisterWhenPasswordIsShort_thenShowError" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
-      <item itemvalue="TestNG.UserTicketsTest.testIsTicketDetailsDisplayed_thenDisplayDetailTable" />
-      <item itemvalue="TestNG.UserReservationsTest.testNavigateToValidPage_thenDisplayReservationsList" />
-      <item itemvalue="TestNG.UserReservationsTest.testClickOnResAndBuy_thenDisplayAndBuy" />
-      <item itemvalue="TestNG.UserReservationsTest" />
-      <item itemvalue="TestNG.UserManifestationTest.testFilterButton" />
-      <item itemvalue="TestNG.UserManifestationTest.testBuyTicketForManifestation_thenBuyTicket" />
+      <item itemvalue="TestNG.RegistrationTests.testRegisterSuccess_thenRegisterAndGoToLogin (1)" />
+      <item itemvalue="TestNG.RegistrationTests" />
+      <item itemvalue="TestNG.RegistrationTests.testRegisterWhenPasswordIsShort_thenShowError" />
+      <item itemvalue="TestNG.RegistrationTests.testPasswordsAreNotMatching_thenShowAlert" />
+      <item itemvalue="TestNG.C:/Users/Nemanja/Desktop/KTS_Projekat_2020/TicketServiceBE/EteSeleniumTests/testing.xml" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="TestNG.UserManifestationTest.testBuyTicketForManifestation_thenBuyTicket" />
-        <item itemvalue="TestNG.UserManifestationTest.testFilterButton" />
-        <item itemvalue="TestNG.UserReservationsTest" />
-        <item itemvalue="TestNG.UserReservationsTest.testClickOnResAndBuy_thenDisplayAndBuy" />
-        <item itemvalue="TestNG.UserReservationsTest.testNavigateToValidPage_thenDisplayReservationsList" />
+        <item itemvalue="TestNG.C:/Users/Nemanja/Desktop/KTS_Projekat_2020/TicketServiceBE/EteSeleniumTests/testing.xml" />
+        <item itemvalue="TestNG.RegistrationTests.testPasswordsAreNotMatching_thenShowAlert" />
+        <item itemvalue="TestNG.RegistrationTests.testRegisterWhenPasswordIsShort_thenShowError" />
+        <item itemvalue="TestNG.RegistrationTests" />
+        <item itemvalue="TestNG.RegistrationTests.testRegisterSuccess_thenRegisterAndGoToLogin (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -422,48 +482,56 @@
       <workItem from="1591121039554" duration="340000" />
       <workItem from="1591186030318" duration="15911000" />
       <workItem from="1591207411942" duration="155000" />
+      <workItem from="1591292897932" duration="7783000" />
+      <workItem from="1591356207946" duration="570000" />
+      <workItem from="1591363731350" duration="1781000" />
+      <workItem from="1591374227831" duration="8828000" />
+      <workItem from="1591389319677" duration="165000" />
+      <workItem from="1591518711806" duration="1166000" />
+      <workItem from="1591522993731" duration="15315000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="UserManifestationTest_testBuyTicketForManifestation_thenBuyTicket - 2020.06.03 at 17h 57m 47s.xml">
-      <configuration name="UserManifestationTest.testBuyTicketForManifestation_thenBuyTicket" configurationId="TestNG" />
+    <history-entry file="LoginTests - 2020.06.07 at 14h 58m 19s.xml">
+      <configuration name="LoginTests" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="UserManifestationTest_testBuyTicketForManifestation_thenBuyTicket - 2020.06.03 at 17h 58m 33s.xml">
-      <configuration name="UserManifestationTest.testBuyTicketForManifestation_thenBuyTicket" configurationId="TestNG" />
+    <history-entry file="UserReservationsTests - 2020.06.07 at 14h 59m 03s.xml">
+      <configuration name="UserReservationsTests" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="UserManifestationTest_testBuyTicketForManifestation_thenBuyTicket - 2020.06.03 at 18h 03m 27s.xml">
-      <configuration name="UserManifestationTest.testBuyTicketForManifestation_thenBuyTicket" configurationId="TestNG" />
+    <history-entry file="UserReservationsTests - 2020.06.07 at 15h 04m 34s.xml">
+      <configuration name="UserReservationsTests" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="UserManifestationTest_testBuyTicketForManifestation_thenBuyTicket - 2020.06.03 at 18h 23m 45s.xml">
-      <configuration name="UserManifestationTest.testBuyTicketForManifestation_thenBuyTicket" configurationId="TestNG" />
+    <history-entry file="RegistrationTests_testRegisterSuccess_thenRegisterAndGoToLogin - 2020.06.07 at 16h 03m 04s.xml">
+      <configuration name="RegistrationTests.testRegisterSuccess_thenRegisterAndGoToLogin" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="UserManifestationTest_testBuyTicketForManifestation_thenBuyTicket - 2020.06.03 at 18h 24m 58s.xml">
-      <configuration name="UserManifestationTest.testBuyTicketForManifestation_thenBuyTicket" configurationId="TestNG" />
+    <history-entry file="RegistrationTests_testRegisterSuccess_thenRegisterAndGoToLogin_(1) - 2020.06.07 at 16h 03m 44s.xml">
+      <configuration name="RegistrationTests.testRegisterSuccess_thenRegisterAndGoToLogin (1)" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="UserManifestationTest_testBuyTicketForManifestation_thenBuyTicket - 2020.06.03 at 19h 21m 09s.xml">
-      <configuration name="UserManifestationTest.testBuyTicketForManifestation_thenBuyTicket" configurationId="TestNG" />
+    <history-entry file="RegistrationTests - 2020.06.07 at 16h 41m 06s.xml">
+      <configuration name="RegistrationTests" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="UserManifestationTest_testBuyTicketForManifestation_thenBuyTicket - 2020.06.03 at 19h 37m 32s.xml">
-      <configuration name="UserManifestationTest.testBuyTicketForManifestation_thenBuyTicket" configurationId="TestNG" />
+    <history-entry file="RegistrationTests_testRegisterWhenPasswordIsShort_thenShowError - 2020.06.07 at 16h 46m 57s.xml">
+      <configuration name="RegistrationTests.testRegisterWhenPasswordIsShort_thenShowError" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="UserManifestationTest_testBuyTicketForManifestation_thenBuyTicket - 2020.06.03 at 19h 41m 47s.xml">
-      <configuration name="UserManifestationTest.testBuyTicketForManifestation_thenBuyTicket" configurationId="TestNG" />
+    <history-entry file="RegistrationTests_testPasswordsAreNotMatching_thenShowAlert - 2020.06.07 at 16h 49m 54s.xml">
+      <configuration name="RegistrationTests.testPasswordsAreNotMatching_thenShowAlert" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="UserManifestationTest_testBuyTicketForManifestation_thenBuyTicket - 2020.06.03 at 19h 45m 03s.xml">
-      <configuration name="UserManifestationTest.testBuyTicketForManifestation_thenBuyTicket" configurationId="TestNG" />
+    <history-entry file="RegistrationTests_testPasswordsAreNotMatching_thenShowAlert - 2020.06.07 at 16h 50m 55s.xml">
+      <configuration name="RegistrationTests.testPasswordsAreNotMatching_thenShowAlert" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="UserManifestationTest_testBuyTicketForManifestation_thenBuyTicket - 2020.06.03 at 19h 48m 26s.xml">
-      <configuration name="UserManifestationTest.testBuyTicketForManifestation_thenBuyTicket" configurationId="TestNG" />
+    <history-entry file="C__Users_Nemanja_Desktop_KTS_Projekat_2020_TicketServiceBE_EteSeleniumTests_testing_xml - 2020.06.07 at 17h 09m 29s.xml">
+      <configuration name="C:/Users/Nemanja/Desktop/KTS_Projekat_2020/TicketServiceBE/EteSeleniumTests/testing.xml" configurationId="TestNG" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="77265000" />
+    <option name="totallyTimeSpent" value="112873000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26865673" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -487,7 +555,7 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="right" id="Database" order="5" visible="true" weight="0.15138593" />
+      <window_info anchor="right" id="Database" order="5" weight="0.15138593" />
       <window_info anchor="right" id="Theme Preview" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Maven Projects" order="8" weight="0.32995737" />
@@ -525,20 +593,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/tests/constants/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="49" selection-start-line="13" selection-start-column="49" selection-end-line="13" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/pageClasses/HomePage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="25" column="5" lean-forward="true" selection-start-line="22" selection-start-column="4" selection-end-line="25" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/testng/testng/7.1.0/testng-7.1.0.jar!/org/testng/internal/MethodInvocationHelper.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
@@ -569,69 +623,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/pageClasses/ReservationsListUserPage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1122">
-          <caret line="84" column="22" selection-start-line="84" selection-start-column="22" selection-end-line="84" selection-end-column="22" />
+        <state relative-caret-position="190">
+          <caret line="63" selection-start-line="63" selection-end-line="63" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/tests/UserReservationsTest.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/tests/NotValidBuyAndReserveTests.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/pageClasses/AlertWindow.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1411">
-          <caret line="109" column="63" lean-forward="true" selection-start-line="109" selection-start-column="63" selection-end-line="109" selection-end-column="63" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/pageClasses/LoginPage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="46" column="37" selection-start-line="46" selection-start-column="37" selection-end-line="46" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1640#1641#0" expanded="true" />
-            <element signature="e#1690#1691#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/tests/LoginTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="815">
-          <caret line="111" column="47" lean-forward="true" selection-start-line="111" selection-start-column="8" selection-end-line="111" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/pageClasses/TicketsListUserPage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="424">
-          <caret line="43" column="5" lean-forward="true" selection-start-line="35" selection-start-column="4" selection-end-line="43" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#559#560#0" expanded="true" />
-            <element signature="e#601#602#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/tests/UserTicketsTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="458">
-          <caret line="67" column="5" lean-forward="true" selection-start-line="54" selection-start-column="4" selection-end-line="67" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/tests/UserManifestationTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="501">
-          <caret line="138" column="28" selection-start-line="138" selection-start-column="28" selection-end-line="138" selection-end-column="28" />
+        <state relative-caret-position="119">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -640,10 +644,143 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/pageClasses/ManifestationListUserPage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1683">
-          <caret line="132" column="48" selection-start-line="132" selection-start-column="48" selection-end-line="132" selection-end-column="48" />
+        <state relative-caret-position="418">
+          <caret line="162" column="5" selection-start-line="162" selection-start-column="5" selection-end-line="162" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/tests/ManifestationTimeLimitTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-663">
+          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
           <folding>
-            <element signature="e#3928#3929#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/tests/UserReservationsTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2057">
+          <caret line="136" column="23" selection-start-line="136" selection-start-column="23" selection-end-line="136" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/pageClasses/LoginPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="35" lean-forward="true" selection-start-line="9" selection-start-column="4" selection-end-line="18" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1563#1564#0" expanded="true" />
+            <element signature="e#1612#1613#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/pageClasses/ManifestationPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="492">
+          <caret line="69" column="5" lean-forward="true" selection-start-line="67" selection-start-column="4" selection-end-line="69" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3774#3775#0" expanded="true" />
+            <element signature="e#3852#3853#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/pageClasses/HomePage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="29" column="73" selection-start-line="29" selection-start-column="73" selection-end-line="29" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/tests/constants/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="45" selection-start-line="20" selection-start-column="45" selection-end-line="20" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/tests/LoginTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="120" column="95" lean-forward="true" selection-start-line="107" selection-start-column="8" selection-end-line="120" selection-end-column="95" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/pageClasses/RegisterPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="486">
+          <caret line="77" column="107" selection-start-line="77" selection-start-column="107" selection-end-line="77" selection-end-column="107" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#472#473#0" expanded="true" />
+            <element signature="e#508#509#0" expanded="true" />
+            <element signature="e#821#822#0" expanded="true" />
+            <element signature="e#858#859#0" expanded="true" />
+            <element signature="e#902#903#0" expanded="true" />
+            <element signature="e#938#939#0" expanded="true" />
+            <element signature="e#979#980#0" expanded="true" />
+            <element signature="e#1012#1013#0" expanded="true" />
+            <element signature="e#1056#1057#0" expanded="true" />
+            <element signature="e#1092#1093#0" expanded="true" />
+            <element signature="e#1132#1133#0" expanded="true" />
+            <element signature="e#1164#1165#0" expanded="true" />
+            <element signature="e#1209#1210#0" expanded="true" />
+            <element signature="e#1246#1247#0" expanded="true" />
+            <element signature="e#1286#1287#0" expanded="true" />
+            <element signature="e#1318#1319#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/suite/SuiteAllSeleniumTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testing.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="53" selection-start-line="9" selection-start-column="53" selection-end-line="9" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/pageClasses/TicketsListUserPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="31" column="15" selection-start-line="31" selection-start-column="15" selection-end-line="31" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/tests/UserManifestationTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="80" column="22" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/tests/UserTicketsTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="76" selection-start-line="76" selection-end-line="76" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/tests/RegistrationTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="81" selection-start-line="81" selection-end-line="81" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

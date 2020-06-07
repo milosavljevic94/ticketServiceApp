@@ -7,10 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageClasses.HomePage;
-import pageClasses.LoginPage;
-import pageClasses.ManifestationListUserPage;
-import pageClasses.TicketsListUserPage;
+import pageClasses.*;
 import tests.constants.Constants;
 
 import java.util.concurrent.TimeUnit;
@@ -18,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class UserTicketsTest {
+public class UserTicketsTests {
 
     private WebDriver chromeBrowser;
 
@@ -29,6 +26,8 @@ public class UserTicketsTest {
     ManifestationListUserPage manifestationListUserPage;
 
     TicketsListUserPage ticketsListUserPage;
+
+    AlertWindow alertWindow;
 
     @BeforeMethod
     public void setup() {
@@ -45,6 +44,7 @@ public class UserTicketsTest {
         loginPage = PageFactory.initElements(chromeBrowser, LoginPage.class);
         manifestationListUserPage = PageFactory.initElements(chromeBrowser, ManifestationListUserPage.class);
         ticketsListUserPage = PageFactory.initElements(chromeBrowser, TicketsListUserPage.class);
+        alertWindow = PageFactory.initElements(chromeBrowser, AlertWindow.class);
     }
 
     @AfterMethod
@@ -61,19 +61,20 @@ public class UserTicketsTest {
         loginPage.getPasswordField().click();
         loginPage.setPassValue(Constants.VALID_PASS);
         loginPage.getLoginButton().click();
-        assertTrue(loginPage.isAlertPresent());
-        loginPage.acceptAlertLogin();
+        assertTrue(alertWindow.isAlertPresent());
+        alertWindow.acceptAlert();
         manifestationListUserPage.ensureTicketsButtonIsClickable();
         manifestationListUserPage.getTicketsButton().click();
     }
 
     @Test(priority = 1)
-    public void testNavigateToValidPage_thenDisplayTicketList(){
+    public void testNavigateToValidPage_thenDisplayTicketList() throws InterruptedException {
         openUserTicketsPage();
 
         assertEquals(Constants.APP_HOME_URL + "tickets", chromeBrowser.getCurrentUrl());
 
         ticketsListUserPage.ensureTicketListIsDisplayed();
+        Thread.sleep(500);
         assertTrue(ticketsListUserPage.getNumberOfTickets() != 0);
     }
 

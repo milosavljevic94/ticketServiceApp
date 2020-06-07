@@ -64,6 +64,13 @@ public class ReservationsListUserPage {
         return webDriver.findElements(By.xpath("//a[@class = 'nav-link active']")).size();
     }
 
+    public WebElement getLastReservation(int index) {
+        List<WebElement> reservationButtons = new ArrayList<WebElement>();
+        reservationButtons.addAll( webDriver.findElements(By.xpath("//a[@class = 'nav-link active']")));
+
+        return reservationButtons.get(index-1);
+    }
+
     public boolean isDetailsTableDisplayed(){
         return detailsTable.isDisplayed();
     }
@@ -85,4 +92,6 @@ public class ReservationsListUserPage {
     public void acceptAlert() {
         webDriver.switchTo().alert().accept();
     }
+
+
 }

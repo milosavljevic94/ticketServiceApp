@@ -1,2 +1,12 @@
 
 logs/spring.log
+
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+/target/
+*/target/**

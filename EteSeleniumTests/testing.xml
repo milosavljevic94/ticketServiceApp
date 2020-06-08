@@ -8,6 +8,7 @@
             <class name="tests.UserReservationsTests" />
             <class name="tests.ManifestationTimeLimitTests" />
             <class name="tests.UserManifestationTests" />
+            <class name="tests.UsersAndRolesTests" />
         </classes>
     </test>
 </suite>

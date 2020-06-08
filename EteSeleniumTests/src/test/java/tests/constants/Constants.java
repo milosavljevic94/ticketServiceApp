@@ -13,6 +13,9 @@ public class Constants {
     public static final String VALID_USERNAME = "bencz";
     public static final String VALID_PASS = "1234";
 
+    public static final String USERNAME_ADMIN = "admin";
+    public static final String PASS_ADMIN = "admin";
+
     //const for register tests
     public static final String VALID_FIRST_NAME = "test name";
     public static final String VALID_LAST_NAME = "test last name";

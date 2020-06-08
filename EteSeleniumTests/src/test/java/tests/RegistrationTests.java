@@ -60,6 +60,7 @@ public class RegistrationTests {
         assertEquals(Constants.APP_HOME_URL + "register", chromeBrowser.getCurrentUrl());
     }
 
+
     @Test(priority = 1)
     public void testRegisterSuccess_thenRegisterAndGoToLogin() throws InterruptedException {
         openRegisterPage();

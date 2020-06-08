@@ -71,8 +71,9 @@ public class UserManifestationTests {
         //choose option and filter manifestations
         manifestationListUserPage.ensureFilterButtonIsClickable();
         manifestationListUserPage.getFilterButton().click();
+        manifestationListUserPage.getFilterButton().click();
 
-        Thread.sleep(1000);
+        Thread.sleep(2000);
 
         assertTrue(manifestationListUserPage.getOneDropDownItem().isDisplayed());
         assertTrue(manifestationListUserPage.getDropdownItemsSize() != 0);

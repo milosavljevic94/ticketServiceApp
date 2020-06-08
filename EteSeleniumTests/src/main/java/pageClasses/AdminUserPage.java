@@ -19,6 +19,9 @@ public class AdminUserPage {
     @FindBy(id = "rolesAdmin")
     private WebElement rolesButton;
 
+    @FindBy(id = "addressAdmin")
+    private WebElement addressButton;
+
     public AdminUserPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -40,5 +43,9 @@ public class AdminUserPage {
 
     public WebElement getRolesButton() {
         return rolesButton;
+    }
+
+    public WebElement getAddressButton() {
+        return addressButton;
     }
 }

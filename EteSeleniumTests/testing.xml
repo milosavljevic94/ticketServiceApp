@@ -9,6 +9,7 @@
             <class name="tests.ManifestationTimeLimitTests" />
             <class name="tests.UserManifestationTests" />
             <class name="tests.UsersAndRolesTests" />
+            <class name="tests.AddressAdminTest" />
         </classes>
     </test>
 </suite>
